@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+  <script data-require="three.js@*" data-semver="0.0.0r67" src="//cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
+
+<body onload="onStart()">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">3DWeb.cc - WebGL Workshop - Example #1</h2>
+    </div>
+    <div class="panel-body">
+  <ul class="list-group">
+        <li class="list-group-item">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <input id="showCube" type="checkbox" onchange="onShowCube(event)" />
+            <label for="showCube">Remove cube</label>
+          </span>
+          <span class="input-group-addon">
+            <input id="showLight" type="checkbox" onchange="onShowLight(event)" />
+            <label for="showLight">Remove light</label>
+          </span>
+          <span class="input-group-addon">
+            <input id="viewShadeless" type="checkbox" onchange="viewShadeless(event)" />
+            <label for="viewShadeless">Shadeless</label>
+          </span>
+          <span class="input-group-addon">
+            <input id="viewWireframe" type="checkbox" onchange="viewWireframe(event)" />
+            <label for="viewWireframe">Wireframe</label>
+          </span>
+          </div>
+          <div class="input-group">
+        </li>
+        <li class="list-group-item">
+          <span class="input-group-addon">
+            <input id="cameraFOV" type="number" value=50 min=0 max=180 step=1 oninput="setCameraFOV(event)" />
+            <label for="cameraFOV">Field of view</label>
+          </span>
+          <span class="input-group-addon">
+            <input id="animateScene" type="checkbox" onchange="animateScene(event)" />
+            <label for="animateScene">Animate cube</label>
+          </span>
+          <span class="input-group-addon">
+            <input value="#FC6A45" class="pull-right" oninput="onColor(event)" type="color" />
+          </span>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <div id="theContainer"></div>
+</body>
+
+</html>

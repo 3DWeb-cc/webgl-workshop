@@ -1,0 +1,13 @@
+/* Styles go here */
+
+.renderer {
+  background: red;
+}
+.hide {
+  display: none;
+}
+#theContainer {
+  width: 640px;
+  height: 480px;
+  margin: auto;
+}
