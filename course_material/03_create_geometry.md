@@ -17,7 +17,7 @@ Don't forget to append your brand new mesh to the scene, using `scene.add()`.
 Explanation
 ===========
 Every 3d mesh need basically two main features: the points onto its faces are built and the material to paint them with.
-THREEJS provides us with several materials like MeshLambertMaterial, which is the general purpose one and the most used one, 
+THREEJS provides us with several materials like `MeshLambertMaterial`, which is the general purpose one and the most used one, 
 and with several 3D primitives like the `BoxGeometry` we used
 By the way, if you run your page, you will still see nothing. Can you figure out why?
 
