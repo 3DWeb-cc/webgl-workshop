@@ -1,9 +1,9 @@
 Example step
 ============
-Make a transparent object.
+Map an environment onto to the sky.
 Goal
 ====
-Understand opacity and transparency. 
+Use cube maps in order to get an environment. 
 Instructions
 ============
 - get a cube texture. We took this one http://www.humus.name/index.php?page=Textures&ID=134
