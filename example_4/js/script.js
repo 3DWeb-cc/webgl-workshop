@@ -1,6 +1,6 @@
 // Code goes here
 var
-    theContainer, theColor = 0xFC6A45, renderer, theCube, theLight, theScene, theCamera, theGeometry, theMaterial, IS_WIRE_FRAME, ANIMATE;
+    theContainer, theColor = 0xFC6A45, renderer, theSphere, theLight, theScene, theCamera, theGeometry, theMaterial, IS_WIRE_FRAME, ANIMATE;
 
 function onStart() {
 
@@ -15,17 +15,33 @@ function onStart() {
     var controls = new THREE.OrbitControls( theCamera, renderer.domElement );
 
 
-    theGeometry = new THREE.BoxGeometry(2, 2, 2);
-    theMaterial = new THREE.MeshLambertMaterial({
+    //theGeometry = new THREE.BoxGeometry(2, 2, 2);
+    theGeometry = new THREE.SphereGeometry(4,16,16);
+    /*theMaterial = new THREE.MeshLambertMaterial({
         color: theColor
-    });
-    theCube = new THREE.Mesh(theGeometry, theMaterial);
-    theCube.position.set(0, 0, 0);
-    theScene.add(theCube);
+    });*/
+
+    // reflections here
+    var mirrorSphereCamera = new THREE.CubeCamera( 0.1, 5000, 512 );
+    theScene.add(mirrorSphereCamera);
+
+    var materialsToShow = [
+        THREE.MeshBasicMaterial,
+        THREE.MeshLambertMaterial,
+        THREE.MeshPhongMaterial
+    ];
+    //theMaterial = new THREE.MeshBasicMaterial( { envMap: mirrorSphereCamera.renderTarget } );
+    theMaterial = new THREE.MeshPhongMaterial( { envMap: mirrorSphereCamera.renderTarget } );
+
+    theSphere = new THREE.Mesh(theGeometry, theMaterial);
+    theSphere.position.set(0, 0, 0);
+    mirrorSphereCamera.position = theSphere.position;
+    theScene.add(theSphere);
 
     theLight = new THREE.DirectionalLight(0xffffff, 1);
     theLight.position.set(10, 10, 10);
     theScene.add(theLight);
+
 
     // SKYBOX from
     var imagePrefix = "img/";
@@ -53,18 +69,24 @@ function onStart() {
     function animate() {
         renderer.render(theScene, theCamera);
         if (ANIMATE) {
-            theCube.rotation.y += 0.01;
-            theCube.rotation.x += 0.01;
+            theSphere.rotation.y += 0.01;
+            theSphere.rotation.x += 0.01;
         }
+
+        // if flickering, try hiding the geometry
+        //theSphere.visible = false;
+        mirrorSphereCamera.updateCubeMap( renderer, theScene );
+        //theSphere.visible = true;
+
         requestAnimationFrame(animate);
     }
 }
 
-function onShowCube(evt) {
+function onShowSphere(evt) {
     if (evt.target.checked) {
-        theScene.remove(theCube);
+        theScene.remove(theSphere);
     } else {
-        theScene.add(theCube);
+        theScene.add(theSphere);
     }
 }
 
@@ -89,13 +111,13 @@ function viewShadeless(evt) {
             'wireframe': IS_WIRE_FRAME
         });
     }
-    theCube.material = theMaterial;
+    theSphere.material = theMaterial;
 }
 
 function viewWireframe(evt) {
     IS_WIRE_FRAME = evt.target.checked;
 
-    theCube.material.setValues({
+    theSphere.material.setValues({
         'wireframe': IS_WIRE_FRAME
     });
 }
@@ -107,7 +129,7 @@ function animateScene(evt) {
 function onColor(evt) {
     var value = evt.target.value.toUpperCase().replace(/^#/, "0x");
     theColor = parseInt(value, 16);
-    theCube.material.setValues({
+    theSphere.material.setValues({
         "color": theColor
     });
 }
