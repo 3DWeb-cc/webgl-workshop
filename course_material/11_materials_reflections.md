@@ -12,6 +12,7 @@ Instructions
 - now we need camera able to map the cube map of the environment all around an object: THREE.CubeCamera() which takes as
  parameters near plane, far plane, and resolution.
 - a texture resolution of 512 is quite and average value
+- tell the camera which mapping you want to use for the renderering: ``cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping``
 - let's create a MeshBasicMaterial with just one option: ``new THREE.MeshBasicMateria({ envMap: cubeCamera.renderTarget })`
 - get a big sphere geometry with a good subdivision (like 16) using THREE.SphereGeometry
 - and finally create the sphere object using the geometry and the material with THREE.Mesh
