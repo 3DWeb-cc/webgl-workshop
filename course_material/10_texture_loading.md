@@ -19,8 +19,7 @@ Instructions
 
 Explanation
 ===========
-Textures are a way to add realistic effect to materials: they need to be created using an image and a mapping (THREEJS assumes 
-cube mapping if not declared).
+Textures are a way to add realistic effect to materials: they need to be created using an image.
 Note that texture loading is async and that the object returned from 'loadTexture()' is going to be modified as soon as the
 file has been loaded. 
 You could also define a onLoad and onError handler, have a look to method's signature:
