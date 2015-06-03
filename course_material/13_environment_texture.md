@@ -1,14 +1,14 @@
 Example step
 ============
-Make a transparent object.
+Map an environment onto to the sky.
 Goal
 ====
-Understand opacity and transparency. 
+Use cube maps in order to get an environment. 
 Instructions
 ============
 - get a cube texture. We took this one http://www.humus.name/index.php?page=Textures&ID=134
-- in order to map a cube texture, we need a cube. Create a new THREE.CubeGeometry with size 5000
-- for each face of the cube, we must create a material. Get a new Array element and fill it with: 
+- in order to map an environment texture, we need a giant cube. Create a new THREE.CubeGeometry with size 5000
+- for each face of the cube, we must create a material as per previous tutorial. Get a new Array element and fill it with: 
 ``
  var imageNames  = ["posx", "negx", "posy", "negy", "posz", "negz"];
  var imageSuffix = ".jpg";

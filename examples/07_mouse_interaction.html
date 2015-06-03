@@ -2,23 +2,23 @@
 <html>
 
 <head>
-  <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="bootstrap.min.css" />
 
-  <!--
+
     <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-  <script data-require="three.js@*" data-semver="0.0.0r67" src="//cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
-  -->
-  <script data-require="three.js@*" data-semver="0.0.0r67" src="js/three.min.js"></script>
+
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script data-require="three.js@*" data-semver="0.0.0r71" src="//cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
   <script data-require="three.js@*" data-semver="0.0.0r67" src="js/OrbitControls.js"></script>
 
-  <link rel="stylesheet" href="style.css" />
-  <script src="js/script.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="07_mouse_interaction.js"></script>
 </head>
 
 <body onload="onStart()">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2 class="panel-title">3DWeb.cc - WebGL Workshop - Example #1</h2>
+      <h2 class="panel-title">3DWeb.cc - WebGL Workshop - Example #5</h2>
     </div>
     <div class="panel-body">
   <ul class="list-group">
@@ -45,15 +45,13 @@
         </li>
         <li class="list-group-item">
           <span class="input-group-addon">
-            <input id="cameraFOV" type="number" value=50 min=0 max=180 step=1 oninput="setCameraFOV(event)" />
-            <label for="cameraFOV">Field of view</label>
+            <p id="mousePosition"></p>
           </span>
           <span class="input-group-addon">
-            <input id="animateScene" type="checkbox" onchange="animateScene(event)" />
-            <label for="animateScene">Animate cube</label>
+            <p id="canvasPosition"></p>
           </span>
           <span class="input-group-addon">
-            <input value="#FC6A45" class="pull-right" oninput="onColor(event)" type="color" />
+            <p></p>
           </span>
         </li>
       </ul>
