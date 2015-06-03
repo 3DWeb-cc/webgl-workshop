@@ -1,6 +1,6 @@
 // Code goes here
 var
-    theContainer, cubeCamera, mirrorSphereCamera, mirrorSphereCameras = [], theColor = 0xFC6A45, renderer, theSphere, theLight, theScene, theCamera, theGeometry, theMaterial, IS_WIRE_FRAME, ANIMATE;
+    theContainer, dae, cubeCamera, mirrorSphereCamera, mirrorSphereCameras = [], theColor = 0xFC6A45, renderer, theSphere, theLight, theScene, theCamera, theGeometry, theMaterial, IS_WIRE_FRAME, ANIMATE;
 
 function onStart() {
 
@@ -17,17 +17,54 @@ function onStart() {
     var sphereRadius = 3;
     var controls = new THREE.OrbitControls(theCamera, renderer.domElement);
 
+    // custom geometry
+    var loader = new THREE.ColladaLoader();
+
+    var cam = new THREE.CubeCamera(0.1, 5000, 512);
+    cam.renderTarget.mapping = THREE.CubeReflectionMapping;
+    theScene.add(cam);
+
+    theMaterial = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        envMap: cam.renderTarget,
+        refractionRatio: 0.985,
+        reflectivity: 0.9
+    });
+
+    //loader.options.convertUpAxis = false;
+    loader.load( './models/tha_face_web.dae', function ( collada ) {
+        dae = collada.scene;
+
+
+         dae.traverse( function ( child ) {
+
+             if (child instanceof THREE.Mesh) {
+                 child.material.setValues({
+                     //transparent: true,
+                     //opacity: 0.4
+                     envMap: cam.renderTarget,
+                     reflectivity: 0.9
+                 });
+             }
+
+         } );
+
+        theScene.add(dae);
+
+    } );
+
+
 
     //theGeometry = new THREE.BoxGeometry(2, 2, 2);
     theGeometry = new THREE.SphereGeometry(sphereRadius, 16, 16);
     var materialsToShow = [
-        THREE.MeshBasicMaterial,
-        THREE.MeshLambertMaterial,
+        //THREE.MeshBasicMaterial,
+        //THREE.MeshLambertMaterial,
         THREE.MeshPhongMaterial
     ];
     var effectsType = [
         // refractions
-        function (mat) {
+        /*function (mat) {
             var cam = new THREE.CubeCamera(0.1, 5000, 512);
             cam.renderTarget.mapping = THREE.CubeRefractionMapping;
             return {
@@ -38,7 +75,7 @@ function onStart() {
                     reflectivity: 0.9
                 })
             };
-        },
+        },*/
         // reflections
         function (mat) {
             var cam = new THREE.CubeCamera(0.1, 5000, 512);
@@ -56,6 +93,7 @@ function onStart() {
     var obj,matAndCam;
     var reflectionSpheres = [];
     var cubeCamerasList = [];
+/*
     for (var j = 0; j < effectsType.length; j += 1) {
         for (var k = 0; k < materialsToShow.length; k += 1) {
             matAndCam = effectsType[j](materialsToShow[k]);
@@ -72,8 +110,11 @@ function onStart() {
             reflectionSpheres.push(obj);
             theScene.add(matAndCam.camera);
             theScene.add(obj);
+
         }
     }
+*/
+
     /*
      var obj;
      var refractionSpheres = [];
@@ -110,7 +151,7 @@ function onStart() {
     //var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
     var directions = ["posx", "negx", "posy", "negy", "posz", "negz"];
     var imageSuffix = ".jpg";
-    var skyGeometry = new THREE.CubeGeometry(5000, 5000, 5000);
+    var skyGeometry = new THREE.BoxGeometry(5000, 5000, 5000);
 
     var materialArray = [];
     for (var i = 0; i < 6; i++)
