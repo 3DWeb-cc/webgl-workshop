@@ -16,18 +16,13 @@ function onStart() {
     var controls = new THREE.OrbitControls(theCamera, renderer.domElement);
     var loader = new THREE.ColladaLoader();
 
-    loader.options.convertUpAxis = false;
+    //loader.options.convertUpAxis = false;
     loader.load( './models/tha_face_web.dae', function ( collada ) {
         dae = collada.scene;
         /*
         dae.traverse( function ( child ) {
-            if ( child instanceof THREE.SkinnedMesh ) {
-                var animation = new THREE.Animation( child, child.geometry.animation );
-                animation.play();
-            }
+            // for traversing the whole scene
         } );
-        dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
-        dae.updateMatrix();
         */
         init();
         animate();
@@ -48,13 +43,9 @@ function onStart() {
         var line = new THREE.Line( geometry, material, THREE.LinePieces );
         theScene.add( line );
 
-
         // Add the COLLADA
         theScene.add( dae );
-/*
-        particleLight = new THREE.Mesh( new THREE.SphereGeometry( 4, 8, 8 ), new THREE.MeshBasicMaterial( { color: 0xffffff } ) );
-        scene.add( particleLight );
-*/
+
         // Lights
         //theScene.add( new THREE.AmbientLight( 0xcccccc ) );
 
@@ -72,25 +63,6 @@ function onStart() {
         directionalLight2.position.normalize();
         theScene.add( directionalLight2 );
 
-/*
-        var pointLight = new THREE.PointLight( 0xffffff, 4 );
-        particleLight.add( pointLight );
-*/
-
-        /*
-        renderer = new THREE.WebGLRenderer();
-        renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        theContainer.appendChild( renderer.domElement );
-        */
-/*
-        stats = new Stats();
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.top = '0px';
-        container.appendChild( stats.domElement );
-        //
-*/
-        //window.addEventListener( 'resize', onWindowResize, false );
     }
 
     requestAnimationFrame(animate);
