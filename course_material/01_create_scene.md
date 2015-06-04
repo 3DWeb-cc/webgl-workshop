@@ -59,7 +59,7 @@ Concept: [creating a scene](http://threejs.org/docs/#Manual/Introduction/Creatin
 Working with: [THREE.WebGLRenderer](http://threejs.org/docs/#Reference/Renderers/WebGLRenderer), [THREE.Scene](http://threejs.org/docs/#Reference/Scenes/Scene), [THREE.Camera](http://threejs.org/docs/#Reference/Cameras/Camera).
 
 Deeper: 
-+ [CanvasRenderer](http://threejs.org/docs/#Reference/Renderers/CanvasRenderer).
++ [CanvasRenderer](http://threejs.org/docs/#Reference/Renderers/CanvasRenderer)
 + [Camera Math](http://ksimek.github.io/2013/08/13/intrinsic/)
 
 
