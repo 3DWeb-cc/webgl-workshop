@@ -11,20 +11,24 @@ Understand how the _scene graph_ is implemented in THREEJS with the basic abstra
 Instructions
 ============
 +	create a new `BoxGeometry` object, calling it with the three sizes of the box: a cube will do the job, 2 units length per axis
+
     ```javascript
     new THREE.BoxGeometry(2,2,2);
     ```
 +	then we need a material in order to let the geometry be rendered; the most common material is probably the `MeshLambertMaterial`, which accept some options and we will use the _color_ one with this reddish color
+
 	```javascript
     new THREE.MeshLambertMaterial({
         color: 0xFC6A45
     })
     ```
 +	now we can create the `Mesh` object, which will connect geometry with material allowing the renderer to know how to show the cube; we must provide the constructor with the geometry and the material
+
     ```javascript
     new THREE.Mesh(geometry, material)
     ```
 +	don't forget to append your brand new mesh to the scene, using
+
 	```javascript
     scene.add(mesh)
     ```

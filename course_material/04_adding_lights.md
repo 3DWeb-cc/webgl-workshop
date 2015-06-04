@@ -11,10 +11,12 @@ Remember the word _photography_, from the Greek roots φωτός (phōtos), "lig
 Instructions
 ============
 +	create a brand new `DirectionalLight`: it needs the light's color (in HEX) and the light's power (1 is a good starting value)
+
     ```javascript
     new THREE.DirectionalLight(0xffffff, 1);
     ```
-+	using a `DirectionalLight` requires a good position to project the light from: try to set it to (10,10,10) using 
++	using a `DirectionalLight` requires a good position to project the light from: try to set it to (10,10,10) using
+ 
 	```javascript
     light.position.set(10,10,10);
     ```

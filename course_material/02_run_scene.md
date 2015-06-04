@@ -11,10 +11,12 @@ Instructions
 In order to give you a nice picture of the scene, the render must know that the scene is existing and the point of view you are looking from (the camera, in other words)
 + 	create a function without arguments and call it _animate_
 +	in _animate_ function, let the renderer parse your scene, passing it your scene and the camera
+
     ```javascript
     renderer.render(scene, camera);
     ```
-+	now insert a recursive call into the _animate_ function, making it be called each frame, with the native function 
++	now insert a recursive call into the _animate_ function, making it be called each frame, with the native function
+ 
     ```javascript
     window.requestAnimationFrame(animate)
     ```

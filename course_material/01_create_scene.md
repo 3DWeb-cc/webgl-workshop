@@ -18,26 +18,32 @@ Write a simple HTML page with a div named "theContainer".
 Then, using Javascript:
 +   retrieve your container with ```document.getElementById(id)```
 +   create new renderer with 
+
 	```javascript
 	new THREE.WebGLRenderer();
 	```
 +   set renderer's size, keeping it the same as the canvas in order to avoid distortions
+
 	```javascript
     renderer.setSize(width, height);
     ```
 +   then create a brand new scene, which will be the containers of all objects
+
 	```javascript
     new THREE.Scene();
     ```
-+   create new THREE.Camera with the right parameters: it requires the field of view 		(FOV), the ratio between renderer's width and height, the near and far clipping 		planes; These are typical common parameters but you can adjust them as you wish
++   create new THREE.Camera with the right parameters: it requires the field of view (FOV), the ratio between renderer's width and height, the near and far clipping 		planes; These are typical common parameters but you can adjust them as you wish
+
 	```javascript
     new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 	```
 +   now set the camera position a bit behind the center, in order to be able to see it later: let's use (0,0,10) as coordinates (remember, Z axis goes outside the monitor)
+
 	```javascript
     camera.position.set(0,0,10)
     ```
 +   and finally, append the canvas created by ThreeJS to the container
+
 	```javascript
     container.appendChild(renderer.domElement)
     ```
