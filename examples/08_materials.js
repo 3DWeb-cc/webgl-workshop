@@ -14,6 +14,7 @@ function onStart() {
     theCamera.position.set(0, 0, 20);
     theContainer.appendChild(renderer.domElement);
 
+    var cubeCamerasList = [];
     var sphereRadius = 3;
     var controls = new THREE.OrbitControls(theCamera, renderer.domElement);
 
@@ -22,29 +23,39 @@ function onStart() {
 
     var cam = new THREE.CubeCamera(0.1, 5000, 512);
     cam.renderTarget.mapping = THREE.CubeReflectionMapping;
+    cubeCamerasList.push(cam);
     theScene.add(cam);
 
     theMaterial = new THREE.MeshPhongMaterial({
         color: 0xffffff,
         envMap: cam.renderTarget,
-        refractionRatio: 0.985,
+        //refractionRatio: 0.985,
         reflectivity: 0.9
     });
 
     //loader.options.convertUpAxis = false;
     loader.load( './models/tha_face_web.dae', function ( collada ) {
+    //loader.load( './models/test.dae', function ( collada ) {
         dae = collada.scene;
 
 
          dae.traverse( function ( child ) {
 
              if (child instanceof THREE.Mesh) {
+
+                 child.material = theMaterial;
+/*
                  child.material.setValues({
-                     //transparent: true,
+                     color: 0xffaa77,
+                     //transparent: true
                      //opacity: 0.4
                      envMap: cam.renderTarget,
                      reflectivity: 0.9
                  });
+*/
+
+                 //child.geometry.mergeVertices();
+                 //child.geometry.computeVertexNormals();
              }
 
          } );
@@ -57,6 +68,9 @@ function onStart() {
 
     //theGeometry = new THREE.BoxGeometry(2, 2, 2);
     theGeometry = new THREE.SphereGeometry(sphereRadius, 16, 16);
+
+    //theScene.add(new THREE.Mesh(theGeometry, theMaterial));
+
     var materialsToShow = [
         //THREE.MeshBasicMaterial,
         //THREE.MeshLambertMaterial,
@@ -92,7 +106,7 @@ function onStart() {
     var startPointY = -((effectsType.length - 1) * sphereRadius * 3) / 2;
     var obj,matAndCam;
     var reflectionSpheres = [];
-    var cubeCamerasList = [];
+
 /*
     for (var j = 0; j < effectsType.length; j += 1) {
         for (var k = 0; k < materialsToShow.length; k += 1) {
