@@ -91,5 +91,4 @@ function onColor(evt) {
 function setCameraFOV(evt) {
     theCamera.fov = evt.target.value;
     theCamera.updateProjectionMatrix();
-    console.log(theCamera)
 }
