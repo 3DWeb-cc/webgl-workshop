@@ -20,7 +20,6 @@ Instructions
     cube.scale.setX(20);    
     ```
 +   now it should be too large for the camera: try to pull the camera on the Z axis until you see it again
-+   
     ```javascript
     camera.position.setZ(20);
     ```
