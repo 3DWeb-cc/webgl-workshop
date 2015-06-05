@@ -20,11 +20,13 @@ Instructions
     cube.scale.setX(20);    
     ```
 +   now it should be too large for the camera: try to pull the camera on the Z axis until you see it again
++   
     ```javascript
     camera.position.setZ(20);
     ```
 +   if you wish to play with animations, put a transformation in the _animate()_ function: if you use a mutable state (i.e. variable) you will be
 able to animate your cube
+
 +   TIP: angles are expressed in radiant.
 
 Explanation
