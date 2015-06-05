@@ -8,15 +8,23 @@ Build a quick setup that allows the user explore the scene.
 
 Instructions
 ============
-- add a new dependency to our scene: [THREE.OrbitControls](https://github.com/mrdoob/three.js/blob/master/examples/js/controls/OrbitControls.js)
-- find out renderer creation point in your code: `new THREE.WebGLRenderer()`
-- after renderer and camera creation, we can use OrbitControls object:
-`var controls = new THREE.OrbitControls( theCamera, renderer.domElement );`
-- if you run again your scene, you will be able to move around and zoom using either the mouse or the trackpad
++   add a new dependency to our scene: [THREE.OrbitControls](https://github.com/mrdoob/three.js/blob/master/examples/js/controls/OrbitControls.js)
++   find out renderer creation point in your code, should be something like: 
+
+    ```javascript
+    var renderer = new THREE.WebGLRenderer();
+    ```
++   after renderer and camera creation, we can use OrbitControls object:
+
+    ```javascript
+    var controls = new THREE.OrbitControls( camera, renderer.domElement );
+    ```
++    if you run again your scene, you will be able to move around and zoom using either the mouse or the trackpad
 
 Explanation
 ===========
-Handling mouse and touch events is quite hard, but fortunately the THREEJS team came out with this little helper (and some more).
+Handling mouse and touch events is quite hard, but fortunately the ThreeJs team came out with this little helper (and some more).
+
 It need just the current camera being used and the actual canvas.
 
 Deeper:
