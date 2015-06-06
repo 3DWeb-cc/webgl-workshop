@@ -10,6 +10,7 @@
 
 </div>
 <script>
+    var scene;
     (function() {
         console.log('prova');
 
@@ -17,10 +18,11 @@
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(640,480);
 
-        var scene = new THREE.Scene();
+        scene = new THREE.Scene();
 
         var camera = new THREE.PerspectiveCamera(
-                50, 640/480, 0, 1000);
+                50, 640/480, 0.1, 1000);
+
         camera.position.set(0,0,10);
 
         var cubeGeometry = new THREE.BoxGeometry(2,2,2);
@@ -30,12 +32,24 @@
 
         var cube = new THREE.Mesh(cubeGeometry, material);
 
+//        cube.scale.set(2,2,2);
+        var a = 1;
+        cube.scale.setX(5);
+        cube.rotateY(Math.PI / a);
+
         scene.add(cube);
+
+        var light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(10,10,10);
+
+        scene.add(light);
 
 
         container.appendChild(renderer.domElement);
 
         function animate() {
+            a += 0.5;
+            cube.rotateY(Math.PI / a);
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
