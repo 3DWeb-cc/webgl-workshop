@@ -26,6 +26,10 @@
 
         camera.position.set(0,0,10);
 
+
+        var controls = new THREE.OrbitControls(
+                camera, renderer.domElement);
+
         var cubeGeometry = new THREE.BoxGeometry(2,2,2);
         var material = new THREE.MeshLambertMaterial({
             color: 0xff0000
