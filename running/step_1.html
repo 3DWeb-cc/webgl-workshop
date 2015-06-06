@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="three.js"></script>
+    <script src="OrbitControls.js"></script>
 </head>
 <body>
 <div id="theContainer">
@@ -32,11 +33,6 @@
 
         var cube = new THREE.Mesh(cubeGeometry, material);
 
-//        cube.scale.set(2,2,2);
-        var a = 1;
-        cube.scale.setX(5);
-        cube.rotateY(Math.PI / a);
-
         scene.add(cube);
 
         var light = new THREE.DirectionalLight(0xffffff, 1);
@@ -44,12 +40,9 @@
 
         scene.add(light);
 
-
         container.appendChild(renderer.domElement);
 
         function animate() {
-            a += 0.5;
-            cube.rotateY(Math.PI / a);
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
