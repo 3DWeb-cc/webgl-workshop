@@ -18,17 +18,16 @@
         var container = document.getElementById('theContainer');
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(640,480);
+        renderer.setClearColor(0xaaddff);
 
         scene = new THREE.Scene();
 
         var camera = new THREE.PerspectiveCamera(
                 50, 640/480, 0.1, 1000);
 
-        camera.position.set(0,0,10);
+        camera.position.set(0,0,50);
 
 
-        var controls = new THREE.OrbitControls(
-                camera, renderer.domElement);
 
         var cubeGeometry = new THREE.BoxGeometry(2,2,2);
         var material = new THREE.MeshLambertMaterial({
@@ -39,14 +38,36 @@
 
         scene.add(cube);
 
-        var light = new THREE.DirectionalLight(0xffffff, 1);
+        var controls = new THREE.OrbitControls(
+                camera, renderer.domElement);
+
+        var object3d = new THREE.Object3D();
+
+        object3d.rotateZ(Math.PI/2);
+
+        var sphereGeometry = new THREE.SphereGeometry(8, 16, 16);
+        var sphere1 = new THREE.Mesh(sphereGeometry, material);
+        object3d.add(sphere1);
+
+        var sphereGeometry2 = new THREE.SphereGeometry(8, 16, 16);
+        var sphere2 = new THREE.Mesh(sphereGeometry2, material);
+        sphere2.position.setY(16);
+        object3d.add(sphere2);
+
+        scene.add(object3d);
+
+        var light = new THREE.DirectionalLight(0xffffff, 0.7);
         light.position.set(10,10,10);
+        var light2 = new THREE.DirectionalLight(0xffffff, 0.4);
+        light2.position.set(-10,-10,10);
 
         scene.add(light);
+        scene.add(light2);
 
         container.appendChild(renderer.domElement);
 
         function animate() {
+            object3d.rotateZ(Math.PI/1000);
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
