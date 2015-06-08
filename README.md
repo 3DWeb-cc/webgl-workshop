@@ -2,10 +2,11 @@
 Hi,
 this is the official repository for the [3DWeb Workshop](http://www.3dweb.cc/) 
 
-# Requirements
+# What you need to follow these tutorials
 Some prerequisites required to understand the tutorials:
-+   Element of HTML pages
-+   Basis of JavaScript language
++   only a basic understanding of coding / JavaScript
++   zero 3D graphic’s background required
++   basic knowledge of HTML and web stack
 
 # Workhop schedule
 ##Saturday, June 6th - getting started!
