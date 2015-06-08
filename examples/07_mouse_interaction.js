@@ -7,6 +7,7 @@ function onStart() {
     // boilerplate
     theContainer = document.getElementById("theContainer");
     renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor(0xaabbff);
     renderer.setSize(640, 480);
     theScene = new THREE.Scene();
     theCamera = new THREE.PerspectiveCamera(75, 640 / 480, 0.1, 4000);
@@ -15,6 +16,7 @@ function onStart() {
 
     var mousePositionText = document.getElementById('mousePosition');
     var canvasPositionText = document.getElementById('canvasPosition');
+    var selectionName = document.getElementById('selectionName');
 
 //    var boxSize = 12;
     var controls = new THREE.OrbitControls(theCamera, renderer.domElement);
@@ -33,7 +35,7 @@ function onStart() {
     var rayCaster = new THREE.Raycaster();
 
     var hightlightMaterial = new THREE.MeshPhongMaterial({
-        color: 0xff0000,
+        color: 0x00ff00,
         opacity: 0.6,
         transparent: true
     });
@@ -68,7 +70,7 @@ function onStart() {
     var intersectables = [];
 
     function checkIntersections(mouseX, mouseY) {
-        var  currentIntersection;
+        var currentIntersection;
 
         mouseVector.set(mouseX, mouseY, 1).unproject(theCamera);
 
@@ -81,6 +83,7 @@ function onStart() {
         if (intersections.length > 0) {
             currentIntersection = intersections[0].object;
             currentIntersection.material = hightlightMaterial;
+            $(selectionName).text(currentIntersection.name);
         }
 
         if (lastIntersected !== undefined && lastIntersected !== currentIntersection) {
@@ -93,13 +96,42 @@ function onStart() {
 
 
     buildScene();
-
     theScene.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
             intersectables.push(child);
         }
     });
 
+    // simple scene here
+/*
+    var geometry = new THREE.BoxGeometry(6, 6, 6);
+    var cube, k = -6;
+    while (k++ < 6) {
+        cube = new THREE.Mesh(geometry, theMaterial);
+        if (k%2) {
+            cube.position.set(
+                8 * k,
+                Math.round(Math.random() * 10),
+                Math.round(Math.random() * 10));
+        } else {
+            cube.position.set(
+                8 * k,
+                -Math.round(Math.random() * 10),
+                -Math.round(Math.random() * 10));
+        }
+        theScene.add(cube);
+        intersectables.push(cube);
+    }
+*/
+
+    // two lights
+    theLight1 = new THREE.DirectionalLight(0xffdddd, 1);
+    theLight1.position.set(10, 10, 20)
+    theScene.add(theLight1);
+
+    theLight2 = new THREE.DirectionalLight(0xddddff, 0.7);
+    theLight2.position.set(10, 10, -20)
+    theScene.add(theLight2);
 
     $(renderer.domElement).on('touchmove', onMouseMove);
     $(renderer.domElement).on('mousemove', onMouseMove);
@@ -111,6 +143,7 @@ function onStart() {
         requestAnimationFrame(animate);
     }
 }
+
 
 function buildScene() {
     theAxisHelper = new THREE.AxisHelper(10);
@@ -126,6 +159,7 @@ function buildScene() {
     var i, x, z;
     for (i = 0; i < 4; i += 1) {
         theLeg = new THREE.Mesh(theLegGeometry, theMaterial);
+        theLeg.name = 'chair_leg_#'+i;
         x = (i > 1) ? 4 : -4;
         z = (i % 2 === 0) ? 4 : -4;
         theLeg.position.set(x, 0, z);
@@ -135,12 +169,14 @@ function buildScene() {
     // chair's seat
     theSeatGeometry = new THREE.BoxGeometry(9.5, 1, 9.5);
     theSeat = new THREE.Mesh(theSeatGeometry, theMaterial);
+    theSeat.name = 'seat';
     theSeat.position.set(0, 5.5, 0);
     theChairObject.add(theSeat);
 
     // chair's back
     theBackGeometry = new THREE.BoxGeometry(1, 10, 9);
     theBack = new THREE.Mesh(theBackGeometry, theMaterial);
+    theBack.name = 'back';
     theBack.position.set(-3.5, 11, 0);
     theChairObject.add(theBack);
     theChairObject.position.set(-10, 0, 0);
@@ -154,6 +190,7 @@ function buildScene() {
     theTableLegGeometry = new THREE.CylinderGeometry(0.6, 0.6, 16, 8, 1);
     for (i = 0; i < 4; i += 1) {
         theLeg = new THREE.Mesh(theTableLegGeometry, theMaterial);
+        theLeg.name = 'table_leg_#'+i;
         x = (i > 1) ? 6 : -6;
         z = (i % 2 === 0) ? 6 : -6;
         theLeg.position.set(x, 0, z);
@@ -163,19 +200,11 @@ function buildScene() {
     // the table's top
     theTableTopGeometry = new THREE.CylinderGeometry(12, 12, 1, 16, 1);
     theTableTop = new THREE.Mesh(theTableTopGeometry, theMaterial);
+    theTableTop.name = 'table_top';
     theTableTop.position.set(0, 8.5, 0);
     theTableObject.add(theTableTop);
     theTableObject.position.set(0, 3, 0);
     theScene.add(theTableObject);
-
-    // two lights
-    theLight1 = new THREE.DirectionalLight(0xffdddd, 1);
-    theLight1.position.set(10, 10, 20)
-    theScene.add(theLight1);
-
-    theLight2 = new THREE.DirectionalLight(0xddddff, 0.7);
-    theLight2.position.set(10, 10, -20)
-    theScene.add(theLight2);
 
 }
 
