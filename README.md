@@ -18,5 +18,13 @@ Some prerequisites required to understand the tutorials:
 +   Grouping objects: the scene graph
 +   Load custom geometry using COLLADA file format
 
-
-
+## Saturday, June 13th
++   Change material's color using _diffuse_ property
++   Make transparent materials with _opacity_
++   Load custom textures and apply them to the materials
++   Texture mapping: how should I apply the "wallpaper"?
++   Give a real environment to your scene with environment maps
++   Just a "wallpaper"? How to control different properties through textures
++   Add real reflections to materials with the CubeCamera
++   Create a realistic glass material with refraction
++   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
