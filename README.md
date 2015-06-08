@@ -9,6 +9,8 @@ Some prerequisites required to understand the tutorials:
 
 # Workhop schedule
 ##Saturday, June 6th
++   Theory #1: what is 3D computer graphic
++   Theory #2: working with real world complexity
 +   Create a bare scene
 +   Let the renderer run
 +   Creating geometry with primitives
