@@ -10,26 +10,17 @@ function onStart() {
     renderer.setSize(640, 480);
     theScene = new THREE.Scene();
     theCamera = new THREE.PerspectiveCamera(75, 640 / 480, 0.1, 4000);
-    theCamera.position.set(0, 0, 20);
+    theCamera.position.set(0, 20, 30);
     theContainer.appendChild(renderer.domElement);
-    var light = new THREE.PointLight(0xffffff);
-    light.position.set(0, 250, 0);
-    //theScene.add(light);
-    theLight = new THREE.DirectionalLight(0xffffff, 1.4);
-    theLight.position.set(10, 10, 10);
-    theScene.add(theLight);
-    theLight1 = new THREE.DirectionalLight(0xffeeee, 0.8);
-    theLight1.position.set(-10, -10, -10);
-    theScene.add(theLight1);
 
     var mousePositionText = document.getElementById('mousePosition');
     var canvasPositionText = document.getElementById('canvasPosition');
 
-    var boxSize = 12;
+//    var boxSize = 12;
     var controls = new THREE.OrbitControls(theCamera, renderer.domElement);
 
 
-    theGeometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
+    //theGeometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
     //theGeometry = new THREE.SphereGeometry(boxSize, 16, 16);
 
     // image from http://wiki.secondlife.com/wiki/Case_Study_-_Example_wood_crate_using_materials
@@ -37,6 +28,19 @@ function onStart() {
     // SKYBOX from
     var imagePrefix = "img/";
     //var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+
+    var mouseVector = new THREE.Vector3();
+    var rayCaster = new THREE.Raycaster();
+
+    var hightlightMaterial = new THREE.MeshPhongMaterial({
+        color: 0xff0000,
+        opacity: 0.6,
+        transparent: true
+    });
+
+    theMaterial = new THREE.MeshLambertMaterial({
+        color: theColor
+    });
 
 
     function onMouseMove(event) {
@@ -46,22 +50,55 @@ function onStart() {
         var offset = $(theContainer).offset();
 
         // canvas element local
-        var localX =  event.pageX - offset.left;
-        var localY =  event.pageY - offset.top;
+        var localX = event.pageX - offset.left;
+        var localY = event.pageY - offset.top;
 
         // webgl context
         var canvasX = (localX / renderer.domElement.width) * 2 - 1;
-        var canvasY = (1 - (localY / renderer.domElement.height)) * 2 -1;
+        var canvasY = (1 - (localY / renderer.domElement.height)) * 2 - 1;
 
         $(mousePositionText).text(localX + ', ' + localY);
-        $(canvasPositionText).text((Math.round(canvasX* 100) / 100) + ',' + (Math.round(canvasY* 100) / 100));
+        $(canvasPositionText).text((Math.round(canvasX * 100) / 100) + ',' + (Math.round(canvasY * 100) / 100));
+
+        checkIntersections(canvasX, canvasY);
 
     }
 
-    function checkIntersections() {
+    var lastIntersected;
+    var intersectables = [];
+
+    function checkIntersections(mouseX, mouseY) {
+        var  currentIntersection;
+
+        mouseVector.set(mouseX, mouseY, 1).unproject(theCamera);
+
+        rayCaster.set(
+            theCamera.position,
+            mouseVector.sub(theCamera.position).normalize());
+
+        var intersections = rayCaster.intersectObjects(intersectables);
+
+        if (intersections.length > 0) {
+            currentIntersection = intersections[0].object;
+            currentIntersection.material = hightlightMaterial;
+        }
+
+        if (lastIntersected !== undefined && lastIntersected !== currentIntersection) {
+            lastIntersected.material = theMaterial;
+        }
+
+        lastIntersected = currentIntersection;
 
     }
 
+
+    buildScene();
+
+    theScene.traverse(function (child) {
+        if (child instanceof THREE.Mesh) {
+            intersectables.push(child);
+        }
+    });
 
 
     $(renderer.domElement).on('touchmove', onMouseMove);
@@ -73,6 +110,73 @@ function onStart() {
         renderer.render(theScene, theCamera);
         requestAnimationFrame(animate);
     }
+}
+
+function buildScene() {
+    theAxisHelper = new THREE.AxisHelper(10);
+    theAxisHelper.name = 'axis_helper';
+    theScene.add(theAxisHelper);
+
+    // the whole chair
+    theChairObject = new THREE.Object3D();
+    theChairObject.name = 'the_chair';
+
+    // chair's legs
+    theLegGeometry = new THREE.BoxGeometry(1, 10, 1);
+    var i, x, z;
+    for (i = 0; i < 4; i += 1) {
+        theLeg = new THREE.Mesh(theLegGeometry, theMaterial);
+        x = (i > 1) ? 4 : -4;
+        z = (i % 2 === 0) ? 4 : -4;
+        theLeg.position.set(x, 0, z);
+        theChairObject.add(theLeg);
+    }
+
+    // chair's seat
+    theSeatGeometry = new THREE.BoxGeometry(9.5, 1, 9.5);
+    theSeat = new THREE.Mesh(theSeatGeometry, theMaterial);
+    theSeat.position.set(0, 5.5, 0);
+    theChairObject.add(theSeat);
+
+    // chair's back
+    theBackGeometry = new THREE.BoxGeometry(1, 10, 9);
+    theBack = new THREE.Mesh(theBackGeometry, theMaterial);
+    theBack.position.set(-3.5, 11, 0);
+    theChairObject.add(theBack);
+    theChairObject.position.set(-10, 0, 0);
+    theScene.add(theChairObject);
+
+    // table object
+    theTableObject = new THREE.Object3D();
+    theTableObject.name = 'the_table';
+
+    // tables's legs
+    theTableLegGeometry = new THREE.CylinderGeometry(0.6, 0.6, 16, 8, 1);
+    for (i = 0; i < 4; i += 1) {
+        theLeg = new THREE.Mesh(theTableLegGeometry, theMaterial);
+        x = (i > 1) ? 6 : -6;
+        z = (i % 2 === 0) ? 6 : -6;
+        theLeg.position.set(x, 0, z);
+        theTableObject.add(theLeg);
+    }
+
+    // the table's top
+    theTableTopGeometry = new THREE.CylinderGeometry(12, 12, 1, 16, 1);
+    theTableTop = new THREE.Mesh(theTableTopGeometry, theMaterial);
+    theTableTop.position.set(0, 8.5, 0);
+    theTableObject.add(theTableTop);
+    theTableObject.position.set(0, 3, 0);
+    theScene.add(theTableObject);
+
+    // two lights
+    theLight1 = new THREE.DirectionalLight(0xffdddd, 1);
+    theLight1.position.set(10, 10, 20)
+    theScene.add(theLight1);
+
+    theLight2 = new THREE.DirectionalLight(0xddddff, 0.7);
+    theLight2.position.set(10, 10, -20)
+    theScene.add(theLight2);
+
 }
 
 function onShowSphere(evt) {
