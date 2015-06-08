@@ -28,3 +28,4 @@ Some prerequisites required to understand the tutorials:
 +   Add real reflections to materials with the CubeCamera
 +   Create a realistic glass material with refraction
 +   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
++   Modifying custom geometries iterating the scene graph
