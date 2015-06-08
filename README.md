@@ -34,3 +34,4 @@ Some prerequisites required to understand the tutorials:
 
 ## Saturday, June 20th - user interaction
 +   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
++   Find objects which are being traversed from the pointer
