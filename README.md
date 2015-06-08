@@ -8,7 +8,7 @@ Some prerequisites required to understand the tutorials:
 +   Basis of JavaScript language
 
 # Workhop schedule
-##Saturday, June 6th
+##Saturday, June 6th - getting started!
 +   Theory #1: what is 3D computer graphic
 +   Theory #2: working with real world complexity
 +   Create a bare scene
@@ -18,9 +18,10 @@ Some prerequisites required to understand the tutorials:
 +   Use transformations (translate, rotate, scale) with 3D objects
 +   Make an interactive scene with OrbitControls
 +   Grouping objects: the scene graph
-+   Load custom geometry using COLLADA file format
 
-## Saturday, June 13th
+## Saturday, June 13th - working with materials!
++   Load custom geometry using COLLADA file format
++   Modifying custom geometries iterating the scene graph
 +   Change material's color using _diffuse_ property
 +   Make transparent materials with _opacity_
 +   Load custom textures and apply them to the materials
@@ -29,5 +30,6 @@ Some prerequisites required to understand the tutorials:
 +   Just a "wallpaper"? How to control different properties through textures
 +   Add real reflections to materials with the CubeCamera
 +   Create a realistic glass material with refraction
+
+## Saturday, June 20th - user interaction
 +   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
-+   Modifying custom geometries iterating the scene graph
