@@ -8,7 +8,7 @@ Understand how THREEJS relates to HTML and the Canvas
 
 Prerequisites
 =============
-Some prerequisites required to understand this (and next) charapters:
+Some prerequisites required to understand this (and next) chapters:
 + Element of HTML pages
 + Basis of JavaScript language
 
