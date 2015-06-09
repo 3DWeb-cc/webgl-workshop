@@ -133,12 +133,10 @@ color; this is the complete _checkIntersections_ function
         var currentIntersection;
 
         // generate the inverse projection
-        mouseVector.set(mouseX, mouseY, 1).unproject(theCamera);
+        mouseVector.set(mouseX, mouseY, 1);
 
         // set the parameters for raycaster
-        rayCaster.set(
-            theCamera.position,
-            mouseVector.sub(theCamera.position).normalize());
+        rayCaster.setFromCamera(mouseVector, camera);
 
         // calculate intersections
         var intersections = rayCaster.intersectObjects(intersectables);
@@ -160,3 +158,4 @@ color; this is the complete _checkIntersections_ function
 
 Explanation
 ===========
+This is the simplest (as of r71) way to calculate intersections, not the only one.
