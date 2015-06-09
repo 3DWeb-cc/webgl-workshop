@@ -96,18 +96,16 @@ the intersected objects
 
     }
     ```
-+ let's generate the inverse mouse projection relative to the camera
++ let's update the vector which represents the mouse with the current coordinates
 
     ```javascript
-    mouseVector.set(mouseX, mouseY, 1).unproject(theCamera);
+    mouseVector.set(mouseX, mouseY, 1);
     ```
     
-+ setup the RayCaster object which will find intersections
++ setup the RayCaster with the new mouse position and the camera from which we are looking to the scene
 
     ```javascript
-    rayCaster.set(
-                theCamera.position,
-                mouseVector.sub(theCamera.position).normalize());
+    rayCaster.setFromCamera(mouseVector, camera);
     ```
 
 + and finally, let the RayCaster check for intersections with our cached objects
