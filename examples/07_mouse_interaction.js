@@ -72,11 +72,9 @@ function onStart() {
     function checkIntersections(mouseX, mouseY) {
         var currentIntersection;
 
-        mouseVector.set(mouseX, mouseY, 1).unproject(theCamera);
+        mouseVector.set(mouseX, mouseY, 1);
 
-        rayCaster.set(
-            theCamera.position,
-            mouseVector.sub(theCamera.position).normalize());
+        rayCaster.setFromCamera(mouseVector, theCamera);
 
         var intersections = rayCaster.intersectObjects(intersectables);
 
