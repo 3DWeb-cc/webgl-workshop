@@ -17,6 +17,17 @@ Instructions
      color: 0xFC6A45
     });
     ```
+    
++ create another MeshPhongMaterial whit color 0x00ff00, and name it "highlightMaterial"; we will use it in order to highlight 
+the intersected objects
+
+    ```javascript
+    var highlightMaterial = new THREE.MeshPhongMaterial({
+     color: 0x00ff00,
+     opacity: 0.6,
+     transparent: true
+    });
+    ```
 
 + create one BoxGeometry with size 6
 
@@ -89,7 +100,7 @@ Instructions
 
     ```javascript
     mouseVector.set(mouseX, mouseY, 1).unproject(theCamera);
-    ``
+    ```
     
 + setup the RayCaster object which will find intersections
 
