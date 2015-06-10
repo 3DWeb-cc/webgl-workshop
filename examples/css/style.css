@@ -3,11 +3,17 @@
 .renderer {
   background: red;
 }
+
 .hide {
   display: none;
 }
+
 #theContainer {
   width: 640px;
   height: 480px;
   margin: auto;
+}
+
+.input-group-addon > p:first-child {
+  font-weight: bold;
 }
