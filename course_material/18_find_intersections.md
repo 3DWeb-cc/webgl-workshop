@@ -69,8 +69,8 @@ the intersected objects
       intersectables.push(cube);
     }
     ```
-+ take the function _onMouseMove()_ that we created in the previous tutorial and bring it here
-+ bind the listener on the canvas as per previous tutorial
++ take the function _onMouseMove()_ that we created in the [previous tutorial](17_translating_mouse_coordinates.md) and bring it here
++ bind the listener on the canvas as per [previous tutorial](17_translating_mouse_coordinates.md)
  
     ```javascript
     $(canvas).on('mousemove', onMouseMove);
