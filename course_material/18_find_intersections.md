@@ -17,18 +17,7 @@ Instructions
      color: 0xFC6A45
     });
     ```
-    
-+ create another MeshPhongMaterial whit color 0x00ff00, and name it "highlightMaterial"; we will use it in order to highlight 
-the intersected objects
-
-    ```javascript
-    var highlightMaterial = new THREE.MeshPhongMaterial({
-     color: 0x00ff00,
-     opacity: 0.6,
-     transparent: true
-    });
-    ```
-
+ 
 + create one BoxGeometry with size 6
 
     ```javascript
@@ -64,12 +53,13 @@ the intersected objects
     var intersectables = [];
     while (k++ < 6) {
       
-      ...
+      //...
       
       intersectables.push(cube);
     }
     ```
-+ take the function _onMouseMove()_ that we created in the previous tutorial and bring it here
+    
++ take the function _onMouseMove()_ that we created in the (previous tutorial)[] and bring it here
 + bind the listener on the canvas as per previous tutorial
  
     ```javascript
