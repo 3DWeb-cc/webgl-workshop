@@ -120,7 +120,6 @@ in order to check whether it is working or not
 
     ```javascript
     function checkIntersections(mouseX, mouseY) {
-        var currentIntersection;
 
         // generate the inverse projection
         mouseVector.set(mouseX, mouseY, 1);
