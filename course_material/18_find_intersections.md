@@ -85,6 +85,7 @@ Instructions
 
     }
     ```
+    
 + let's update the vector which represents the mouse with the current coordinates
 
     ```javascript
@@ -102,6 +103,11 @@ Instructions
     ```javascript
     var intersections = rayCaster.intersectObjects(intersectables);
     ```
+
++  the RayCaster gives back an array of intersected objects, the first is the closer to the camera: just print it out in console,
+in order to check whether it is working or not
+
+    
 
 + the RayCaster gives back an array of intersected objects, the first is the closer to the camera: we might want to check
 whether is there any intersection and assign to the first the __hightlight material__ we made before.
