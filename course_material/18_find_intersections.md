@@ -32,6 +32,7 @@ Instructions
     var cube, k = -6;
     while (k++ < 6) {
       cube = new THREE.Mesh(geometry, theMaterial);
+      cube.name = 'cube_' + k;
       if (k%2) {
         cube.position.set(
           8 * k,
@@ -107,19 +108,15 @@ Instructions
 +  the RayCaster gives back an array of intersected objects, the first is the closer to the camera: just print it out in console,
 in order to check whether it is working or not
 
-    
-
-+ the RayCaster gives back an array of intersected objects, the first is the closer to the camera: we might want to check
-whether is there any intersection and assign to the first the __hightlight material__ we made before.
-
     ```javascript
+    var obj;
     if (intersections.length > 0) {
-        currentIntersection = intersections[0].object;
-        currentIntersection.material = hightlightMaterial;
+        obj = intersections[0].object;
+        console.log(obj.name);
     }
     ```
-+ now we need to reassign the original material if the object has changed, otherwise all cubes will mantain the hightlight 
-color; this is the complete _checkIntersections_ function
+
++ and here is the complete _checkIntersections_ function
 
     ```javascript
     function checkIntersections(mouseX, mouseY) {
@@ -134,16 +131,11 @@ color; this is the complete _checkIntersections_ function
         // calculate intersections
         var intersections = rayCaster.intersectObjects(intersectables);
 
+        var obj;
         if (intersections.length > 0) {
-            currentIntersection = intersections[0].object;
-            currentIntersection.material = hightlightMaterial;
+            obj = intersections[0].object;
+            console.log(obj.name);
         }
-
-        if (lastIntersected !== undefined && lastIntersected !== currentIntersection) {
-            lastIntersected.material = theMaterial;
-        }
-
-        lastIntersected = currentIntersection;
 
     }
     ```
