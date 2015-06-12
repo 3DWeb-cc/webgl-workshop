@@ -9,11 +9,11 @@ Make a wood material using wood texture.
 Instructions
 ============
 - start with our default scene
-- create the diffuse texture using 'crate_2_diffuse_1.png'
-- create the normal texture using 'crate_2_normal_1.png'
-- create the specular texture using 'crate_2_specular_1.png'
+- create the diffuse texture using `crate_2_diffuse_1.png`
+- create the normal texture using `crate_2_normal_1.png`
+- create the specular texture using `crate_2_specular_1.png`
 - build cube using BoxGeometry
-- build an array of materials (THREE.MeshPhongMaterial) using the following parameters:
+- build an array of materials (`THREE.MeshPhongMaterial`) using the following parameters:
 `new THREE.MeshPhongMaterial({
                 shininess: 35,
                 specular: 0xffffff,
@@ -24,8 +24,8 @@ Instructions
 })`
 - now create a FaceMaterial which automatically assigns materials to faces: ``new THREE.MeshFaceMaterial( materialArray );``
 - assemble the Mesh object using cube geometry and the material and put it onto the scene
-- try to play a little with parameters: 'shininess' and 'specular' are controlling reflections
-- play also with normal map using 'normalScale'
+- try to play a little with parameters: _shininess_ and _specular_ are controlling reflections
+- play also with normal map using `normalScale`
 
 
 Explanation

@@ -9,7 +9,7 @@ Make a reflective material.
 Instructions
 ============
 - start with a scene with environment
-- now we need camera able to map the cube map of the environment all around an object: THREE.CubeCamera() which takes as
+- now we need camera able to map the cube map of the environment all around an object: `THREE.CubeCamera()` which takes as
  parameters near plane, far plane, and resolution.
 - a texture resolution of 512 is quite and average value
 - tell the camera which mapping you want to use for the renderering: ``cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping``
