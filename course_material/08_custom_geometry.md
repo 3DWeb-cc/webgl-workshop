@@ -9,6 +9,8 @@ Load external file using COLLADA
 Instructions
 ============
 
++ start from our [default scene](../examples/00_default_scene.html)
+
 + in order to load custom geometry, we need the appropriate importer: since we are loading a Collada file, get the [Collada 
 loader for ThreeJS](https://github.com/mrdoob/three.js/tree/master/examples/js/loaders/ColladaLoader.js) and load it 
 into your HTML page after _three.js_; you can find in our [examples folder](../examples)
