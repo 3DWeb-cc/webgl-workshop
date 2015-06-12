@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <script src="js/three.js"></script>
+
+    <!-- uncomment what you need to use
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/ColladaLoader.js"></script>
+    -->
+
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
+    </div>
+</div>
+<div id="theContainer"></div>
+</body>
+
+<script type="text/javascript">
+
+    /**
+     * WebGL workshop scene template - www.3dweb.cc
+     */
+
+    var container, renderer, scene, camera;
+
+    (function() {
+
+        // boilerplate
+        container = document.getElementById('theContainer');
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xaabbff);
+        renderer.setSize(640, 480);
+
+        theScene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 4000);
+        camera.position.set(0, 0, 40);
+
+        container.appendChild(renderer.domElement);
+        
+        // write your code
+
+    })();
+    
+</script>
+
+</html>
