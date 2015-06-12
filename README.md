@@ -27,12 +27,12 @@ Some prerequisites required to understand the tutorials:
 +   Modifying custom geometries iterating the scene graph
 +   [Change material's color using _diffuse_ property](course_material/10_materials_diffuse.md)
 +   [Make transparent materials with _opacity_](course_material/11_materials_opacity.md)
-+   Load custom textures and apply them to the materials
-+   Texture mapping: how should I apply the "wallpaper"?
-+   Give a real environment to your scene with environment maps
-+   Just a "wallpaper"? How to control different properties through textures
-+   Add real reflections to materials with the CubeCamera
-+   Create a realistic glass material with refraction
++   [Load custom textures and apply them to the materials](course_material/12_texture_loading.md)
++   [Texture mapping: how should I apply the "wallpaper"?](course_material/13_texture_mapping.md)
++   [Give a real environment to your scene with environment maps](course_material/14_environment_texture.md)
++   [Just a "wallpaper"? How to control different properties through textures](course_material/15_texture_channels.md)
++   [Add real reflections to materials with the CubeCamera](course_material/16_materials_reflections.md)
++   [Create a realistic glass material with refraction](course_material/17_materials_refractions.md)
 
 ## Saturday, June 20th - user interaction
 +   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
