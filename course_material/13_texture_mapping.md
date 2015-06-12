@@ -1,35 +1,62 @@
 Example step
 ============
-Load a cube map and apply it to a material.
+Load a cube map and apply it to a material
 
 Goal
 ====
-Make a wood material using wood texture. 
+Decorate a small crate using cube maps
 
 Instructions
 ============
-- start with our default scene
-- find the six images provided (`crate_#.jpg` from 1 to 6)
-- for each face of the cube, we must create a material. Get a new Array element and fill it with: 
-```
- var imgName = "crate_";
- for (var i = 1; i < 7; i++)
+
++ start from our [default scene](../examples/00_default_scene.html)
+
++ set up a cube geometry of 3 units per side
+    
+    ```javascript
+    var cubeGeometry = new THREE.BoxGeometry(3,3,3);
+    ```
+
++ find the six images provided [crate_#.jpg](../examples/img/crate_*.jpg) from 1 to 6
+
++ for each face of the cube, we must create a material and save them into an array; we have to create also a new _THREE.Texture_
+passing the right image: note that the material saves a _reference_ of the texture
+    
+    ```javascript
+    var imgName = './img/crate_';
+    for (var i = 1; i < 7; i++) {
         materialArray.push(new THREE.MeshBasicMaterial({
-            map: THREE.ImageUtils.loadTexture( imgName + i),
-            side: THREE.BackSide
+            map: THREE.ImageUtils.loadTexture( imgName + i)
         }));
-```
-- you should probably set `texture.minFilter = THREE.NearestFilter` since the images are not power of two 
-- now create a FaceMaterial which automatically assigns materials to faces: ``new THREE.MeshFaceMaterial( materialArray );``
-- assemble the Mesh object using cube geometry and the material and put it onto the scene
-- do you see something strange like black faces? Maybe you need more lights!
+    }
+    ```
+    
++ you should probably set _texture.minFilter_ since the images are not power of two
+    
+    ```javascript
+    texture.minFilter = THREE.NearestFilter
+    ```
+ 
++ now create a _THREE.FaceMaterial_ which automatically assigns materials to faces, passing it the array just created
+
+    ```javascript
+    var faceMaterial = new THREE.MeshFaceMaterial( materialArray );
+    ```
+
++ assemble the Mesh object using cube geometry and the material and put it onto the scene as usual
+
+    ```javascript
+    var cube = new THREE.Mesh(cubeGeometry, faceMaterial);
+    ```
+
+- run and try to mess up the textures' order
 
 
 Explanation
 ===========
-Textures can be mapped in different ways onto geometries: usually we'll have textures pre-mapped onto assets coming from
-3d artist, so the default `THREE.UVMapping` would be ok.
+
 In production, we would prefer to pack textures in smaller files in order to improve the assets loading and the user experience.
+
 Using cube maps is a good way to map environments and decorations.
 
 Deeper:
