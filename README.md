@@ -7,11 +7,12 @@ Some prerequisites required to understand the tutorials:
 +   only a basic understanding of coding / JavaScript
 +   zero 3D graphic’s background required
 +   basic knowledge of HTML and web stack
++   some examples require a simple HTTP server running, due to [CORS policy](https://en.wikipedia.org/wiki/Same-origin_policy) 
 
 # Workhop schedule
 ##Saturday, June 6th - getting started!
-+   Theory #1: what is 3D computer graphic
-+   Theory #2: working with real world complexity
++   [Theory #1: what is 3D computer graphic](https://docs.google.com/presentation/d/1jHReQE5lchAcquooXlse_dfuz4_mcumx4HfNhDx6Pqg/edit)
++   [Theory #2: working with real world complexity](https://docs.google.com/presentation/d/1jHReQE5lchAcquooXlse_dfuz4_mcumx4HfNhDx6Pqg/edit)
 +   [Create a bare scene](course_material/01_create_scene.md)
 +   [Let the renderer run](course_material/02_run_scene.md)
 +   [Creating geometry with primitives](course_material/03_create_geometry.md)
@@ -22,9 +23,9 @@ Some prerequisites required to understand the tutorials:
 
 ## Saturday, June 13th - working with materials!
 +   Brief recap about Workshop #1
-+   Theory: materials and textures
++   [Theory: materials and textures](https://docs.google.com/presentation/d/1kVe2cK1NEQK6FznNgbK-XYGfJikU4wsSxnMXuAAUYnQ/edit#slide=id.g5913d61c0_0_6)
 +   [Load custom geometry using COLLADA file format](course_material/08_custom_geometry.md)
-+   Modifying custom geometries iterating the scene graph
++   [Modifying custom geometries iterating the scene graph](09_traversing_scene_graph.md)
 +   [Change material's color using _diffuse_ property](course_material/10_materials_diffuse.md)
 +   [Make transparent materials with _opacity_](course_material/11_materials_opacity.md)
 +   [Load custom textures and apply them to the materials](course_material/12_texture_loading.md)
