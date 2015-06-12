@@ -23,10 +23,10 @@ Some prerequisites required to understand the tutorials:
 ## Saturday, June 13th - working with materials!
 +   Brief recap about Workshop #1
 +   Theory: materials and textures
-+   Load custom geometry using COLLADA file format
++   [Load custom geometry using COLLADA file format](course_material/08_custom_geometry.md)
 +   Modifying custom geometries iterating the scene graph
-+   Change material's color using _diffuse_ property
-+   Make transparent materials with _opacity_
++   [Change material's color using _diffuse_ property](course_material/10_materials_diffuse.md)
++   [Make transparent materials with _opacity_](course_material/11_materials_opacity.md)
 +   Load custom textures and apply them to the materials
 +   Texture mapping: how should I apply the "wallpaper"?
 +   Give a real environment to your scene with environment maps
