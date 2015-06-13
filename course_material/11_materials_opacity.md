@@ -81,7 +81,7 @@ to the scene with _scene.add()_?
 + add the plane creating a new mesh with the plane geometry just created and a LambertMaterial, color 0x77FF66
 
     ```javascript
-    var plane = new THREE.Mesh(planeGeometry, new LambertMaterial({
+    var plane = new THREE.Mesh(planeGeometry, new THREE.MeshLambertMaterial({
         color: 0x77FF66
     }));
     ```
@@ -95,7 +95,7 @@ to the scene with _scene.add()_?
 + move the plane at the bottom
 
     ```javascript
-    plane.setY(-3);
+    plane.position.setY(-3);
     ```
 
 Explanation
