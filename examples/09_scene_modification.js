@@ -1,6 +1,6 @@
 // Code goes here
 var
-    theContainer, cubeCamera, mirrorSphereCamera, controls, mirrorSphereCameras = [], theColor = 0xFC6A45, renderer, theSphere, theLight, theScene, theCamera, theGeometry, theMaterial, IS_WIRE_FRAME, ANIMATE;
+    theContainer, cubeCamera, mirrorSphereCamera,cubeCamera, controls, mirrorSphereCameras = [], theColor = 0xFC6A45, renderer, theSphere, theLight, theScene, theCamera, theGeometry, theMaterial, IS_WIRE_FRAME, ANIMATE;
 
 var theMaterials = {};
 var uniqueMaterials = {};
@@ -18,6 +18,32 @@ function onStart() {
     theCamera.position.set(0, 0, 40);
     theContainer.appendChild(renderer.domElement);
 
+
+    // skybox
+    var materialArray = [];
+    var imageNames = ["posx", "negx", "posy", "negy", "posz", "negz"];
+    var imageSuffix = ".jpg";
+    for (var i = 0; i < 6; i++) {
+        materialArray.push(new THREE.MeshBasicMaterial({
+            map: THREE.ImageUtils.loadTexture('img/'+imageNames[i] + imageSuffix),
+            side: THREE.BackSide
+        }));
+    }
+    var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
+    var skyBox = new THREE.Mesh(
+        new THREE.BoxGeometry(5000, 5000, 5000),
+        skyMaterial
+    );
+
+    theScene.add(skyBox);
+
+    // cube camera for reflections
+    cubeCamera = new THREE.CubeCamera(0.1, 6000, 512);
+    cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping;
+    cubeCamera.position.set(0,20,0)
+    theScene.add(cubeCamera);
+
+
     var loader = new THREE.ColladaLoader();
 
     loader.options.convertUpAxis = true;
@@ -29,7 +55,6 @@ function onStart() {
         scene.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
                 //console.log(child.id+' -> ', child.material.name);
-                theMaterials[child.id] = child.material;
                 uniqueMaterials[child.material.id] = child.material;
             }
         });
@@ -38,20 +63,27 @@ function onStart() {
             var diffuse;
 
             switch (mat.name) {
-                case 'acciaio' :
-                    console.log('acciaio');
-                    mat.setValues({});
+                case 'acciao' :
+                    console.log('acciaio ok');
+                    mat.setValues({
+                        shininess: 1000,
+                        reflectivity: 1,
+                        specular: 0xaaaaff,
+                        envMap: cubeCamera.renderTarget
+                    });
                     break;
                 case 'legno' :
                     console.log('legno ok');
                     diffuse = THREE.ImageUtils.loadTexture('./models/wood_diffuse.jpg');
                     mat.setValues({
                         color: 0xff9999,
-                        map: diffuse
+                        map: diffuse,
+                        shininess: 0,
+                        specular: 0xffaaaa
                     });
                     break;
                 default:
-                    console.error('missing implementation '+mat.name);
+                    console.error('missing implementation ' + mat.name);
             }
         });
 
@@ -71,10 +103,16 @@ function onStart() {
     theLight2.position.set(10, 10, -20);
     theScene.add(theLight2);
 
+    // cheating with framerate... not a good idea but is working
+    /*window.setInterval(function() {
+        cubeCamera.updateCubeMap(renderer, theScene);
+    }, 1000);*/
+
     requestAnimationFrame(animate);
 
     function animate() {
         renderer.render(theScene, theCamera);
+        cubeCamera.updateCubeMap(renderer, theScene);
         requestAnimationFrame(animate);
     }
 }
