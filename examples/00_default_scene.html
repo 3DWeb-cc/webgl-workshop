@@ -10,8 +10,9 @@
 
     <!-- uncomment what you need to use
     <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/ColladaLoader.js"></script>
     -->
+    <script src="js/ColladaLoader.js"></script>
+
 
     <link rel="stylesheet" href="css/style.css"/>
 
@@ -70,7 +71,17 @@
 
 
         // write your code here
+        var loader = new THREE.ColladaLoader();
 
+        loader.load('./models/tha_face_web.dae', function(collada) {
+
+            scene.add(collada.scene);
+
+            collada.scene.traverse(function(child) {
+                console.log(child.id);
+            })
+
+        });
 
 
         function animate() {
