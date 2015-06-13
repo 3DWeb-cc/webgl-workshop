@@ -16,7 +16,7 @@ Instructions
 + in order to map an environment texture, we need a giant cube: create a new _THREE.BoxGeometry with size 5000
 
     ```javascript
-    var cubeGeometry = new THREE.BoxGeometry(3,3,3);
+    var cubeGeometry = new THREE.BoxGeometry(5000,5000,5000);
     ```
 
 + for each face of the cube, we must create a material as per [previous tutorial](13_texture_mapping); nevertheless, we have
