@@ -43,12 +43,9 @@ rough surfaces or small details without burdening on the renderer; create the no
 
     ```javascript
     material = new THREE.MeshPhongMaterial({
-        //shininess: 35,
-        //specular: 0xffffff,
         map: texture,
         specularMap: specTexture,
         normalMap: bumpTexture,
-        //normalScale: new THREE.Vector2( 0.26, 0.26 )
     });
     ```
 

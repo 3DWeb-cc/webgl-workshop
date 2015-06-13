@@ -45,7 +45,7 @@ but it more expensive to be rendered and we won't go outside the cube
     material = new THREE.MeshFaceMaterial( materialArray );
     ``
 
-+ and finally create a new _THREE.Mesh_ using the former geometery and the material
++ and finally create a new _THREE.Mesh_ using the former geometry and the material
  
 + add it to your scene 
 
