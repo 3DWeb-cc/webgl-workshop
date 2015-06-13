@@ -60,7 +60,7 @@ function onStart() {
 
          } );
 
-        theScene.add(dae);
+        //theScene.add(dae);
 
     } );
 
@@ -78,20 +78,20 @@ function onStart() {
     ];
     var effectsType = [
         // refractions
-        /*function (mat) {
+        function (mat) {
             var cam = new THREE.CubeCamera(0.1, 5000, 512);
             cam.renderTarget.mapping = THREE.CubeRefractionMapping;
             return {
                 camera: cam,
                 material: new mat({
                     envMap: cam.renderTarget,
-                    refractionRatio: 0.985,
-                    reflectivity: 0.9
+                    refractionRatio: 0.985
+        //            reflectivity: 0.9
                 })
             };
-        },*/
+        },
         // reflections
-        function (mat) {
+        /*function (mat) {
             var cam = new THREE.CubeCamera(0.1, 5000, 512);
             cam.renderTarget.mapping = THREE.CubeReflectionMapping;
             return {
@@ -100,14 +100,14 @@ function onStart() {
                     envMap: cam.renderTarget
                 })
             };
-        }
+        }/*
     ];
     var startPointX = -((materialsToShow.length - 1) * sphereRadius * 3) / 2;
     var startPointY = -((effectsType.length - 1) * sphereRadius * 3) / 2;
     var obj,matAndCam;
     var reflectionSpheres = [];
 
-/*
+
     for (var j = 0; j < effectsType.length; j += 1) {
         for (var k = 0; k < materialsToShow.length; k += 1) {
             matAndCam = effectsType[j](materialsToShow[k]);
@@ -127,7 +127,7 @@ function onStart() {
 
         }
     }
-*/
+
 
     /*
      var obj;

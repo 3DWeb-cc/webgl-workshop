@@ -38,7 +38,7 @@
      */
 
     // put the variables you want to access from the console here
-    var container, renderer, scene, camera;
+    var container, renderer, scene, camera, materials = {};
 
     (function() {
 
@@ -68,20 +68,47 @@
         
         controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-
+        var texture = THREE.ImageUtils.loadTexture('models/wood_diffuse.jpg');
+        texture.minFilter = THREE.NearestFilter;
 
         // write your code here
         var loader = new THREE.ColladaLoader();
 
-        loader.load('./models/tha_face_web.dae', function(collada) {
+        loader.load('./models/wood_man.dae', function(collada) {
 
             scene.add(collada.scene);
 
-            collada.scene.traverse(function(child) {
-                console.log(child.id);
-            })
+            collada.scene.scale.set(10,10,10);
+
+            collada.scene.rotateX(- Math.PI / 2);
+
+            scene.traverse(function(child) {
+
+                console.log(child.id + ' -> '+child.type + ' '+ child.name);
+
+                if (child instanceof THREE.Mesh) {
+
+                    console.log('       '+child.material.id+' '+child.material.type);
+
+                    materials[child.material.id] = child.material;
+/*
+                    child.material.setValues({
+                       color: 0xffffff,
+                        map: texture
+                    });
+*/
+                }
+
+            });
+
+            materials[4].setValues({
+                color: 0xffffff,
+                map: texture,
+                shininess: 6
+            });
 
         });
+
 
 
         function animate() {
