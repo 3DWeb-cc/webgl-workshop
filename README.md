@@ -25,6 +25,8 @@ which comes in bundle with [Python](https://www.python.org/) and is already inst
 +   [Grouping objects: the scene graph](course_material/07_grouping_objects.md)
 
 ## Saturday, June 13th - working with materials!
+
+### morning: theory and tutorials
 +   Brief recap about Workshop #1
 +   [Theory: materials and textures](https://docs.google.com/presentation/d/1kVe2cK1NEQK6FznNgbK-XYGfJikU4wsSxnMXuAAUYnQ/edit#slide=id.g5913d61c0_0_6)
 +   [Load custom geometry using COLLADA file format](course_material/08_custom_geometry.md)
@@ -37,6 +39,9 @@ which comes in bundle with [Python](https://www.python.org/) and is already inst
 +   [Just a "wallpaper"? How to control different properties through textures](course_material/15_texture_channels.md)
 +   [Add real reflections to materials with the CubeCamera](course_material/16_materials_reflections.md)
 +   [Create a realistic glass material with refraction](course_material/17_materials_refractions.md)
+
+# afternoon: wrap up!
++   build your own demo scene using the techniques shown in the morning: see the [Workhop #2 final work](course_material/WorkshopEnd_2.html)
 
 ## Saturday, June 20th - user interaction
 +   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
