@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- using Bootstrap for styling -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- ThreeJS r71 -->
+    <script src="js/three.js"></script>
+
+    <!-- OrbitControls is used for scene navigation -->
+    <script src="js/OrbitControls.js"></script>
+
+    <!-- jQuery is needed for tutorials about user interaction -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+
+    <!-- ColladaLoader is needed for external models loading -->
+    <script src="js/ColladaLoader.js"></script>
+
+    <!-- custom stylesheed -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> WebGL Workshop</h2>
+    </div>
+</div>
+<div id="theContainer"></div>
+</body>
+
+<script type="text/javascript">
+
+    /**
+     * WebGL workshop scene template - www.3dweb.cc
+     *
+     * Instructions:
+     * - you need a WebGL enabled browser (check it on http://get.webgl.org)
+     * - if you load assets (textures, models...) you need also a local webserver (see tutorials)
+     */
+
+    // put the variables you want to access from the console here
+    var container, renderer, scene, camera, materials = {};
+
+    (function() {
+
+        // boilerplate
+        container = document.getElementById('theContainer');
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xaabbff);
+        renderer.setSize(640, 480);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 8000);
+        camera.position.set(0, 0, 40);
+
+        container.appendChild(renderer.domElement);
+
+        // warmer light from upper right
+        var theLight1 = new THREE.DirectionalLight(0xffdddd, 1);
+        theLight1.position.set(10, 10, 20);
+        scene.add(theLight1);
+
+        // colder light from upper left
+        var theLight2 = new THREE.DirectionalLight(0xddddff, 0.7);
+        theLight2.position.set(10, 10, -20);
+        scene.add(theLight2);
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        // #14 environment texture
+        var materialArray = [];
+        var imageNames  =
+                ["posx", "negx", "posy", "negy", "posz", "negz"];
+
+        var imageSuffix = ".jpg";
+        for (var i = 0; i < 6; i++) {
+            materialArray.push(new THREE.MeshBasicMaterial({
+                map: THREE.ImageUtils.loadTexture(
+                        'img/'+imageNames[i]+imageSuffix ),
+                side: THREE.BackSide
+            }));
+        }
+
+        var skyGeometry = new THREE.BoxGeometry(5000,5000,5000);
+        var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
+        var sky = new THREE.Mesh(skyGeometry, skyMaterial);
+        sky.name = "sky";
+
+        scene.add(sky);
+
+        // #16 reflections
+        var cubeCamera = new THREE.CubeCamera(0.1, 8000, 512);
+        cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping;
+        cubeCamera.position.set(0,30,0);
+        scene.add(cubeCamera);
+
+        // #12 texture loading
+        var texture = THREE.ImageUtils.loadTexture('models/wood_diffuse.jpg');
+        texture.minFilter = THREE.NearestFilter;
+
+        // write your code here
+        var loader = new THREE.ColladaLoader();
+
+        loader.load('./models/wood_man.dae', function(collada) {
+
+            scene.add(collada.scene);
+
+            collada.scene.scale.set(10,10,10);
+
+            collada.scene.rotateX(- Math.PI / 2);
+
+            // #09 traversing scene
+            scene.traverse(function(child) {
+
+                console.log(child.id + ' -> '+child.type + ' '+ child.name);
+
+                if (child instanceof THREE.Mesh && child.name !== 'sky') {
+
+                    console.log('       '+child.material.id+' '+child.material.type);
+
+                    materials[child.material.name] = child.material;
+
+                }
+
+            });
+
+            // #10, #11, #16... see the tutorials for details
+
+            // we get the the names from the console
+            materials.legno.setValues({
+                color: 0xffffff,
+                map: texture,
+                shininess: 6
+            });
+
+            materials.acciao.setValues({
+                envMap: cubeCamera.renderTarget
+            });
+
+        });
+
+
+
+        function animate() {
+            renderer.render(scene, camera);
+            cubeCamera.updateCubeMap(renderer, scene);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+    })();
+
+</script>
+
+</html>
