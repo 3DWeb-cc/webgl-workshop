@@ -7,9 +7,12 @@ Some prerequisites required to understand the tutorials:
 +   only a basic understanding of coding / JavaScript
 +   zero 3D graphic’s background required
 +   basic knowledge of HTML and web stack
-+   some examples require a simple HTTP server running, due to [CORS policy](https://en.wikipedia.org/wiki/Same-origin_policy)
++   some examples require a simple HTTP server running, due to [CORS policy](https://en.wikipedia.org/wiki/Same-origin_policy): 
+if you don't already have one, we suggest you to use [Python's SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html)
+which comes in bundle with [Python](https://www.python.org/) and is already installed on various Linux distributions and OS/X and has an installer for Windows.
 
 # Workhop schedule
+
 ##Saturday, June 6th - getting started!
 +   [Theory #1: what is 3D computer graphic](https://docs.google.com/presentation/d/1jHReQE5lchAcquooXlse_dfuz4_mcumx4HfNhDx6Pqg/edit)
 +   [Theory #2: working with real world complexity](https://docs.google.com/presentation/d/1jHReQE5lchAcquooXlse_dfuz4_mcumx4HfNhDx6Pqg/edit)
@@ -38,4 +41,4 @@ Some prerequisites required to understand the tutorials:
 ## Saturday, June 20th - user interaction
 +   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
 +   Find objects which are being traversed from the pointer
-+   Modify intersected objects's material
++   Modify intersected objects' material
