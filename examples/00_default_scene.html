@@ -51,7 +51,7 @@
 
         scene = new THREE.Scene();
 
-        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 4000);
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 8000);
         camera.position.set(0, 0, 40);
 
         container.appendChild(renderer.domElement);
@@ -67,6 +67,31 @@
         scene.add(theLight2);
         
         controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        var materialArray = [];
+        var imageNames  =
+                ["posx", "negx", "posy", "negy", "posz", "negz"];
+
+        var imageSuffix = ".jpg";
+        for (var i = 0; i < 6; i++) {
+            materialArray.push(new THREE.MeshBasicMaterial({
+                map: THREE.ImageUtils.loadTexture(
+                        'img/'+imageNames[i]+imageSuffix ),
+                side: THREE.BackSide
+            }));
+        }
+
+        var skyGeometry = new THREE.BoxGeometry(5000,5000,5000);
+        var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
+        var sky = new THREE.Mesh(skyGeometry, skyMaterial);
+        sky.name = "sky";
+
+        scene.add(sky);
+
+        var cubeCamera = new THREE.CubeCamera(0.1, 8000, 512);
+        cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping;
+        cubeCamera.position.set(0,30,0);
+        scene.add(cubeCamera);
 
         var texture = THREE.ImageUtils.loadTexture('models/wood_diffuse.jpg');
         texture.minFilter = THREE.NearestFilter;
@@ -86,25 +111,24 @@
 
                 console.log(child.id + ' -> '+child.type + ' '+ child.name);
 
-                if (child instanceof THREE.Mesh) {
+                if (child instanceof THREE.Mesh && child.name !== 'sky') {
 
                     console.log('       '+child.material.id+' '+child.material.type);
 
-                    materials[child.material.id] = child.material;
-/*
-                    child.material.setValues({
-                       color: 0xffffff,
-                        map: texture
-                    });
-*/
+                    materials[child.material.name] = child.material;
+
                 }
 
             });
 
-            materials[4].setValues({
+            materials.legno.setValues({
                 color: 0xffffff,
                 map: texture,
                 shininess: 6
+            });
+
+            materials.acciao.setValues({
+               envMap: cubeCamera.renderTarget
             });
 
         });
@@ -113,6 +137,7 @@
 
         function animate() {
             renderer.render(scene, camera);
+            cubeCamera.updateCubeMap(renderer, scene);
             requestAnimationFrame(animate);
         }
 
