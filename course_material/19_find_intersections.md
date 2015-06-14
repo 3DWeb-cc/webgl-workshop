@@ -8,9 +8,12 @@ Understand the raycaster and projections
 
 Instructions
 ============
-+ start with a basic scene
+
++ start from our [default scene](../examples/00_default_scene.html)
+
 + set the camera position at (0,20,30)
-+ create a new MeshLambertMaterial whit color _0xFC6A45_
+
++ create a new _MeshLambertMaterial_ whit color _0xFC6A45_
 
     ```javascript
     var material = new THREE.MeshLambertMaterial({
@@ -18,7 +21,7 @@ Instructions
     });
     ```
 
-+ create one BoxGeometry with size 6
++ create one _BoxGeometry_ with size 6
 
     ```javascript
     var geometry = new THREE.BoxGeometry(6,6,6);
@@ -48,7 +51,7 @@ Instructions
     }
     ```
 
-+ then we need to save the cubes in an Array to check against when we will cast the rays; define it on the top
++ then we need to save the cubes in an array to check against when we will cast the rays; define it on the top
 
     ```javascript
     var intersectables = [];
@@ -59,7 +62,9 @@ Instructions
       intersectables.push(cube);
     }
     ```
-+ take the function _onMouseMove()_ that we created in the [previous tutorial](17_translating_mouse_coordinates.md) and bring it here
++ take the function _onMouseMove()_ that we created in the [previous tutorial](17_translating_mouse_coordinates.md) and 
+bring it here
+
 + bind the listener on the canvas as per [previous tutorial](17_translating_mouse_coordinates.md)
  
     ```javascript
@@ -76,7 +81,8 @@ Instructions
     var lastIntersected;
     ```
     
-+ now create a new function called _findIntersections()_ which takes two arguments: mouseX and mouseY
++ now create a new function called _findIntersections()_ which takes two arguments: mouseX and mouseY; you must retrieve 
+these values using the formulas from [translating mouse coordinates tutorial](17_translating_mouse_coordinates.md)
 
     ```javascript
     function checkIntersections(mouseX, mouseY) {
