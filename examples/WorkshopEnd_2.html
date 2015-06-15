@@ -70,9 +70,10 @@
         var theLight2 = new THREE.DirectionalLight(0xddddff, 0.7);
         theLight2.position.set(10, 10, -20);
         scene.add(theLight2);
-        
+
         controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+        // #14 environment texture
         var materialArray = [];
         var imageNames  =
                 ["posx", "negx", "posy", "negy", "posz", "negz"];
@@ -93,11 +94,13 @@
 
         scene.add(sky);
 
+        // #16 reflections
         var cubeCamera = new THREE.CubeCamera(0.1, 8000, 512);
         cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping;
         cubeCamera.position.set(0,30,0);
         scene.add(cubeCamera);
 
+        // #12 texture loading
         var texture = THREE.ImageUtils.loadTexture('models/wood_diffuse.jpg');
         texture.minFilter = THREE.NearestFilter;
 
@@ -112,6 +115,7 @@
 
             collada.scene.rotateX(- Math.PI / 2);
 
+            // #09 traversing scene
             scene.traverse(function(child) {
 
                 console.log(child.id + ' -> '+child.type + ' '+ child.name);
@@ -126,6 +130,9 @@
 
             });
 
+            // #10, #11, #16... see the tutorials for details
+
+            // we get the the names from the console
             materials.legno.setValues({
                 color: 0xffffff,
                 map: texture,
@@ -133,7 +140,7 @@
             });
 
             materials.acciao.setValues({
-               envMap: cubeCamera.renderTarget
+                envMap: cubeCamera.renderTarget
             });
 
         });
@@ -149,7 +156,7 @@
         animate();
 
     })();
-    
+
 </script>
 
 </html>

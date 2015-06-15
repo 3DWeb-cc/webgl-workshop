@@ -77,19 +77,42 @@ function onStart() {
         specTexture.minFilter = THREE.NearestFilter;
         materialArray.push(new THREE.MeshPhongMaterial({
             //color: 0xdddddd,
-            specular: 0xffffff,
-            shininess: 100,
+            //specular: 0xffffff,
+            //shininess: 100,
             map: texture,
             specularMap: specTexture,
-            normalMap: bumpTexture,
-            normalScale: new THREE.Vector2( 0.26, 0.26 )/*,
+            normalMap: bumpTexture
+            //normalScale: new THREE.Vector2( 0.26, 0.26 )
+            /*,
             wrapRGB: new THREE.Vector3( 0.575, 0.5, 0.5 ),
             wrapAround: true*/
         }));
     }
 
+
+    texture = THREE.ImageUtils.loadTexture(imagePrefix + 'crate_2_diffuse_1' + imageSuffix);
+    texture.minFilter = THREE.NearestFilter;
+    bumpTexture = THREE.ImageUtils.loadTexture(imagePrefix + 'crate_2_normal_1' + imageSuffix);
+    bumpTexture.minFilter = THREE.NearestFilter;
+    //bumpTexture.anisotropy = 4;
+    //bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping;
+    bumpTexture.format = THREE.RGBFormat;
+    specTexture = THREE.ImageUtils.loadTexture(imagePrefix + 'crate_2_specular_1' + imageSuffix);
+    specTexture.minFilter = THREE.NearestFilter;
+    var singleMat = new THREE.MeshPhongMaterial({
+        //color: 0xdddddd,
+        specular: 0xffffff,
+        shininess: 100,
+        map: texture,
+        specularMap: specTexture,
+        normalMap: bumpTexture,
+        normalScale: new THREE.Vector2( 0.01, 0.01 )
+    });
+
     var theMaterial = new THREE.MeshFaceMaterial(materialArray);
-    var theCrate = new THREE.Mesh(theGeometry, theMaterial);
+
+    var theCrate = new THREE.Mesh(theGeometry, singleMat);
+
     theScene.add(theCrate);
 
     requestAnimationFrame(animate);

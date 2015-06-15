@@ -26,7 +26,7 @@
 <body>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> WebGL Workshop</h2>
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
     </div>
 </div>
 <div id="theContainer"></div>
@@ -73,37 +73,9 @@
         
         controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-        var materialArray = [];
-        var imageNames  =
-                ["posx", "negx", "posy", "negy", "posz", "negz"];
-
-        var imageSuffix = ".jpg";
-        for (var i = 0; i < 6; i++) {
-            materialArray.push(new THREE.MeshBasicMaterial({
-                map: THREE.ImageUtils.loadTexture(
-                        'img/'+imageNames[i]+imageSuffix ),
-                side: THREE.BackSide
-            }));
-        }
-
-        var skyGeometry = new THREE.BoxGeometry(5000,5000,5000);
-        var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
-        var sky = new THREE.Mesh(skyGeometry, skyMaterial);
-        sky.name = "sky";
-
-        scene.add(sky);
-
-        var cubeCamera = new THREE.CubeCamera(0.1, 8000, 512);
-        cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping;
-        cubeCamera.position.set(0,30,0);
-        scene.add(cubeCamera);
-
-        var texture = THREE.ImageUtils.loadTexture('models/wood_diffuse.jpg');
-        texture.minFilter = THREE.NearestFilter;
-
-        // write your code here
         var loader = new THREE.ColladaLoader();
 
+        // loading the nice wood man
         loader.load('./models/wood_man.dae', function(collada) {
 
             scene.add(collada.scene);
@@ -112,38 +84,18 @@
 
             collada.scene.rotateX(- Math.PI / 2);
 
-            scene.traverse(function(child) {
-
-                console.log(child.id + ' -> '+child.type + ' '+ child.name);
-
-                if (child instanceof THREE.Mesh && child.name !== 'sky') {
-
-                    console.log('       '+child.material.id+' '+child.material.type);
-
-                    materials[child.material.name] = child.material;
-
-                }
-
-            });
-
-            materials.legno.setValues({
-                color: 0xffffff,
-                map: texture,
-                shininess: 6
-            });
-
-            materials.acciao.setValues({
-               envMap: cubeCamera.renderTarget
-            });
-
         });
 
 
+        // write your code here
+
 
         function animate() {
+
             renderer.render(scene, camera);
-            cubeCamera.updateCubeMap(renderer, scene);
+
             requestAnimationFrame(animate);
+
         }
 
         animate();

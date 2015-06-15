@@ -10,7 +10,7 @@ Instructions
 ============
 + start with the scene from [tutorial 19](18_find_intersections.md)
     
-+ create another MeshPhongMaterial whit color 0x00ff00, and name it "highlightMaterial"; we will use it in order to highlight 
++ create another _MeshPhongMaterial_ with color 0x00ff00, and name it "highlightMaterial"; we will use it in order to highlight 
 the intersected objects
 
     ```javascript
@@ -20,6 +20,7 @@ the intersected objects
      transparent: true
     });
     ```
+    
 + add two new variables on the top of your main function: we are going to use them in order to store the current intersection and
 the last one
 
@@ -37,7 +38,7 @@ we made before.
         currentIntersection.material = hightlightMaterial;
     }
     ```
-+ now we need to reassign the original material if the object has changed, otherwise all cubes will mantain the hightlight 
++ now we need to reassign the original material if the object has changed, otherwise all cubes will maintain the highlight 
   color; just after the _currentSelection_ statement append the following code
 
     ```javascript
