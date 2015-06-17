@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- using Bootstrap for styling -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- ThreeJS r71 -->
+    <script src="js/three.js"></script>
+
+    <!-- OrbitControls is used for scene navigation -->
+    <script src="js/OrbitControls.js"></script>
+
+    <!-- jQuery is needed for tutorials about user interaction -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+
+    <!-- ColladaLoader is needed for external models loading -->
+    <script src="js/ColladaLoader.js"></script>
+
+    <!-- custom stylesheed -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
+    </div>
+</div>
+<div id="theContainer"></div>
+</body>
+
+<script type="text/javascript">
+
+    /**
+     * WebGL workshop scene template - www.3dweb.cc
+     *
+     * Instructions:
+     * - you need a WebGL enabled browser (check it on http://get.webgl.org)
+     * - if you load assets (textures, models...) you need also a local webserver (see tutorials)
+     */
+
+    // put the variables you want to access from the console here
+    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [];
+
+    (function () {
+
+        // boilerplate
+        container = document.getElementById('theContainer');
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xaabbff);
+        renderer.setSize(640, 480);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 8000);
+        camera.position.set(0, 0, 20);
+
+        container.appendChild(renderer.domElement);
+
+        // warmer light from upper right
+        var theLight1 = new THREE.DirectionalLight(0xffdddd, 2);
+        theLight1.position.set(10, 10, 20);
+        scene.add(theLight1);
+
+        // colder light from upper left
+        var theLight2 = new THREE.DirectionalLight(0xddddff, 1.7);
+        theLight2.position.set(10, 10, -20);
+        scene.add(theLight2);
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        //var loader = new THREE.JSONLoader(); //.ColladaLoader();
+
+        var loader = new THREE.JSONLoader();
+        loader.load('models/Porl.json', function (model, mat) {
+            var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
+            mesh = new THREE.SkinnedMesh(model, mat);
+            //var animation = new THREE.Animation(mesh, model.animation);
+            mesh.rotation.x = 0.5 * Math.PI;
+            mesh.rotation.z = 0.7 * Math.PI;
+            scene.add(mesh);
+            helper = new THREE.SkeletonHelper(mesh);
+            helper.material.linewidth = 2;
+            helper.visible = false;
+            scene.add(helper);
+            // start the animation
+            // animation.play();
+        }, '../assets/models');
+
+/*
+        var loader = new THREE.ObjectLoader();
+        loader.load('models/hand.json',
+                function (loadedScene) {
+
+                    console.log(arguments);
+
+                    // register the animation
+
+                    scene.add(loadedScene);
+
+                    loadedScene.traverse(function (child) {
+
+                        console.log(child.id+' '+ child.type, child.animation);
+
+                        if (child.animation !== undefined) {
+
+                            THREE.AnimationHandler.add(child.animation);
+
+                        }
+
+                        if (child instanceof THREE.SkinnedMesh) {
+
+
+                            //var animation = new THREE.Animation(child, child.geometry.animation);
+                            //animations.push(animation);
+                            //animation.play();
+                            //camera.lookAt( child.position );
+
+                        }
+
+                    });
+*/
+
+/*
+
+                    // create a material
+                    var mat = new THREE.MeshLambertMaterial(
+                            {color: 0xF0C8C9, skinning: true});
+                    // create and position the mesh
+                    mesh = new THREE.SkinnedMesh(geometry, mat);
+                    mesh.rotation.x = 0.5 * Math.PI;
+                    mesh.rotation.z = 0.7 * Math.PI;
+                    scene.add(mesh);
+                    // create the animation
+                    var animation = new THREE.Animation(mesh, "wave");
+                    // start the animation
+                    animation.play();
+
+                });
+ */
+
+
+/*
+        // skinning
+        loader.load("./models/frankie.json", function (collada) {
+
+            console.log(collada);
+
+            collada.scene.rotateX(-Math.PI / 2);
+
+            collada.scene.position.setY(-10);
+
+            collada.scene.scale.set(10, 10, 10);
+
+            collada.scene.traverse(function (child) {
+
+                console.log(child.id+''+child.sid+' '+ child.type);
+
+                if (child instanceof THREE.SkinnedMesh) {
+
+
+                    //var animation = new THREE.Animation(child, child.geometry.animation);
+                    //animations.push(animation);
+                    //animation.play();
+                    //camera.lookAt( child.position );
+
+                }
+
+            });
+
+           scene.add(mesh);
+
+        });
+*/
+
+        // write your code here
+
+
+        function animate() {
+
+            renderer.render(scene, camera);
+//THREE.AnimationHandler.update(clock. getDelta())
+            THREE.AnimationHandler.update(clock.getDelta());
+
+            requestAnimationFrame(animate);
+
+        }
+
+        animate();
+
+    })();
+
+</script>
+
+</html>
