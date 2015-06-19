@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/three.js"></script>
+  <script src="js/OrbitControls.js"></script>
+    <script src="js/ColladaLoader.js"></script>
+
+
+
+    <link rel="stylesheet" href="css/style.css" />
+  <script src="10_scene_interaction.js"></script>
+</head>
+
+<body>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
+    </div>
+    <div class="panel-body">
+  <ul class="list-group">
+        <li class="list-group-item">
+          <span class="input-group-addon coords">
+              <p>Local position:</p>
+              <p id="mousePosition">0,0</p>
+          </span>
+          <span class="input-group-addon coords">
+              <p>Canvas position:</p>
+              <p id="canvasPosition">0,0</p>
+          </span>
+          <span class="input-group-addon">
+              <p>Current selection</p>
+              <p id="currentSelection">none</p>
+          </span>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <div id="theContainer"></div>
+</body>
+
+<script type="text/javascript">
+
+    /**
+     * WebGL workshop scene template - www.3dweb.cc
+     *
+     * Instructions:
+     * - you need a WebGL enabled browser (check it on http://get.webgl.org)
+     * - if you load assets (textures, models...) you need also a local webserver (see tutorials)
+     */
+
+    // put the variables you want to access from the console here
+    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [];
+
+    (function () {
+
+        // boilerplate
+        container = document.getElementById('theContainer');
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xaabbff);
+        renderer.setSize(640, 480);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 8000);
+        camera.position.set(0, 0, 20);
+
+        container.appendChild(renderer.domElement);
+
+        // warmer light from upper right
+        var theLight1 = new THREE.DirectionalLight(0xffdddd, 2);
+        theLight1.position.set(10, 10, 20);
+        scene.add(theLight1);
+
+        // colder light from upper left
+        var theLight2 = new THREE.DirectionalLight(0xddddff, 1.7);
+        theLight2.position.set(10, 10, -20);
+        scene.add(theLight2);
+
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        var hightlightMaterial = new THREE.MeshPhongMaterial({
+            name: 'highlighted',
+            color: 0x00ff00,
+            opacity: 0.6,
+            transparent: true
+        });
+
+        var selectedMaterial = new THREE.MeshPhongMaterial({
+            name: 'selected',
+            color: 0x0000ff,
+            wireframe: true
+        });
+
+        var mousePositionText = document.getElementById('mousePosition');
+        var canvasPositionText = document.getElementById('canvasPosition');
+        var selectionName = document.getElementById('currentSelection');
+        var mouseVector = new THREE.Vector3();
+        var rayCaster = new THREE.Raycaster();
+
+        // write your code here
+        var loader = new THREE.ColladaLoader();
+
+        loader.options.convertUpAxis = true;
+
+        loader.load('models/wood_man.dae', function (dae) {
+            dae.scene.scale.set(10, 10, 10);
+
+            dae.scene.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    //console.log(child.id+' -> ', child.material.name);
+                    theMaterials[child.id] = child.material;
+                    uniqueMaterials[child.material.id] = child.material;
+                    intersectables.push(child);
+                }
+            });
+
+            $.map(uniqueMaterials, function (mat) {
+                var diffuse;
+
+                switch (mat.name) {
+                    case 'acciao' :
+                        mat.setValues({});
+                        break;
+                    case 'legno' :
+                        diffuse = THREE.ImageUtils.loadTexture('./models/wood_diffuse.jpg');
+                        mat.setValues({
+                            color: 0xff9999,
+                            map: diffuse
+                        });
+                        break;
+                    default:
+                        console.error('missing implementation '+mat.name);
+                }
+            });
+
+            scene.add(dae.scene);
+
+        });
+
+        function normalizeCoordinates(event) {
+            var offset = $(container).offset();
+
+            // canvas element local
+            var localX = event.pageX - offset.left;
+            var localY = event.pageY - offset.top;
+
+            // webgl context
+            var canvasX = (localX / renderer.domElement.width) * 2 - 1;
+            var canvasY = (1 - (localY / renderer.domElement.height)) * 2 - 1;
+
+            return {
+                canvas: {
+                    x: canvasX,
+                    y: canvasY
+                },
+                local: {
+                    x: localX,
+                    y: localY
+                }
+            }
+        }
+
+        var lastMouseDown = new THREE.Vector2();
+        var isMouseDown = false;
+        var lastIntersected;
+        var intersectables = [];
+        var currentIntersection;
+
+        function onMouseDown(event) {
+            event.preventDefault();
+
+            isMouseDown = true;
+
+            var normalized = normalizeCoordinates(event);
+            lastMouseDown.set(normalized.canvas.x, normalized.canvas.y);
+        }
+
+        function onMouseUp(event) {
+            event.preventDefault();
+
+            isMouseDown = false;
+
+            var normalized = normalizeCoordinates(event);
+
+            //console.log(Math.abs(lastMouseDown.x - normalized.canvas.x) + ' > 0.2 || ' + Math.abs(lastMouseDown.y - normalized.canvas.y) + '> 0.2');
+            if (Math.abs(lastMouseDown.x - normalized.canvas.x) > 0.2 || Math.abs(lastMouseDown.y - normalized.canvas.y) > 0.2)
+                return;
+
+            if (currentIntersection !== undefined) {
+                if (currentIntersection.material.name === selectedMaterial.name) {
+                    currentIntersection.material = theMaterials[lastIntersected.id];
+                } else {
+                    currentIntersection.material = selectedMaterial;
+                }
+            }
+
+        }
+
+        function onMouseMove(event) {
+            event.preventDefault();
+
+            var normalized = normalizeCoordinates(event);
+
+            $(mousePositionText).text(normalized.local.x + ', ' + normalized.local.y);
+            $(canvasPositionText).text((Math.round(normalized.canvas.x * 100) / 100) + ',' + (Math.round(normalized.canvas.y * 100) / 100));
+
+            if (isMouseDown)
+                return;
+
+            mouseVector.set(normalized.canvas.x, normalized.canvas.y, 1);
+
+            rayCaster.setFromCamera(mouseVector, camera);
+
+            var intersections = rayCaster.intersectObjects(intersectables);
+
+            if (intersections.length > 0) {
+                currentIntersection = intersections[0].object;
+                console.log(currentIntersection.id + ' -> ', currentIntersection.material.name);
+                if (currentIntersection.material.name !== selectedMaterial.name && currentIntersection.material.name !== hightlightMaterial.name) {
+                    currentIntersection.material = hightlightMaterial;
+                    console.log(theMaterials[currentIntersection.id].name);
+                }
+                $(selectionName).text(currentIntersection.id);
+            } else {
+                $(selectionName).text('none');
+                currentIntersection = undefined;
+            }
+
+            if (lastIntersected !== undefined && lastIntersected !== currentIntersection) {
+
+                if (lastIntersected.material.name !== selectedMaterial.name) {
+                    lastIntersected.material = theMaterials[lastIntersected.id];
+                }
+
+            }
+
+
+            lastIntersected = currentIntersection;
+
+        }
+
+        $(renderer.domElement).on('touchmove', onMouseMove);
+        $(renderer.domElement).on('mousemove', onMouseMove);
+        $(renderer.domElement).on('mouseup', onMouseUp);
+        $(renderer.domElement).on('mousedown', onMouseDown);
+
+        function animate(timeFrame) {
+
+            renderer.render(scene, camera);
+
+            requestAnimationFrame(animate);
+
+        }
+
+        animate();
+
+    })();
+
+</script>
+
+</html>
