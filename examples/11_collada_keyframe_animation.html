@@ -56,7 +56,7 @@
       // put the variables you want to access from the console here
       var container, renderer, scene, camera, materials = {};
 
-      (function() {
+      (function () {
 
           // boilerplate
           container = document.getElementById('theContainer');
@@ -79,122 +79,77 @@
 
           // colder light from upper left
           var theLight2 = new THREE.DirectionalLight(0xddddff, 0.7);
-          theLight2.position.set(10, 10, -20);
+          theLight2.position.set(-10, 10, 20);
           scene.add(theLight2);
 
           controls = new THREE.OrbitControls(camera, renderer.domElement);
 
           var materialArray = [];
-          var imageNames  =
+          var imageNames =
                   ['posx', 'negx', 'posy', 'negy', 'posz', 'negz'];
 
           var imageSuffix = '.jpg';
           for (var i = 0; i < 6; i++) {
               materialArray.push(new THREE.MeshBasicMaterial({
-                  map: THREE.ImageUtils.loadTexture(
-                          'img/'+imageNames[i]+imageSuffix ),
+                  map : THREE.ImageUtils.loadTexture(
+                          'img/' + imageNames[i] + imageSuffix),
                   side: THREE.BackSide
               }));
           }
 
-          var skyGeometry = new THREE.BoxGeometry(5000,5000,5000);
+          var skyGeometry = new THREE.BoxGeometry(5000, 5000, 5000);
           var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
           var sky = new THREE.Mesh(skyGeometry, skyMaterial);
           sky.name = 'sky';
 
-          scene.add(sky);
+          //scene.add(sky);
 
-          var kfAnimations = [], kfAnimationsLength = 0, lastTimestamp = 0;
+          var kfAnimations = [], lastTimestamp = 0;
           var progress = 0;
 
           // write your code here
           var loader = new THREE.ColladaLoader();
-          loader.load('./models/clock.dae', function(collada) {
+          loader.load('./models/clock.dae', function (collada) {
 
               var model = collada.scene;
-              model.rotateX(Math.PI/2);
+
+              // placing model
+              model.rotateX(Math.PI / 2);
               model.rotateZ(Math.PI);
+              model.rotateY(Math.PI / 2);
+
               var animations = collada.animations;
-              kfAnimationsLength = animations.length;
 
               // KeyFrame Animations
               var animation, kfAnimation;
-              for ( var i = 0; i < kfAnimationsLength; ++i ) {
+              for (var i = 0; i < animations.length; ++i) {
 
-                  animation = animations[ i ];
+                  animation = animations[i];
 
-                  kfAnimation = new THREE.KeyFrameAnimation( animation );
-                  kfAnimation.timeScale = 1;
-                  kfAnimations.push( kfAnimation );
-
-              }
-
-              for ( var k = 0; k < kfAnimationsLength; ++k ) {
-
-                  animation = kfAnimations[k];
-
-                  for ( var h = 0, hl = animation.hierarchy.length; h < hl; h++ ) {
-
-                      var keys = animation.data.hierarchy[ h ].keys;
-                      var sids = animation.data.hierarchy[ h ].sids;
-                      var obj = animation.hierarchy[ h ];
-
-                      if ( keys.length && sids ) {
-
-                          for ( var s = 0; s < sids.length; s++ ) {
-
-                              var sid = sids[ s ];
-                              var next = animation.getNextKeyWith( sid, h, 0 );
-
-                              if ( next ) {
-                                  next.apply( sid );
-                              }
-
-                          }
-
-                          obj.matrixAutoUpdate = false;
-                          animation.data.hierarchy[ h ].node.updateMatrix();
-                          obj.matrixWorldNeedsUpdate = true;
-
-                      }
-
-                  }
-
-                  animation.loop = true;
-                  animation.play();
+                  kfAnimation = new THREE.KeyFrameAnimation(animation);
+                  //kfAnimation.timeScale = 5;
+                  kfAnimation.loop = true;
+                  kfAnimation.play();
+                  kfAnimations.push(kfAnimation);
 
               }
 
-              scene.add( model );
+              scene.add(model);
 
           });
 
           function animate(timestamp) {
               renderer.render(scene, camera);
 
-              var frameTime = ( timestamp - lastTimestamp ) * 0.005;
+              var frameTime = ( timestamp - lastTimestamp ) * 0.05;
 
-              //console.log(frameTime);
-              //if ( progress >= 0 && progress < 48 ) {
 
-                  for ( var i = 0; i < kfAnimationsLength; ++i ) {
+              for (var i = 0; i < kfAnimations.length; ++i) {
 
-                      kfAnimations[ i ].update( frameTime );
+                  kfAnimations[i].update(frameTime);
 
-                  }
+              }
 
-              /*} else if ( progress >= 48 ) {
-
-                  for ( var i = 0; i < kfAnimationsLength; ++i ) {
-
-                      kfAnimations[ i ].stop();
-
-                  }
-
-                  progress = 0;
-                  start();
-
-              }*/
 
               progress += frameTime;
               lastTimestamp = timestamp;

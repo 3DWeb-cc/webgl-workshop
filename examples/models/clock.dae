@@ -5,195 +5,772 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.73.0 commit date:2015-01-20, commit time:18:16, hash:bbf09d9</authoring_tool>
     </contributor>
-    <created>2015-06-19T18:45:50</created>
-    <modified>2015-06-19T18:45:50</modified>
+    <created>2015-06-19T19:11:26</created>
+    <modified>2015-06-19T19:11:26</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_images/>
+  <library_effects>
+    <effect id="stick-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.64 0.64 0.64 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="seconds-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.64 0.003674884 0 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="quad-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.04624195 0.04624195 0.04624195 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="stick-material" name="stick">
+      <instance_effect url="#stick-effect"/>
+    </material>
+    <material id="seconds-material" name="seconds">
+      <instance_effect url="#seconds-effect"/>
+    </material>
+    <material id="quad-material" name="quad">
+      <instance_effect url="#quad-effect"/>
+    </material>
+  </library_materials>
   <library_geometries>
-    <geometry id="Cube_001-mesh" name="Cube.001">
+    <geometry id="hours_geometry-mesh" name="hours_geometry">
       <mesh>
-        <source id="Cube_001-mesh-positions">
-          <float_array id="Cube_001-mesh-positions-array" count="48">-1 -0.6674421 -1 -1 0.6674421 -1 1 0.6674421 -1 1 -0.6674421 -1 -1 -0.6674421 1 -1 0.6674421 1 1 0.6674421 1 1 -0.6674421 1 7.611797 1.20547 -1.753359 7.611797 -1.20547 -1.753359 7.611797 1.20547 1.753359 7.611797 -1.20547 1.753359 9.153973 0.1570631 -0.2252726 9.153973 -0.1570631 -0.2252726 9.153973 0.1570631 0.2252726 9.153973 -0.1570631 0.2252726</float_array>
+        <source id="hours_geometry-mesh-positions">
+          <float_array id="hours_geometry-mesh-positions-array" count="48">-1 -0.6674421 -1 -1 0.6674421 -1 1 0.6674421 -1 1 -0.6674421 -1 -1 -0.6674421 1 -1 0.6674421 1 1 0.6674421 1 1 -0.6674421 1 7.611797 1.20547 -1.753359 7.611797 -1.20547 -1.753359 7.611797 1.20547 1.753359 7.611797 -1.20547 1.753359 9.153973 0.1570631 -0.2252726 9.153973 -0.1570631 -0.2252726 9.153973 0.1570631 0.2252726 9.153973 -0.1570631 0.2252726</float_array>
           <technique_common>
-            <accessor source="#Cube_001-mesh-positions-array" count="16" stride="3">
+            <accessor source="#hours_geometry-mesh-positions-array" count="16" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <source id="Cube_001-mesh-normals">
-          <float_array id="Cube_001-mesh-normals-array" count="84">-1 0 0 0 1 0 -0.113209 0 -0.9935712 0 -1 0 0 0 -1 0 0 1 0.7038543 0 -0.7103443 -0.08110576 -0.9967055 0 -0.113209 0 0.9935712 -0.08110576 0.9967055 0 1 0 0 0.5622099 -0.8269946 0 0.7038543 0 0.7103443 0.5622099 0.8269946 0 -1 0 0 0 1 0 -0.113209 0 -0.9935712 0 -1 0 0 0 -1 0 0 1 0.7038544 0 -0.7103443 -0.08110576 -0.9967055 0 -0.113209 0 0.9935712 -0.08110576 0.9967055 0 1 0 0 0.5622099 -0.8269945 0 0.7038544 0 0.7103443 0.5622099 0.8269945 0</float_array>
+        <source id="hours_geometry-mesh-normals">
+          <float_array id="hours_geometry-mesh-normals-array" count="84">-1 0 0 0 1 0 -0.113209 0 -0.9935712 0 -1 0 0 0 -1 0 0 1 0.7038543 0 -0.7103443 -0.08110576 -0.9967055 0 -0.113209 0 0.9935712 -0.08110576 0.9967055 0 1 0 0 0.5622099 -0.8269946 0 0.7038543 0 0.7103443 0.5622099 0.8269946 0 -1 0 0 0 1 0 -0.113209 0 -0.9935712 0 -1 0 0 0 -1 0 0 1 0.7038544 0 -0.7103443 -0.08110576 -0.9967055 0 -0.113209 0 0.9935712 -0.08110576 0.9967055 0 1 0 0 0.5622099 -0.8269945 0 0.7038544 0 0.7103443 0.5622099 0.8269945 0</float_array>
           <technique_common>
-            <accessor source="#Cube_001-mesh-normals-array" count="28" stride="3">
+            <accessor source="#hours_geometry-mesh-normals-array" count="28" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
             </accessor>
           </technique_common>
         </source>
-        <vertices id="Cube_001-mesh-vertices">
-          <input semantic="POSITION" source="#Cube_001-mesh-positions"/>
+        <vertices id="hours_geometry-mesh-vertices">
+          <input semantic="POSITION" source="#hours_geometry-mesh-positions"/>
         </vertices>
-        <polylist count="28">
-          <input semantic="VERTEX" source="#Cube_001-mesh-vertices" offset="0"/>
-          <input semantic="NORMAL" source="#Cube_001-mesh-normals" offset="1"/>
+        <polylist material="stick-material" count="28">
+          <input semantic="VERTEX" source="#hours_geometry-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#hours_geometry-mesh-normals" offset="1"/>
           <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
           <p>5 0 1 0 0 0 6 1 2 1 1 1 2 2 8 2 9 2 4 3 0 3 3 3 1 4 2 4 3 4 6 5 5 5 4 5 8 6 12 6 13 6 3 7 9 7 11 7 7 8 11 8 10 8 6 9 10 9 8 9 15 10 13 10 12 10 9 11 13 11 15 11 11 12 15 12 14 12 10 13 14 13 12 13 4 14 5 14 0 14 5 15 6 15 1 15 3 16 2 16 9 16 7 17 4 17 3 17 0 18 1 18 3 18 7 19 6 19 4 19 9 20 8 20 13 20 7 21 3 21 11 21 6 22 7 22 10 22 2 23 6 23 8 23 14 24 15 24 12 24 11 25 9 25 15 25 10 26 11 26 14 26 8 27 10 27 12 27</p>
         </polylist>
       </mesh>
     </geometry>
+    <geometry id="minutes_geometry-mesh" name="minutes_geometry">
+      <mesh>
+        <source id="minutes_geometry-mesh-positions">
+          <float_array id="minutes_geometry-mesh-positions-array" count="48">-1 -0.6674421 -1 -1 0.6674421 -1 1 0.6674421 -1 1 -0.6674421 -1 -1 -0.6674421 1 -1 0.6674421 1 1 0.6674421 1 1 -0.6674421 1 7.611797 1.20547 -1.753359 7.611797 -1.20547 -1.753359 7.611797 1.20547 1.753359 7.611797 -1.20547 1.753359 9.153973 0.1570631 -0.2252726 9.153973 -0.1570631 -0.2252726 9.153973 0.1570631 0.2252726 9.153973 -0.1570631 0.2252726</float_array>
+          <technique_common>
+            <accessor source="#minutes_geometry-mesh-positions-array" count="16" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="minutes_geometry-mesh-normals">
+          <float_array id="minutes_geometry-mesh-normals-array" count="84">-1 0 0 0 1 0 -0.113209 0 -0.9935712 0 -1 0 0 0 -1 0 0 1 0.7038543 0 -0.7103443 -0.08110576 -0.9967055 0 -0.113209 0 0.9935712 -0.08110576 0.9967055 0 1 0 0 0.5622099 -0.8269946 0 0.7038543 0 0.7103443 0.5622099 0.8269946 0 -1 0 0 0 1 0 -0.113209 0 -0.9935712 0 -1 0 0 0 -1 0 0 1 0.7038544 0 -0.7103443 -0.08110576 -0.9967055 0 -0.113209 0 0.9935712 -0.08110576 0.9967055 0 1 0 0 0.5622099 -0.8269945 0 0.7038544 0 0.7103443 0.5622099 0.8269945 0</float_array>
+          <technique_common>
+            <accessor source="#minutes_geometry-mesh-normals-array" count="28" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="minutes_geometry-mesh-vertices">
+          <input semantic="POSITION" source="#minutes_geometry-mesh-positions"/>
+        </vertices>
+        <polylist material="stick-material" count="28">
+          <input semantic="VERTEX" source="#minutes_geometry-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#minutes_geometry-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>5 0 1 0 0 0 6 1 2 1 1 1 2 2 8 2 9 2 4 3 0 3 3 3 1 4 2 4 3 4 6 5 5 5 4 5 8 6 12 6 13 6 3 7 9 7 11 7 7 8 11 8 10 8 6 9 10 9 8 9 15 10 13 10 12 10 9 11 13 11 15 11 11 12 15 12 14 12 10 13 14 13 12 13 4 14 5 14 0 14 5 15 6 15 1 15 3 16 2 16 9 16 7 17 4 17 3 17 0 18 1 18 3 18 7 19 6 19 4 19 9 20 8 20 13 20 7 21 3 21 11 21 6 22 7 22 10 22 2 23 6 23 8 23 14 24 15 24 12 24 11 25 9 25 15 25 10 26 11 26 14 26 8 27 10 27 12 27</p>
+        </polylist>
+      </mesh>
+    </geometry>
+    <geometry id="seconds_geometry-mesh" name="seconds_geometry">
+      <mesh>
+        <source id="seconds_geometry-mesh-positions">
+          <float_array id="seconds_geometry-mesh-positions-array" count="36">-1 -1 -1 -1 1 -1 1 1 -1 1 -1 -1 -1 -1 1 -1 1 1 1 1 1 1 -1 1 17.77676 0.2186384 -0.1712043 17.77676 -0.2186384 -0.1712043 17.77676 0.2186384 0.1712043 17.77676 -0.2186384 0.1712043</float_array>
+          <technique_common>
+            <accessor source="#seconds_geometry-mesh-positions-array" count="12" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="seconds_geometry-mesh-normals">
+          <float_array id="seconds_geometry-mesh-normals-array" count="60">-1 0 0 0 1 0 0.04934126 0 -0.998782 0 -1 0 0 0 -1 0 0 1 1 0 0 0.04652363 -0.9989172 0 0.04934126 0 0.998782 0.04652363 0.9989172 0 -1 0 0 0 1 0 0.04934126 0 -0.998782 0 -1 0 0 0 -1 0 0 1 1 0 0 0.04652363 -0.9989173 0 0.04934126 0 0.998782 0.04652363 0.9989173 0</float_array>
+          <technique_common>
+            <accessor source="#seconds_geometry-mesh-normals-array" count="20" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="seconds_geometry-mesh-vertices">
+          <input semantic="POSITION" source="#seconds_geometry-mesh-positions"/>
+        </vertices>
+        <polylist material="seconds-material" count="20">
+          <input semantic="VERTEX" source="#seconds_geometry-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#seconds_geometry-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>5 0 1 0 0 0 6 1 2 1 1 1 2 2 8 2 9 2 4 3 0 3 3 3 1 4 2 4 3 4 6 5 5 5 4 5 11 6 9 6 8 6 3 7 9 7 11 7 7 8 11 8 10 8 6 9 10 9 8 9 4 10 5 10 0 10 5 11 6 11 1 11 3 12 2 12 9 12 7 13 4 13 3 13 0 14 1 14 3 14 7 15 6 15 4 15 10 16 11 16 8 16 7 17 3 17 11 17 6 18 7 18 10 18 2 19 6 19 8 19</p>
+        </polylist>
+      </mesh>
+    </geometry>
+    <geometry id="cyl_1_geometry-mesh" name="cyl_1_geometry">
+      <mesh>
+        <source id="cyl_1_geometry-mesh-positions">
+          <float_array id="cyl_1_geometry-mesh-positions-array" count="96">0 0.9999997 -0.4722883 0 1 1 0.3826835 0.9238792 -0.4722883 0.3826835 0.9238795 1 0.7071068 0.7071064 -0.4722883 0.7071068 0.7071068 1 0.9238795 0.382683 -0.4722883 0.9238795 0.3826834 1 1 -4.1365e-7 -0.4722883 1 0 1 0.9238795 -0.3826839 -0.4722883 0.9238795 -0.3826835 1 0.7071068 -0.7071071 -0.4722883 0.7071068 -0.7071068 1 0.3826835 -0.9238799 -0.4722883 0.3826835 -0.9238795 1 1.50996e-7 -1 -0.4722883 1.50996e-7 -1 1 -0.3826832 -0.92388 -0.4722883 -0.3826832 -0.9238796 1 -0.7071066 -0.7071074 -0.4722883 -0.7071066 -0.707107 1 -0.9238795 -0.3826839 -0.4722883 -0.9238795 -0.3826836 1 -1 -3.58014e-7 -0.4722883 -1 0 1 -0.9238795 0.3826832 -0.4722883 -0.9238795 0.3826836 1 -0.7071065 0.7071067 -0.4722883 -0.7071065 0.707107 1 -0.382683 0.9238794 -0.4722883 -0.382683 0.9238798 1</float_array>
+          <technique_common>
+            <accessor source="#cyl_1_geometry-mesh-positions-array" count="32" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="cyl_1_geometry-mesh-normals">
+          <float_array id="cyl_1_geometry-mesh-normals-array" count="180">0.1950904 0.9807853 -2.38239e-7 0.5555703 0.8314696 -2.01969e-7 0.8314697 0.5555702 -1.34951e-7 0.9807853 0.1950904 0 0.9807853 -0.1950904 0 0.8314695 -0.5555703 1.34951e-7 0.5555703 -0.8314695 2.01969e-7 0.1950904 -0.9807853 2.38239e-7 -0.1950901 -0.9807853 2.38239e-7 -0.55557 -0.8314698 2.01969e-7 -0.8314695 -0.5555704 1.34951e-7 -0.9807853 -0.1950903 0 -0.9807853 0.1950904 0 -0.8314695 0.5555704 -1.34951e-7 0 0 1 -0.19509 0.9807854 -2.38239e-7 -0.55557 0.8314698 -2.01969e-7 0 0 -1 0.1950904 0.9807853 -2.38239e-7 0.5555703 0.8314696 -1.94546e-7 0.8314697 0.5555702 -1.29697e-7 0.9807853 0.1950904 0 0.9807853 -0.1950904 0 0.8314695 -0.5555703 1.42667e-7 0.5555703 -0.8314695 1.94546e-7 0.1950904 -0.9807853 2.36698e-7 -0.1950901 -0.9807853 2.38239e-7 -0.55557 -0.8314698 2.01969e-7 -0.8314694 -0.5555704 1.34951e-7 -0.9807853 -0.1950903 0 -0.9807853 0.1950904 0 -0.8314695 0.5555704 -1.34951e-7 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 -0.19509 0.9807854 -2.38239e-7 -0.55557 0.8314698 -2.01969e-7 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1</float_array>
+          <technique_common>
+            <accessor source="#cyl_1_geometry-mesh-normals-array" count="60" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="cyl_1_geometry-mesh-vertices">
+          <input semantic="POSITION" source="#cyl_1_geometry-mesh-positions"/>
+        </vertices>
+        <polylist material="quad-material" count="60">
+          <input semantic="VERTEX" source="#cyl_1_geometry-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#cyl_1_geometry-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>1 0 3 0 2 0 2 1 3 1 5 1 4 2 5 2 7 2 6 3 7 3 9 3 8 4 9 4 11 4 10 5 11 5 13 5 12 6 13 6 15 6 14 7 15 7 17 7 17 8 19 8 18 8 19 9 21 9 20 9 21 10 23 10 22 10 23 11 25 11 24 11 25 12 27 12 26 12 27 13 29 13 28 13 3 14 27 14 19 14 31 15 1 15 0 15 29 16 31 16 30 16 0 17 8 17 12 17 0 18 1 18 2 18 4 19 2 19 5 19 6 20 4 20 7 20 8 21 6 21 9 21 10 22 8 22 11 22 12 23 10 23 13 23 14 24 12 24 15 24 16 25 14 25 17 25 16 26 17 26 18 26 18 27 19 27 20 27 20 28 21 28 22 28 22 29 23 29 24 29 24 30 25 30 26 30 26 31 27 31 28 31 7 32 5 32 3 32 11 33 9 33 7 33 19 34 13 34 11 34 13 35 17 35 15 35 25 36 21 36 19 36 21 37 25 37 23 37 31 38 29 38 27 38 3 39 1 39 31 39 11 40 7 40 3 40 19 41 17 41 13 41 27 42 25 42 19 42 3 43 31 43 27 43 19 44 11 44 3 44 30 45 31 45 0 45 28 46 29 46 30 46 28 47 30 47 0 47 24 48 26 48 28 48 20 49 22 49 24 49 16 50 18 50 20 50 12 51 14 51 16 51 8 52 10 52 12 52 4 53 6 53 8 53 0 54 2 54 4 54 24 55 28 55 0 55 16 56 20 56 24 56 24 57 12 57 16 57 0 58 4 58 8 58 12 59 24 59 0 59</p>
+        </polylist>
+      </mesh>
+    </geometry>
+    <geometry id="quad_geometry-mesh" name="quad_geometry">
+      <mesh>
+        <source id="quad_geometry-mesh-positions">
+          <float_array id="quad_geometry-mesh-positions-array" count="96">0 1 -1 0 1 1 0.3826835 0.9238795 -1 0.3826835 0.9238795 1 0.7071068 0.7071068 -1 0.7071068 0.7071068 1 0.9238795 0.3826834 -1 0.9238795 0.3826834 1 1 0 -1 1 0 1 0.9238795 -0.3826835 -1 0.9238795 -0.3826835 1 0.7071068 -0.7071068 -1 0.7071068 -0.7071068 1 0.3826835 -0.9238795 -1 0.3826835 -0.9238795 1 1.50996e-7 -1 -1 1.50996e-7 -1 1 -0.3826832 -0.9238796 -1 -0.3826832 -0.9238796 1 -0.7071066 -0.707107 -1 -0.7071066 -0.707107 1 -0.9238795 -0.3826836 -1 -0.9238795 -0.3826836 1 -1 0 -1 -1 0 1 -0.9238795 0.3826836 -1 -0.9238795 0.3826836 1 -0.7071065 0.707107 -1 -0.7071065 0.707107 1 -0.382683 0.9238798 -1 -0.382683 0.9238798 1</float_array>
+          <technique_common>
+            <accessor source="#quad_geometry-mesh-positions-array" count="32" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="quad_geometry-mesh-normals">
+          <float_array id="quad_geometry-mesh-normals-array" count="180">0.1950904 0.9807853 0 0.5555703 0.8314697 0 0.8314695 0.5555702 0 0.9807853 0.1950904 0 0.9807853 -0.1950904 0 0.8314695 -0.5555703 0 0.5555703 -0.8314695 0 0.1950904 -0.9807853 0 -0.1950901 -0.9807853 0 -0.55557 -0.8314698 0 -0.8314695 -0.5555704 0 -0.9807853 -0.1950903 0 -0.9807852 0.1950904 0 -0.8314695 0.5555705 0 0 0 1 -0.19509 0.9807854 0 -0.55557 0.8314698 0 0 0 -1 0.1950904 0.9807853 0 0.5555703 0.8314697 0 0.8314695 0.5555702 0 0.9807853 0.1950904 0 0.9807853 -0.1950904 0 0.8314695 -0.5555703 0 0.5555703 -0.8314695 0 0.1950904 -0.9807853 0 -0.1950901 -0.9807853 0 -0.55557 -0.8314698 0 -0.8314695 -0.5555704 0 -0.9807853 -0.1950903 0 -0.9807852 0.1950904 0 -0.8314695 0.5555705 0 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 -0.19509 0.9807854 0 -0.55557 0.8314698 0 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1</float_array>
+          <technique_common>
+            <accessor source="#quad_geometry-mesh-normals-array" count="60" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="quad_geometry-mesh-vertices">
+          <input semantic="POSITION" source="#quad_geometry-mesh-positions"/>
+        </vertices>
+        <polylist material="quad-material" count="60">
+          <input semantic="VERTEX" source="#quad_geometry-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#quad_geometry-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>1 0 3 0 2 0 3 1 5 1 4 1 5 2 7 2 6 2 7 3 9 3 8 3 9 4 11 4 10 4 11 5 13 5 12 5 13 6 15 6 14 6 15 7 17 7 16 7 17 8 19 8 18 8 19 9 21 9 20 9 21 10 23 10 22 10 23 11 25 11 24 11 25 12 27 12 26 12 27 13 29 13 28 13 3 14 27 14 19 14 31 15 1 15 0 15 29 16 31 16 30 16 0 17 8 17 12 17 0 18 1 18 2 18 2 19 3 19 4 19 4 20 5 20 6 20 6 21 7 21 8 21 8 22 9 22 10 22 10 23 11 23 12 23 12 24 13 24 14 24 14 25 15 25 16 25 16 26 17 26 18 26 18 27 19 27 20 27 20 28 21 28 22 28 22 29 23 29 24 29 24 30 25 30 26 30 26 31 27 31 28 31 7 32 5 32 3 32 11 33 9 33 7 33 19 34 13 34 11 34 13 35 17 35 15 35 25 36 21 36 19 36 21 37 25 37 23 37 31 38 29 38 27 38 3 39 1 39 31 39 11 40 7 40 3 40 19 41 17 41 13 41 27 42 25 42 19 42 3 43 31 43 27 43 19 44 11 44 3 44 30 45 31 45 0 45 28 46 29 46 30 46 28 47 30 47 0 47 24 48 26 48 28 48 20 49 22 49 24 49 16 50 18 50 20 50 12 51 14 51 16 51 8 52 10 52 12 52 4 53 6 53 8 53 0 54 2 54 4 54 24 55 28 55 0 55 16 56 20 56 24 56 24 57 12 57 16 57 0 58 4 58 8 58 12 59 24 59 0 59</p>
+        </polylist>
+      </mesh>
+    </geometry>
   </library_geometries>
   <library_animations>
-    <animation id="Cube_rotation_euler_X">
-      <source id="Cube_rotation_euler_X-input">
-        <float_array id="Cube_rotation_euler_X-input-array" count="1">0.04166662</float_array>
+    <animation id="hours_rotation_euler_X">
+      <source id="hours_rotation_euler_X-input">
+        <float_array id="hours_rotation_euler_X-input-array" count="1">0.04166662</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_X-input-array" count="1" stride="1">
+          <accessor source="#hours_rotation_euler_X-input-array" count="1" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_X-output">
-        <float_array id="Cube_rotation_euler_X-output-array" count="1">0</float_array>
+      <source id="hours_rotation_euler_X-output">
+        <float_array id="hours_rotation_euler_X-output-array" count="1">0</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_X-output-array" count="1" stride="1">
+          <accessor source="#hours_rotation_euler_X-output-array" count="1" stride="1">
             <param name="ANGLE" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_X-interpolation">
-        <Name_array id="Cube_rotation_euler_X-interpolation-array" count="1">BEZIER</Name_array>
+      <source id="hours_rotation_euler_X-interpolation">
+        <Name_array id="hours_rotation_euler_X-interpolation-array" count="1">BEZIER</Name_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_X-interpolation-array" count="1" stride="1">
+          <accessor source="#hours_rotation_euler_X-interpolation-array" count="1" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_X-intangent">
-        <float_array id="Cube_rotation_euler_X-intangent-array" count="2">0 0</float_array>
+      <source id="hours_rotation_euler_X-intangent">
+        <float_array id="hours_rotation_euler_X-intangent-array" count="2">0 0</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_X-intangent-array" count="1" stride="2">
+          <accessor source="#hours_rotation_euler_X-intangent-array" count="1" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_X-outtangent">
-        <float_array id="Cube_rotation_euler_X-outtangent-array" count="2">0.08333331 0</float_array>
+      <source id="hours_rotation_euler_X-outtangent">
+        <float_array id="hours_rotation_euler_X-outtangent-array" count="2">0.08333331 0</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_X-outtangent-array" count="1" stride="2">
+          <accessor source="#hours_rotation_euler_X-outtangent-array" count="1" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <sampler id="Cube_rotation_euler_X-sampler">
-        <input semantic="INPUT" source="#Cube_rotation_euler_X-input"/>
-        <input semantic="OUTPUT" source="#Cube_rotation_euler_X-output"/>
-        <input semantic="INTERPOLATION" source="#Cube_rotation_euler_X-interpolation"/>
-        <input semantic="IN_TANGENT" source="#Cube_rotation_euler_X-intangent"/>
-        <input semantic="OUT_TANGENT" source="#Cube_rotation_euler_X-outtangent"/>
+      <sampler id="hours_rotation_euler_X-sampler">
+        <input semantic="INPUT" source="#hours_rotation_euler_X-input"/>
+        <input semantic="OUTPUT" source="#hours_rotation_euler_X-output"/>
+        <input semantic="INTERPOLATION" source="#hours_rotation_euler_X-interpolation"/>
+        <input semantic="IN_TANGENT" source="#hours_rotation_euler_X-intangent"/>
+        <input semantic="OUT_TANGENT" source="#hours_rotation_euler_X-outtangent"/>
       </sampler>
-      <channel source="#Cube_rotation_euler_X-sampler" target="Cube/rotationX.ANGLE"/>
+      <channel source="#hours_rotation_euler_X-sampler" target="hours/rotationX.ANGLE"/>
     </animation>
-    <animation id="Cube_rotation_euler_Y">
-      <source id="Cube_rotation_euler_Y-input">
-        <float_array id="Cube_rotation_euler_Y-input-array" count="2">0.04166662 10.41667</float_array>
+    <animation id="hours_rotation_euler_Y">
+      <source id="hours_rotation_euler_Y-input">
+        <float_array id="hours_rotation_euler_Y-input-array" count="2">0.04166662 10.41667</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Y-input-array" count="2" stride="1">
+          <accessor source="#hours_rotation_euler_Y-input-array" count="2" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_Y-output">
-        <float_array id="Cube_rotation_euler_Y-output-array" count="2">0 360</float_array>
+      <source id="hours_rotation_euler_Y-output">
+        <float_array id="hours_rotation_euler_Y-output-array" count="2">0 360</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Y-output-array" count="2" stride="1">
+          <accessor source="#hours_rotation_euler_Y-output-array" count="2" stride="1">
             <param name="ANGLE" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_Y-interpolation">
-        <Name_array id="Cube_rotation_euler_Y-interpolation-array" count="2">LINEAR LINEAR</Name_array>
+      <source id="hours_rotation_euler_Y-interpolation">
+        <Name_array id="hours_rotation_euler_Y-interpolation-array" count="2">LINEAR LINEAR</Name_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Y-interpolation-array" count="2" stride="1">
+          <accessor source="#hours_rotation_euler_Y-interpolation-array" count="2" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
-      <sampler id="Cube_rotation_euler_Y-sampler">
-        <input semantic="INPUT" source="#Cube_rotation_euler_Y-input"/>
-        <input semantic="OUTPUT" source="#Cube_rotation_euler_Y-output"/>
-        <input semantic="INTERPOLATION" source="#Cube_rotation_euler_Y-interpolation"/>
+      <sampler id="hours_rotation_euler_Y-sampler">
+        <input semantic="INPUT" source="#hours_rotation_euler_Y-input"/>
+        <input semantic="OUTPUT" source="#hours_rotation_euler_Y-output"/>
+        <input semantic="INTERPOLATION" source="#hours_rotation_euler_Y-interpolation"/>
       </sampler>
-      <channel source="#Cube_rotation_euler_Y-sampler" target="Cube/rotationY.ANGLE"/>
+      <channel source="#hours_rotation_euler_Y-sampler" target="hours/rotationY.ANGLE"/>
     </animation>
-    <animation id="Cube_rotation_euler_Z">
-      <source id="Cube_rotation_euler_Z-input">
-        <float_array id="Cube_rotation_euler_Z-input-array" count="2">0.04166662 10.41667</float_array>
+    <animation id="hours_rotation_euler_Z">
+      <source id="hours_rotation_euler_Z-input">
+        <float_array id="hours_rotation_euler_Z-input-array" count="2">0.04166662 10.41667</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Z-input-array" count="2" stride="1">
+          <accessor source="#hours_rotation_euler_Z-input-array" count="2" stride="1">
             <param name="TIME" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_Z-output">
-        <float_array id="Cube_rotation_euler_Z-output-array" count="2">0 0</float_array>
+      <source id="hours_rotation_euler_Z-output">
+        <float_array id="hours_rotation_euler_Z-output-array" count="2">0 0</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Z-output-array" count="2" stride="1">
+          <accessor source="#hours_rotation_euler_Z-output-array" count="2" stride="1">
             <param name="ANGLE" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_Z-interpolation">
-        <Name_array id="Cube_rotation_euler_Z-interpolation-array" count="2">BEZIER BEZIER</Name_array>
+      <source id="hours_rotation_euler_Z-interpolation">
+        <Name_array id="hours_rotation_euler_Z-interpolation-array" count="2">BEZIER BEZIER</Name_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Z-interpolation-array" count="2" stride="1">
+          <accessor source="#hours_rotation_euler_Z-interpolation-array" count="2" stride="1">
             <param name="INTERPOLATION" type="name"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_Z-intangent">
-        <float_array id="Cube_rotation_euler_Z-intangent-array" count="4">-4.008852 0 6.366147 0</float_array>
+      <source id="hours_rotation_euler_Z-intangent">
+        <float_array id="hours_rotation_euler_Z-intangent-array" count="4">-4.008852 0 6.366147 0</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Z-intangent-array" count="2" stride="2">
+          <accessor source="#hours_rotation_euler_Z-intangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <source id="Cube_rotation_euler_Z-outtangent">
-        <float_array id="Cube_rotation_euler_Z-outtangent-array" count="4">4.092186 0 14.46719 0</float_array>
+      <source id="hours_rotation_euler_Z-outtangent">
+        <float_array id="hours_rotation_euler_Z-outtangent-array" count="4">4.092186 0 14.46719 0</float_array>
         <technique_common>
-          <accessor source="#Cube_rotation_euler_Z-outtangent-array" count="2" stride="2">
+          <accessor source="#hours_rotation_euler_Z-outtangent-array" count="2" stride="2">
             <param name="X" type="float"/>
             <param name="Y" type="float"/>
           </accessor>
         </technique_common>
       </source>
-      <sampler id="Cube_rotation_euler_Z-sampler">
-        <input semantic="INPUT" source="#Cube_rotation_euler_Z-input"/>
-        <input semantic="OUTPUT" source="#Cube_rotation_euler_Z-output"/>
-        <input semantic="INTERPOLATION" source="#Cube_rotation_euler_Z-interpolation"/>
-        <input semantic="IN_TANGENT" source="#Cube_rotation_euler_Z-intangent"/>
-        <input semantic="OUT_TANGENT" source="#Cube_rotation_euler_Z-outtangent"/>
+      <sampler id="hours_rotation_euler_Z-sampler">
+        <input semantic="INPUT" source="#hours_rotation_euler_Z-input"/>
+        <input semantic="OUTPUT" source="#hours_rotation_euler_Z-output"/>
+        <input semantic="INTERPOLATION" source="#hours_rotation_euler_Z-interpolation"/>
+        <input semantic="IN_TANGENT" source="#hours_rotation_euler_Z-intangent"/>
+        <input semantic="OUT_TANGENT" source="#hours_rotation_euler_Z-outtangent"/>
       </sampler>
-      <channel source="#Cube_rotation_euler_Z-sampler" target="Cube/rotationZ.ANGLE"/>
+      <channel source="#hours_rotation_euler_Z-sampler" target="hours/rotationZ.ANGLE"/>
+    </animation>
+    <animation id="minutes_rotation_euler_X">
+      <source id="minutes_rotation_euler_X-input">
+        <float_array id="minutes_rotation_euler_X-input-array" count="1">0.04166662</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_X-input-array" count="1" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_X-output">
+        <float_array id="minutes_rotation_euler_X-output-array" count="1">0</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_X-output-array" count="1" stride="1">
+            <param name="ANGLE" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_X-interpolation">
+        <Name_array id="minutes_rotation_euler_X-interpolation-array" count="1">BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_X-interpolation-array" count="1" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_X-intangent">
+        <float_array id="minutes_rotation_euler_X-intangent-array" count="2">0 0</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_X-intangent-array" count="1" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_X-outtangent">
+        <float_array id="minutes_rotation_euler_X-outtangent-array" count="2">0.08333331 0</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_X-outtangent-array" count="1" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="minutes_rotation_euler_X-sampler">
+        <input semantic="INPUT" source="#minutes_rotation_euler_X-input"/>
+        <input semantic="OUTPUT" source="#minutes_rotation_euler_X-output"/>
+        <input semantic="INTERPOLATION" source="#minutes_rotation_euler_X-interpolation"/>
+        <input semantic="IN_TANGENT" source="#minutes_rotation_euler_X-intangent"/>
+        <input semantic="OUT_TANGENT" source="#minutes_rotation_euler_X-outtangent"/>
+      </sampler>
+      <channel source="#minutes_rotation_euler_X-sampler" target="minutes/rotationX.ANGLE"/>
+    </animation>
+    <animation id="minutes_rotation_euler_Y">
+      <source id="minutes_rotation_euler_Y-input">
+        <float_array id="minutes_rotation_euler_Y-input-array" count="2">0.04166662 10.41667</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Y-input-array" count="2" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_Y-output">
+        <float_array id="minutes_rotation_euler_Y-output-array" count="2">0 4320</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Y-output-array" count="2" stride="1">
+            <param name="ANGLE" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_Y-interpolation">
+        <Name_array id="minutes_rotation_euler_Y-interpolation-array" count="2">LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Y-interpolation-array" count="2" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="minutes_rotation_euler_Y-sampler">
+        <input semantic="INPUT" source="#minutes_rotation_euler_Y-input"/>
+        <input semantic="OUTPUT" source="#minutes_rotation_euler_Y-output"/>
+        <input semantic="INTERPOLATION" source="#minutes_rotation_euler_Y-interpolation"/>
+      </sampler>
+      <channel source="#minutes_rotation_euler_Y-sampler" target="minutes/rotationY.ANGLE"/>
+    </animation>
+    <animation id="minutes_rotation_euler_Z">
+      <source id="minutes_rotation_euler_Z-input">
+        <float_array id="minutes_rotation_euler_Z-input-array" count="2">0.04166662 10.41667</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Z-input-array" count="2" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_Z-output">
+        <float_array id="minutes_rotation_euler_Z-output-array" count="2">0 0</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Z-output-array" count="2" stride="1">
+            <param name="ANGLE" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_Z-interpolation">
+        <Name_array id="minutes_rotation_euler_Z-interpolation-array" count="2">BEZIER BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Z-interpolation-array" count="2" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_Z-intangent">
+        <float_array id="minutes_rotation_euler_Z-intangent-array" count="4">-4.008852 0 6.366147 0</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Z-intangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="minutes_rotation_euler_Z-outtangent">
+        <float_array id="minutes_rotation_euler_Z-outtangent-array" count="4">4.092186 0 14.46719 0</float_array>
+        <technique_common>
+          <accessor source="#minutes_rotation_euler_Z-outtangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="minutes_rotation_euler_Z-sampler">
+        <input semantic="INPUT" source="#minutes_rotation_euler_Z-input"/>
+        <input semantic="OUTPUT" source="#minutes_rotation_euler_Z-output"/>
+        <input semantic="INTERPOLATION" source="#minutes_rotation_euler_Z-interpolation"/>
+        <input semantic="IN_TANGENT" source="#minutes_rotation_euler_Z-intangent"/>
+        <input semantic="OUT_TANGENT" source="#minutes_rotation_euler_Z-outtangent"/>
+      </sampler>
+      <channel source="#minutes_rotation_euler_Z-sampler" target="minutes/rotationZ.ANGLE"/>
+    </animation>
+    <animation id="seconds_rotation_euler_X">
+      <source id="seconds_rotation_euler_X-input">
+        <float_array id="seconds_rotation_euler_X-input-array" count="1">0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_X-input-array" count="1" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_X-output">
+        <float_array id="seconds_rotation_euler_X-output-array" count="1">0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_X-output-array" count="1" stride="1">
+            <param name="ANGLE" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_X-interpolation">
+        <Name_array id="seconds_rotation_euler_X-interpolation-array" count="1">BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_X-interpolation-array" count="1" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_X-intangent">
+        <float_array id="seconds_rotation_euler_X-intangent-array" count="2">-0.04166662 0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_X-intangent-array" count="1" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_X-outtangent">
+        <float_array id="seconds_rotation_euler_X-outtangent-array" count="2">0.04166662 0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_X-outtangent-array" count="1" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="seconds_rotation_euler_X-sampler">
+        <input semantic="INPUT" source="#seconds_rotation_euler_X-input"/>
+        <input semantic="OUTPUT" source="#seconds_rotation_euler_X-output"/>
+        <input semantic="INTERPOLATION" source="#seconds_rotation_euler_X-interpolation"/>
+        <input semantic="IN_TANGENT" source="#seconds_rotation_euler_X-intangent"/>
+        <input semantic="OUT_TANGENT" source="#seconds_rotation_euler_X-outtangent"/>
+      </sampler>
+      <channel source="#seconds_rotation_euler_X-sampler" target="seconds/rotationX.ANGLE"/>
+    </animation>
+    <animation id="seconds_rotation_euler_Y">
+      <source id="seconds_rotation_euler_Y-input">
+        <float_array id="seconds_rotation_euler_Y-input-array" count="2">0 10.41667</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Y-input-array" count="2" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Y-output">
+        <float_array id="seconds_rotation_euler_Y-output-array" count="2">0 259200</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Y-output-array" count="2" stride="1">
+            <param name="ANGLE" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Y-interpolation">
+        <Name_array id="seconds_rotation_euler_Y-interpolation-array" count="2">BEZIER BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Y-interpolation-array" count="2" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Y-intangent">
+        <float_array id="seconds_rotation_euler_Y-intangent-array" count="4">-4.066786 0 6.34988 259200</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Y-intangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Y-outtangent">
+        <float_array id="seconds_rotation_euler_Y-outtangent-array" count="4">4.066786 0 14.48345 259200</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Y-outtangent-array" count="2" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="seconds_rotation_euler_Y-sampler">
+        <input semantic="INPUT" source="#seconds_rotation_euler_Y-input"/>
+        <input semantic="OUTPUT" source="#seconds_rotation_euler_Y-output"/>
+        <input semantic="INTERPOLATION" source="#seconds_rotation_euler_Y-interpolation"/>
+        <input semantic="IN_TANGENT" source="#seconds_rotation_euler_Y-intangent"/>
+        <input semantic="OUT_TANGENT" source="#seconds_rotation_euler_Y-outtangent"/>
+      </sampler>
+      <channel source="#seconds_rotation_euler_Y-sampler" target="seconds/rotationY.ANGLE"/>
+    </animation>
+    <animation id="seconds_rotation_euler_Z">
+      <source id="seconds_rotation_euler_Z-input">
+        <float_array id="seconds_rotation_euler_Z-input-array" count="1">0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Z-input-array" count="1" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Z-output">
+        <float_array id="seconds_rotation_euler_Z-output-array" count="1">0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Z-output-array" count="1" stride="1">
+            <param name="ANGLE" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Z-interpolation">
+        <Name_array id="seconds_rotation_euler_Z-interpolation-array" count="1">BEZIER</Name_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Z-interpolation-array" count="1" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Z-intangent">
+        <float_array id="seconds_rotation_euler_Z-intangent-array" count="2">-0.04166662 0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Z-intangent-array" count="1" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="seconds_rotation_euler_Z-outtangent">
+        <float_array id="seconds_rotation_euler_Z-outtangent-array" count="2">0.04166662 0</float_array>
+        <technique_common>
+          <accessor source="#seconds_rotation_euler_Z-outtangent-array" count="1" stride="2">
+            <param name="X" type="float"/>
+            <param name="Y" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="seconds_rotation_euler_Z-sampler">
+        <input semantic="INPUT" source="#seconds_rotation_euler_Z-input"/>
+        <input semantic="OUTPUT" source="#seconds_rotation_euler_Z-output"/>
+        <input semantic="INTERPOLATION" source="#seconds_rotation_euler_Z-interpolation"/>
+        <input semantic="IN_TANGENT" source="#seconds_rotation_euler_Z-intangent"/>
+        <input semantic="OUT_TANGENT" source="#seconds_rotation_euler_Z-outtangent"/>
+      </sampler>
+      <channel source="#seconds_rotation_euler_Z-sampler" target="seconds/rotationZ.ANGLE"/>
     </animation>
   </library_animations>
   <library_controllers/>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
-      <node id="Cube" name="Cube" type="NODE">
+      <node id="hours" name="hours" type="NODE">
+        <translate sid="location">0 -0.3779542 0</translate>
+        <rotate sid="rotationZ">0 0 1 0</rotate>
+        <rotate sid="rotationY">0 1 0 7.228916</rotate>
+        <rotate sid="rotationX">1 0 0 0</rotate>
+        <scale sid="scale">0.608736 0.1428515 0.2296141</scale>
+        <instance_geometry url="#hours_geometry-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="stick-material" target="#stick-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="minutes" name="minutes" type="NODE">
         <translate sid="location">0 0 0</translate>
         <rotate sid="rotationZ">0 0 1 0</rotate>
-        <rotate sid="rotationY">0 1 0 0</rotate>
+        <rotate sid="rotationY">0 1 0 86.74699</rotate>
         <rotate sid="rotationX">1 0 0 0</rotate>
         <scale sid="scale">1 0.234669 0.3771982</scale>
-        <instance_geometry url="#Cube_001-mesh"/>
+        <instance_geometry url="#minutes_geometry-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="stick-material" target="#stick-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="seconds" name="seconds" type="NODE">
+        <translate sid="location">0 0.2717088 0</translate>
+        <rotate sid="rotationZ">0 0 1 0</rotate>
+        <rotate sid="rotationY">0 1 0 -32.15674</rotate>
+        <rotate sid="rotationX">1 0 0 180</rotate>
+        <scale sid="scale">0.5626274 0.03379527 0.1102879</scale>
+        <instance_geometry url="#seconds_geometry-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="seconds-material" target="#seconds-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="cyl_1" name="cyl_1" type="NODE">
+        <translate sid="location">0 0.1333802 0</translate>
+        <rotate sid="rotationZ">0 0 1 0</rotate>
+        <rotate sid="rotationY">0 1 0 0</rotate>
+        <rotate sid="rotationX">1 0 0 90</rotate>
+        <scale sid="scale">0.07635082 0.07635082 0.7089443</scale>
+        <instance_geometry url="#cyl_1_geometry-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="quad-material" target="#quad-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="quad" name="quad" type="NODE">
+        <translate sid="location">0 0.5117121 0</translate>
+        <rotate sid="rotationZ">0 0 1 0</rotate>
+        <rotate sid="rotationY">0 1 0 0</rotate>
+        <rotate sid="rotationX">1 0 0 90</rotate>
+        <scale sid="scale">10.79335 10.79335 0.06156359</scale>
+        <instance_geometry url="#quad_geometry-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="quad-material" target="#quad-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
       </node>
     </visual_scene>
   </library_visual_scenes>
