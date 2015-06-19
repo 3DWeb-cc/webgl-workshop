@@ -12604,13 +12604,13 @@ THREE.MaterialLoader.prototype = {
 
 		var material = new THREE[ json.type ];
 
-		if ( json.color !== undefined ) material.color.setHex( json.color );
-		if ( json.emissive !== undefined ) material.emissive.setHex( json.emissive );
-		if ( json.specular !== undefined ) material.specular.setHex( json.specular );
-		if ( json.shininess !== undefined ) material.shininess = json.shininess;
-		if ( json.uniforms !== undefined ) material.uniforms = json.uniforms;
-		if ( json.vertexShader !== undefined ) material.vertexShader = json.vertexShader;
-		if ( json.fragmentShader !== undefined ) material.fragmentShader = json.fragmentShader;
+		if ( json.color !== undefined && material.color !== undefined) material.color.setHex( json.color );
+		if ( json.emissive !== undefined && material.emissive !== undefined) material.emissive.setHex( json.emissive );
+		if ( json.specular !== undefined && material.specular !== undefined) material.specular.setHex( json.specular );
+		if ( json.shininess !== undefined && material.shininess !== undefined) material.shininess = json.shininess;
+		if ( json.uniforms !== undefined && material.uniforms !== undefined) material.uniforms = json.uniforms;
+		if ( json.vertexShader !== undefined) material.vertexShader = json.vertexShader;
+		if ( json.fragmentShader !== undefined) material.fragmentShader = json.fragmentShader;
 		if ( json.vertexColors !== undefined ) material.vertexColors = json.vertexColors;
 		if ( json.shading !== undefined ) material.shading = json.shading;
 		if ( json.blending !== undefined ) material.blending = json.blending;
