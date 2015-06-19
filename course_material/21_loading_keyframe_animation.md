@@ -88,3 +88,5 @@ animator guy do his job.
 
 Instead of using a static number, you can calculate the delta relative to current time frame, which is passed to _animate()_
 function as argument.
+
+In order to controle animation's speed, you can set _animation.timeScale_ property, which is a number.
