@@ -45,6 +45,12 @@
     // put the variables you want to access from the console here
     var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [];
 
+    function explore() {
+        scene.traverse(function (child) {
+            console.log(child.id + ' ' + child.type);
+        })
+    };
+
     (function () {
 
         // boilerplate
@@ -73,23 +79,21 @@
 
         controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-        //var loader = new THREE.JSONLoader(); //.ColladaLoader();
-
-        var loader = new THREE.JSONLoader();
-        loader.load('models/Porl.json', function (model, mat) {
+        var loader = new THREE.ObjectLoader();
+        loader.load('models/Porl.json', function (model, materials) {
             var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
-            mesh = new THREE.SkinnedMesh(model, mat);
+            mesh = new THREE.SkinnedMesh(model.geometry, materials);
             //var animation = new THREE.Animation(mesh, model.animation);
-            mesh.rotation.x = 0.5 * Math.PI;
-            mesh.rotation.z = 0.7 * Math.PI;
             scene.add(mesh);
             helper = new THREE.SkeletonHelper(mesh);
             helper.material.linewidth = 2;
             helper.visible = false;
             scene.add(helper);
+            var cube = new THREE.Mesh(new THREE.BoxGeometry(2,2,2), new THREE.MeshLambertMaterial({color: 0xffaaaa}));
+            scene.add(cube);
             // start the animation
             // animation.play();
-        }, '../assets/models');
+        });
 
 /*
         var loader = new THREE.ObjectLoader();
@@ -183,8 +187,8 @@
         function animate() {
 
             renderer.render(scene, camera);
-//THREE.AnimationHandler.update(clock. getDelta())
-            THREE.AnimationHandler.update(clock.getDelta());
+            THREE.AnimationHandler.update(clock. getDelta())
+            //THREE.AnimationHandler.update(clock.getDelta());
 
             requestAnimationFrame(animate);
 
