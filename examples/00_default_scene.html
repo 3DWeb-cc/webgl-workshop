@@ -127,7 +127,9 @@
                 currentSelection = firstObject.object;
                 currentSelection.material = highLightMaterial;
             } else {
-                currentSelection.material = cubeMaterial;
+                if (currentSelection !== undefined) {
+                    currentSelection.material = cubeMaterial;
+                }
             }
 
         });
