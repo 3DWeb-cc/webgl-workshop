@@ -95,7 +95,11 @@
                         -Math.round(Math.random() * 10));
             }
             scene.add(cube);
+            intersectables.push(cube);
         }
+
+        var mousePosition = new THREE.Vector2();
+        var rayCaster = new THREE.Raycaster();
 
         $(container).on('mousemove', function(event) {
             var offset = $(container).offset();
@@ -105,8 +109,8 @@
             var canvasX = ((localX / renderer.domElement.width) * 2) - 1;
             var canvasY = ((1 - (localY / renderer.domElement.height)) * 2) - 1;
 
-            console.log(event.pageX+ ' '+event.pageY+
-                    ' -> '+canvasX+' '+canvasY);
+            rayCaster.setFromCamera(camera);
+
         });
 
         function animate() {
