@@ -44,6 +44,7 @@
 
     // put the variables you want to access from the console here
     var container, renderer, scene, camera, materials = {};
+    var intersectables = [];
 
     (function() {
 
@@ -83,25 +84,30 @@
            transparency: true
         });
 
-        var intersectables = [];
-        var cube, k = -6;
-        while (k++ < 6) {
-            cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-            cube.name = 'cube_' + k;
-            if (k%2) {
-                cube.position.set(
-                        8 * k,
-                        Math.round(Math.random() * 10),
-                        Math.round(Math.random() * 10));
-            } else {
-                cube.position.set(
-                        8 * k,
-                        -Math.round(Math.random() * 10),
-                        -Math.round(Math.random() * 10));
+        var animations = [];
+        var loader = new THREE.ColladaLoader();
+        // loading the nice wood man
+        loader.load('./models/clock.dae', function(collada) {
+
+            scene.add(collada.scene);
+
+            collada.scene.rotateX(- Math.PI / 2);
+
+            var animation;
+            for (var i = 0; i < collada.animations.length; i += 1) {
+                animation = new THREE.KeyFrameAnimation(collada.animations[i]);
+                animation.play();
+                animations.push(animation);
             }
-            scene.add(cube);
-            intersectables.push(cube);
-        }
+
+            collada.scene.traverse(function(child) {
+                if (child instanceof THREE.Mesh) {
+                    intersectables.push(child);
+                }
+            })
+
+        });
+
 
         var mousePosition = new THREE.Vector2();
         var rayCaster = new THREE.Raycaster();
@@ -136,6 +142,11 @@
 
         function animate() {
             renderer.render(scene, camera);
+
+            for (var i = 0; i < animations.length; i += 1) {
+                animations[i].update(1);
+            }
+
             requestAnimationFrame(animate);
         }
 

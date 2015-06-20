@@ -191,7 +191,8 @@
             var normalized = normalizeCoordinates(event);
 
             //console.log(Math.abs(lastMouseDown.x - normalized.canvas.x) + ' > 0.2 || ' + Math.abs(lastMouseDown.y - normalized.canvas.y) + '> 0.2');
-            if (Math.abs(lastMouseDown.x - normalized.canvas.x) > 0.2 || Math.abs(lastMouseDown.y - normalized.canvas.y) > 0.2)
+            if (Math.abs(lastMouseDown.x - normalized.canvas.x) > 0.2 ||
+                    Math.abs(lastMouseDown.y - normalized.canvas.y) > 0.2)
                 return;
 
             if (currentIntersection !== undefined) {
@@ -210,7 +211,8 @@
             var normalized = normalizeCoordinates(event);
 
             $(mousePositionText).text(normalized.local.x + ', ' + normalized.local.y);
-            $(canvasPositionText).text((Math.round(normalized.canvas.x * 100) / 100) + ',' + (Math.round(normalized.canvas.y * 100) / 100));
+            $(canvasPositionText).text((Math.round(normalized.canvas.x * 100) / 100) +
+                    ',' + (Math.round(normalized.canvas.y * 100) / 100));
 
             if (isMouseDown)
                 return;
