@@ -77,6 +77,11 @@
         var cubeMaterial = new THREE.MeshLambertMaterial({
             color: 0xffaaaa
         });
+        var highLightMaterial = new THREE.MeshPhongMaterial({
+           color: 0x66ff66,
+           opacity: 0.5,
+           transparency: true
+        });
 
         var intersectables = [];
         var cube, k = -6;
@@ -100,6 +105,7 @@
 
         var mousePosition = new THREE.Vector2();
         var rayCaster = new THREE.Raycaster();
+        var currentSelection, lastSelection;
 
         $(container).on('mousemove', function(event) {
             var offset = $(container).offset();
@@ -113,6 +119,16 @@
                     new THREE.Vector2(canvasX, canvasY), camera);
 
             var intersections = rayCaster.intersectObjects(intersectables);
+
+            var firstObject = intersections[0];
+
+            if (firstObject !== undefined) {
+                console.log(firstObject.object.name);
+                currentSelection = firstObject.object;
+                currentSelection.material = highLightMaterial;
+            } else {
+                currentSelection.material = cubeMaterial;
+            }
 
         });
 
