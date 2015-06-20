@@ -73,76 +73,9 @@
         
         controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-        var materialArray = [];
-        var imageNames  =
-                ["posx", "negx", "posy", "negy", "posz", "negz"];
-
-        var imageSuffix = ".jpg";
-        for (var i = 0; i < 6; i++) {
-            materialArray.push(new THREE.MeshBasicMaterial({
-                map: THREE.ImageUtils.loadTexture(
-                        'img/'+imageNames[i]+imageSuffix ),
-                side: THREE.BackSide
-            }));
-        }
-
-        var skyGeometry = new THREE.BoxGeometry(5000,5000,5000);
-        var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
-        var sky = new THREE.Mesh(skyGeometry, skyMaterial);
-        sky.name = "sky";
-
-        scene.add(sky);
-
-        var cubeCamera = new THREE.CubeCamera(0.1, 8000, 512);
-        cubeCamera.renderTarget.mapping = THREE.CubeReflectionMapping;
-        cubeCamera.position.set(0,30,0);
-        scene.add(cubeCamera);
-
-        var texture = THREE.ImageUtils.loadTexture('models/wood_diffuse.jpg');
-        texture.minFilter = THREE.NearestFilter;
-
-        // write your code here
-        var loader = new THREE.ColladaLoader();
-
-        loader.load('./models/wood_man.dae', function(collada) {
-
-            scene.add(collada.scene);
-
-            collada.scene.scale.set(10,10,10);
-
-            collada.scene.rotateX(- Math.PI / 2);
-
-            scene.traverse(function(child) {
-
-                console.log(child.id + ' -> '+child.type + ' '+ child.name);
-
-                if (child instanceof THREE.Mesh && child.name !== 'sky') {
-
-                    console.log('       '+child.material.id+' '+child.material.type);
-
-                    materials[child.material.name] = child.material;
-
-                }
-
-            });
-
-            materials.legno.setValues({
-                color: 0xffffff,
-                map: texture,
-                shininess: 6
-            });
-
-            materials.acciao.setValues({
-               envMap: cubeCamera.renderTarget
-            });
-
-        });
-
-
 
         function animate() {
             renderer.render(scene, camera);
-            cubeCamera.updateCubeMap(renderer, scene);
             requestAnimationFrame(animate);
         }
 
