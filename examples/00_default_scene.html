@@ -109,7 +109,10 @@
             var canvasX = ((localX / renderer.domElement.width) * 2) - 1;
             var canvasY = ((1 - (localY / renderer.domElement.height)) * 2) - 1;
 
-            rayCaster.setFromCamera(camera);
+            rayCaster.setFromCamera(
+                    new THREE.Vector2(canvasX, canvasY), camera);
+
+            var intersections = rayCaster.intersectObjects(intersectables);
 
         });
 
