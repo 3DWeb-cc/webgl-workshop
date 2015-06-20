@@ -73,6 +73,41 @@
         
         controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+        var cubeGeometry = new THREE.BoxGeometry(6,6,6);
+        var cubeMaterial = new THREE.MeshLambertMaterial({
+            color: 0xffaaaa
+        });
+
+        var intersectables = [];
+        var cube, k = -6;
+        while (k++ < 6) {
+            cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+            cube.name = 'cube_' + k;
+            if (k%2) {
+                cube.position.set(
+                        8 * k,
+                        Math.round(Math.random() * 10),
+                        Math.round(Math.random() * 10));
+            } else {
+                cube.position.set(
+                        8 * k,
+                        -Math.round(Math.random() * 10),
+                        -Math.round(Math.random() * 10));
+            }
+            scene.add(cube);
+        }
+
+        $(container).on('mousemove', function(event) {
+            var offset = $(container).offset();
+            var localX = event.pageX - offset.left;
+            var localY = event.pageY - offset.top;
+
+            var canvasX = ((localX / renderer.domElement.width) * 2) - 1;
+            var canvasY = ((1 - (localY / renderer.domElement.height)) * 2) - 1;
+
+            console.log(event.pageX+ ' '+event.pageY+
+                    ' -> '+canvasX+' '+canvasY);
+        });
 
         function animate() {
             renderer.render(scene, camera);
