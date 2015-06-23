@@ -6,8 +6,12 @@
     <!-- using Bootstrap for styling -->
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
 
-    <!-- ThreeJS r71 -->
+    <!-- ThreeJS r71
     <script src="js/three.js"></script>
+    -->
+
+    <!-- ThreeJS r69 -->
+    <script src="js/three-69.js"></script>
 
     <!-- OrbitControls is used for scene navigation -->
     <script src="js/OrbitControls.js"></script>
@@ -62,129 +66,56 @@
         container.appendChild(renderer.domElement);
 
         // warmer light from upper right
-        var theLight1 = new THREE.DirectionalLight(0xffdddd, 2);
+        var theLight1 = new THREE.SpotLight(0xffdddd, 2);
         theLight1.position.set(10, 10, 20);
         scene.add(theLight1);
 
         // colder light from upper left
-        var theLight2 = new THREE.DirectionalLight(0xddddff, 1.7);
+        var theLight2 = new THREE.SpotLight(0xddddff, 1.7);
         theLight2.position.set(10, 10, -20);
         scene.add(theLight2);
 
-        controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-        //var loader = new THREE.JSONLoader(); //.ColladaLoader();
-
-        var loader = new THREE.JSONLoader();
-        loader.load('models/Porl.json', function (model, mat) {
-            var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
-            mesh = new THREE.SkinnedMesh(model, mat);
-            //var animation = new THREE.Animation(mesh, model.animation);
-            mesh.rotation.x = 0.5 * Math.PI;
-            mesh.rotation.z = 0.7 * Math.PI;
-            scene.add(mesh);
-            helper = new THREE.SkeletonHelper(mesh);
-            helper.material.linewidth = 2;
-            helper.visible = false;
-            scene.add(helper);
-            // start the animation
-            // animation.play();
-        }, '../assets/models');
-
-/*
-        var loader = new THREE.ObjectLoader();
-        loader.load('models/hand.json',
-                function (loadedScene) {
-
-                    console.log(arguments);
-
-                    // register the animation
-
-                    scene.add(loadedScene);
-
-                    loadedScene.traverse(function (child) {
-
-                        console.log(child.id+' '+ child.type, child.animation);
-
-                        if (child.animation !== undefined) {
-
-                            THREE.AnimationHandler.add(child.animation);
-
-                        }
-
-                        if (child instanceof THREE.SkinnedMesh) {
-
-
-                            //var animation = new THREE.Animation(child, child.geometry.animation);
-                            //animations.push(animation);
-                            //animation.play();
-                            //camera.lookAt( child.position );
-
-                        }
-
-                    });
-*/
-
-/*
-
-                    // create a material
-                    var mat = new THREE.MeshLambertMaterial(
-                            {color: 0xF0C8C9, skinning: true});
-                    // create and position the mesh
-                    mesh = new THREE.SkinnedMesh(geometry, mat);
-                    mesh.rotation.x = 0.5 * Math.PI;
-                    mesh.rotation.z = 0.7 * Math.PI;
-                    scene.add(mesh);
-                    // create the animation
-                    var animation = new THREE.Animation(mesh, "wave");
-                    // start the animation
-                    animation.play();
-
-                });
- */
-
-
-/*
-        // skinning
-        loader.load("./models/frankie.json", function (collada) {
-
-            console.log(collada);
-
-            collada.scene.rotateX(-Math.PI / 2);
-
-            collada.scene.position.setY(-10);
-
-            collada.scene.scale.set(10, 10, 10);
-
-            collada.scene.traverse(function (child) {
-
-                console.log(child.id+''+child.sid+' '+ child.type);
-
-                if (child instanceof THREE.SkinnedMesh) {
-
-
-                    //var animation = new THREE.Animation(child, child.geometry.animation);
-                    //animations.push(animation);
-                    //animation.play();
-                    //camera.lookAt( child.position );
-
-                }
-
-            });
-
-           scene.add(mesh);
-
-        });
-*/
+        //controls = new THREE.OrbitControls(camera, renderer.domElement);
+        var animations = [];
 
         // write your code here
 
+        var loader = new THREE.JSONLoader();
+        loader.load('models/Porl.json', function (model, modelMats) {
+
+            var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
+            mesh = new THREE.SkinnedMesh(model, mat);
+
+            //mesh.scale.set(0.5,0.5,0.5);
+
+            var animation;
+
+            if (false /*model.animations !== undefined*/) {
+                for (var i = 0; i < model.animations.length; i += 1) {
+                    animation = new THREE.Animation(mesh, model.animations[i]);
+                    //animation.play();
+                    animations.push(animation);
+                }
+            }
+
+            scene.add(mesh);
+
+            var bone;
+            var regex = new RegExp('DEF');
+            for (var k = 0; k < mesh.skeleton.bones.length; k += 1) {
+                bone = mesh.skeleton.bones[k];
+                if (regex.test(bone.name)) {
+                    console.log(k + ' ' + bone.name);
+                }
+            }
+
+        });
 
         function animate() {
 
             renderer.render(scene, camera);
-//THREE.AnimationHandler.update(clock. getDelta())
-            THREE.AnimationHandler.update(clock.getDelta());
+
+//            THREE.AnimationHandler.update(clock.getDelta());
 
             requestAnimationFrame(animate);
 
