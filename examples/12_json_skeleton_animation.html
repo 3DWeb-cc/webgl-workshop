@@ -83,8 +83,14 @@
         //loader.load('models/frankie.json', function (model, modelMats) {
         loader.load('models/frankie-no-armature-no-subsurf.json', function (model, modelMats) {
 
+            $.each(modelMats, function(index, mat) {
+                mat.skinning = true;
+            });
+
+            var facemat = new THREE.MeshFaceMaterial(modelMats);
+
             var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
-            mesh = new THREE.SkinnedMesh(model, mat);
+            mesh = new THREE.SkinnedMesh(model, facemat);
 
             //mesh.scale.set(0.5,0.5,0.5);
 
@@ -94,10 +100,11 @@
                 for (var i = 0; i < model.animations.length; i += 1) {
                     animation = new THREE.Animation(mesh, model.animations[i]);
                     console.log(i+' '+animation.data.name);
-                    //animation.play();
                     animations.push(animation);
                 }
             }
+
+            animations[0].play();
 
             scene.add(mesh);
 
@@ -116,8 +123,7 @@
 
             renderer.render(scene, camera);
 
-            //THREE.AnimationHandler.update(clock.getDelta());
-            THREE.AnimationHandler.update(0.001);
+            THREE.AnimationHandler.update(clock.getDelta());
 
             requestAnimationFrame(animate);
 
