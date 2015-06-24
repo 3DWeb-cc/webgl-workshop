@@ -44,6 +44,13 @@ which comes in bundle with [Python](https://www.python.org/) and is already inst
 +   build your own demo scene using the techniques shown in the morning: see the [Workhop #2 final work](course_material/WorkshopEnd_2.html)
 
 ## Saturday, June 20th - user interaction
-+   Again on user interaction: how to translate mouse coordinates from the page to the 3D world
-+   Find objects which are being traversed from the pointer
-+   Modify intersected objects' material
+
+### morning: theory and tutorials
++   [Again on user interaction: how to translate mouse coordinates from the page to the 3D world](course_material/18_translating_mouse_coordinates.md)
++   [Find objects which are being traversed from the pointer](course_material/19_find_intersections.md)
++   [Modify intersected objects' material](course_material/20_modify_intersected_objects.md)
++   [Loading keyframe animations using Collada](course_material/21_loading_keyframe_animation.md)
+
+### afternoon: wrap up!
++   [Live interaction with wood man](examples/WorkshopEnd_3_A.html)
++   [Load animated clock](examples/WorkshopEnd_3_B.html)

@@ -8,7 +8,7 @@ Change the material of the current intersected object
 
 Instructions
 ============
-+ start with the scene from [tutorial 19](18_find_intersections.md)
++ start with the scene from [tutorial 19](19_find_intersections.md)
     
 + create another _MeshPhongMaterial_ with color __0x00ff00__, and name it "highlightMaterial"; we will use it in order to highlight 
 the intersected objects
