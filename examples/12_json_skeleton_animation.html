@@ -6,12 +6,12 @@
     <!-- using Bootstrap for styling -->
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
 
-    <!-- ThreeJS r71
+    <!-- ThreeJS r71 -->
     <script src="js/three.js"></script>
-    -->
 
-    <!-- ThreeJS r69 -->
+    <!-- ThreeJS r69
     <script src="js/three-69.js"></script>
+    -->
 
     <!-- OrbitControls is used for scene navigation -->
     <script src="js/OrbitControls.js"></script>
@@ -81,7 +81,7 @@
         // write your code here
 
         var loader = new THREE.JSONLoader();
-        loader.load('models/frankie-no-armature-no-subsurf.json', function (model, modelMats) {
+        loader.load('models/frankie-animation-minimal.json', function (model, modelMats) {
 
             $.each(modelMats, function(index, mat) {
                 mat.skinning = true;
