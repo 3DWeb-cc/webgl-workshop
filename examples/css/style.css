@@ -17,3 +17,37 @@
 .input-group-addon > p:first-child {
   font-weight: bold;
 }
+
+div.leap-focusable {
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  color: #dddddd;
+  text-align: center;
+  font-size: 2em;
+  font-family: Arial;
+}
+
+.left {
+  left: 10%;
+}
+
+.right {
+  right: 10%;
+}
+
+.top {
+  top: 10%;
+}
+
+.bottom {
+  bottom: 10%;
+}
+
+.middle {
+  top: 45%;
+}
+
+.center {
+  left: 45%;
+}

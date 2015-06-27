@@ -54,3 +54,15 @@ which comes in bundle with [Python](https://www.python.org/) and is already inst
 ### afternoon: wrap up!
 +   [Live interaction with wood man](examples/WorkshopEnd_3_A.html)
 +   [Load animated clock](examples/WorkshopEnd_3_B.html)
+
+## Saturday, June 27th - interact with animations
+
+### morning: theory and tutorials
++   [A different format fo externat models: JSON](course_material/22_loading_skeleton_animations.md)
++   [Animating bones via code](course_material/23_manual_bones_animations.md)
+
+### afternoon: wrap up!
++   [Skeleton animation](examples/12_json_skeleton_animation.html)
++   [Iterating skeleton animation](examples/13_json_skeleton_animation_tracked.html)
++   [Manual animation](examples/13_json_manual_animation.html)
++   [Using Tween](examples/14_json_manual_animation_tween.html)

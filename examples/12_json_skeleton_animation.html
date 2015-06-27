@@ -30,7 +30,7 @@
 <body>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #12</h2>
     </div>
 </div>
 <div id="theContainer"></div>
@@ -47,7 +47,8 @@
      */
 
     // put the variables you want to access from the console here
-    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [];
+    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [], currentAnimation,
+            behaviour = function(time) { console.log(time) };
 
     (function () {
 
@@ -80,7 +81,6 @@
         // write your code here
 
         var loader = new THREE.JSONLoader();
-        //loader.load('models/frankie.json', function (model, modelMats) {
         loader.load('models/frankie-no-armature-no-subsurf.json', function (model, modelMats) {
 
             $.each(modelMats, function(index, mat) {
@@ -88,42 +88,41 @@
             });
 
             var facemat = new THREE.MeshFaceMaterial(modelMats);
-
-            var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
             mesh = new THREE.SkinnedMesh(model, facemat);
-
-            //mesh.scale.set(0.5,0.5,0.5);
 
             var animation;
 
             if (model.animations !== undefined) {
                 for (var i = 0; i < model.animations.length; i += 1) {
                     animation = new THREE.Animation(mesh, model.animations[i]);
-                    console.log(i+' '+animation.data.name);
+                    //console.log(i+' '+animation.data.name);
                     animations.push(animation);
                 }
             }
 
-            animations[0].play();
+            currentAnimation = animations[0];
 
             scene.add(mesh);
 
-            var bone;
-            var regex = new RegExp('DEF');
-            for (var k = 0; k < mesh.skeleton.bones.length; k += 1) {
-                bone = mesh.skeleton.bones[k];
-                if (regex.test(bone.name)) {
-                    //console.log(k + ' ' + bone.name);
-                }
-            }
+            setInterval(function() {
+                //behaviour(currentAnimation.currentTime);
+            }, 100);
 
+        });
+
+        $(container).on('mouseenter',function(event) {
+            currentAnimation.play();
+        });
+
+        $(container).on('mouseout', function(event) {
+            currentAnimation.stop();
         });
 
         function animate() {
 
             renderer.render(scene, camera);
 
-            THREE.AnimationHandler.update(clock.getDelta());
+            THREE.AnimationHandler.update(clock.getDelta()*0.5);
 
             requestAnimationFrame(animate);
 

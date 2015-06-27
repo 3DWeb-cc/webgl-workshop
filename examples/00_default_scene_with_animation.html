@@ -81,7 +81,7 @@
         // write your code here
 
         var loader = new THREE.JSONLoader();
-        loader.load('models/Porl.json', function (model, modelMats) {
+        loader.load('models/frankie-animated.json', function (model, modelMats) {
 
             var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
             mesh = new THREE.SkinnedMesh(model, mat);

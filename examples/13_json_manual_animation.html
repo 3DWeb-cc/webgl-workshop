@@ -77,7 +77,9 @@
         <div data_playground_x="2" data_playground_y='7' class="leap-focusable right "  		style="background-color: #6f0000;top: 23%;">
             2 - 7
         </div>
-        <div data_playground_x="1" data_playground_y='7' class="leap-focusable right top "  		style="background-color: #bb0000;">
+        <div
+                data-animation-x=0.4482818947426051 data-animation-y=0.0034254871518417467 data-animation-z=1.568421227790096
+                class="leap-focusable right top "  		style="background-color: #bb0000;">
             1 - 7
         </div>
         <div data_playground_x="1" data_playground_y='6' class="leap-focusable right"  		style="background-color: red; right: 30%">
@@ -99,7 +101,7 @@
 
     // put the variables you want to access from the console here
     var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [], currentAnimation,
-            behaviour = function(time) { console.log(time)}, myBones = {};
+            behaviour = function(time) { console.log(time)}, myBones = {}, rest = {};
 
     (function () {
 
@@ -151,6 +153,7 @@
                 if (regex.test(bone.name)) {
                     console.log(k + ' ' + bone.name);
                     myBones[bone.name] = bone;
+                    rest[bone.name] = bone.clone();
                 }
             }
 
@@ -159,47 +162,63 @@
         var END_OF_GREETINGS = 4;
         var tween, COMPLETED = true;
 
+
         $(container).on('mouseover', '.leap-focusable', function(event) {
             var dpx = $(event.currentTarget).attr('data_playground_x');
             var dpy = $(event.currentTarget).attr('data_playground_y');
             var dataX  = dpx !== undefined ? parseInt(dpx, 10) : -1;
             var dataY  = dpy !== undefined ? parseInt(dpy, 10) : -1;
 
-            console.log('over! '+dataX+' and '+dataY);
+            var
+                    x = $(event.currentTarget).attr('data-animation-x'),
+                    y = $(event.currentTarget).attr('data-animation-y'),
+                    z = $(event.currentTarget).attr('data-animation-z');
 
-            if (dataX === 2 && dataY === 7) {
+            //console.log('over! '+dataX+' and '+dataY);
+
+            if(x && y && z) {
+
                 if (COMPLETED) {
                     COMPLETED = false;
 
                     tween = new TWEEN.Tween(
                             {
-                                z: 0
+                                x: myBones['DEF_upper_arm.L'].rotation._x,
+                                y: myBones['DEF_upper_arm.L'].rotation._y,
+                                z: myBones['DEF_upper_arm.L'].rotation._z
                             })
                             .to({
-                                z: Math.PI / 4
+                                //myBones['DEF_upper_arm.L'].rotation.set(x,y,z, 'XYZ');
+                                x : x,
+                                y : y,
+                                z : z
                             })
                             .onUpdate(function () {
                                 myBones['DEF_upper_arm.L'].rotation.set(
-                                        myBones['DEF_upper_arm.L'].rotation._x,
-                                        myBones['DEF_upper_arm.L'].rotation._y,
-                                        myBones['DEF_upper_arm.L'].rotation._z + 0.1,
-                                        myBones['DEF_upper_arm.L'].rotation._order)
+                                        this.x,this.y,this.z,
+                                        rest['DEF_upper_arm.L'].rotation._order
+                                );
                             })
                             .onComplete(function () {
                                 COMPLETED = true;
                             })
                             .start();
                 }
+            }
+/*
+            if (dataX === 2 && dataY === 7) {
                 //myBones['DEF_upper_arm.L'].rotateZ(Math.PI/2);
+                myBones['DEF_upper_arm.L'].rotation.set(
+                        -0.07532023398554699, 0.004154107034082568, 1.5704521811418202,"XYZ");
             } else if (dataX === 1 && dataY === 7) {
-                /*
                 myBones['DEF_upper_arm.L'].rotateX(Math.PI/6);
                 myBones['DEF_upper_arm.L'].rotateZ(Math.PI/2);
-                */
             } else if (dataX === 1 && dataY === 6) {
                 myBones['DEF_upper_arm.L'].rotateX(Math.PI/4);
                 myBones['DEF_upper_arm.L'].rotateZ(Math.PI/2);
             }
+*/
+            console.log(myBones['DEF_upper_arm.L'].rotation);
 
         });
 
@@ -211,29 +230,39 @@
 
             console.log('out! '+dataX+' and '+dataY);
 
+            if (COMPLETED) {
+                COMPLETED = false;
+
+                tween = new TWEEN.Tween(
+                        {
+                            x: myBones['DEF_upper_arm.L'].rotation._x,
+                            y: myBones['DEF_upper_arm.L'].rotation._y,
+                            z: myBones['DEF_upper_arm.L'].rotation._z
+                        })
+                        .to({
+                            x : rest['DEF_upper_arm.L'].rotation._x,
+                            y : rest['DEF_upper_arm.L'].rotation._y,
+                            z : rest['DEF_upper_arm.L'].rotation._z
+                        })
+                        .onUpdate(function () {
+                            myBones['DEF_upper_arm.L'].rotation.set(
+                                    this.x,this.y,this.z,
+                                    rest['DEF_upper_arm.L'].rotation._order
+                            );
+                        })
+                        .onComplete(function () {
+                            COMPLETED = true;
+                        })
+                        .start();
+            }
+
+
+/*
             if (dataX === 2 && dataY === 7) {
                 //myBones['DEF_upper_arm.L'].rotateZ(-Math.PI/2);
-                if (COMPLETED) {
-                    COMPLETED = false;
-                    tween = new TWEEN.Tween(
-                            {
-                                z: 0
-                            })
-                            .to({
-                                z: Math.PI / 4
-                            })
-                            .onUpdate(function () {
-                                myBones['DEF_upper_arm.L'].rotation.set(
-                                        myBones['DEF_upper_arm.L'].rotation._x,
-                                        myBones['DEF_upper_arm.L'].rotation._y,
-                                        myBones['DEF_upper_arm.L'].rotation._z - 0.1,
-                                        myBones['DEF_upper_arm.L'].rotation._order);
-                            })
-                            .onComplete(function () {
-                                COMPLETED = true;
-                            })
-                            .start();
-                }
+                //myBones['DEF_upper_arm.L'].rotation.set({x: -0.07532023398554699, _y: 0.004154107034082568, _z: 1.5704521811418202, _order: "XYZ"})
+                myBones['DEF_upper_arm.L'].rotation.set(
+                        -0.075320233985547, 0.004154107034082562, -0.0003441456530762706, "XYZ");
             } else if (dataX === 1 && dataY === 7) {
                 myBones['DEF_upper_arm.L'].rotateZ(-Math.PI/2);
                 myBones['DEF_upper_arm.L'].rotateX(-Math.PI/6);
@@ -241,6 +270,8 @@
                 myBones['DEF_upper_arm.L'].rotateZ(-Math.PI/2);
                 myBones['DEF_upper_arm.L'].rotateX(-Math.PI/4);
             }
+*/
+            console.log(myBones['DEF_upper_arm.L'].rotation);
         });
 
 
@@ -250,7 +281,7 @@
 
             THREE.AnimationHandler.update(clock.getDelta());
 
-            TWEEN.update();
+            TWEEN.update(time);
 
             requestAnimationFrame(animate);
 
