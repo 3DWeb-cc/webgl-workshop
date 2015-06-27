@@ -47,7 +47,7 @@
      */
 
     // put the variables you want to access from the console here
-    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [];
+    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [], currentAnimation;
 
     (function () {
 
@@ -76,46 +76,11 @@
         scene.add(theLight2);
 
         //controls = new THREE.OrbitControls(camera, renderer.domElement);
-        var animations = [];
 
-        // write your code here
-
-        var loader = new THREE.JSONLoader();
-        loader.load('models/frankie-animated.json', function (model, modelMats) {
-
-            var mat = new THREE.MeshLambertMaterial({color: 0xF0C8C9, skinning: true});
-            mesh = new THREE.SkinnedMesh(model, mat);
-
-            //mesh.scale.set(0.5,0.5,0.5);
-
-            var animation;
-
-            if (false /*model.animations !== undefined*/) {
-                for (var i = 0; i < model.animations.length; i += 1) {
-                    animation = new THREE.Animation(mesh, model.animations[i]);
-                    //animation.play();
-                    animations.push(animation);
-                }
-            }
-
-            scene.add(mesh);
-
-            var bone;
-            var regex = new RegExp('DEF');
-            for (var k = 0; k < mesh.skeleton.bones.length; k += 1) {
-                bone = mesh.skeleton.bones[k];
-                if (regex.test(bone.name)) {
-                    console.log(k + ' ' + bone.name);
-                }
-            }
-
-        });
 
         function animate() {
 
             renderer.render(scene, camera);
-
-//            THREE.AnimationHandler.update(clock.getDelta());
 
             requestAnimationFrame(animate);
 
