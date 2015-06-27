@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- using Bootstrap for styling -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- ThreeJS r71
+    <script src="js/three.js"></script>
+    -->
+
+    <!-- ThreeJS r69 -->
+    <script src="js/three-69.js"></script>
+
+    <!-- OrbitControls is used for scene navigation -->
+    <script src="js/OrbitControls.js"></script>
+
+    <!-- jQuery is needed for tutorials about user interaction -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+
+    <!-- ColladaLoader is needed for external models loading -->
+    <script src="js/ColladaLoader.js"></script>
+
+    <!-- custom stylesheed -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
+    </div>
+</div>
+<div id="theContainer">
+
+        <div data_playground_x="1" data_playground_y='2' class="leap-focusable left"  		style="background-color: blue; left: 30%;">
+            1 - 2
+        </div>
+        <div data_playground_x="1" data_playground_y='1' class="leap-focusable left top"  		style="background-color: #0000bb;">
+            1 - 1
+        </div>
+        <div ata_playground_x="2" data_playground_y='1' class="leap-focusable left "  		style="background-color: #0000aa; top: 23%;">
+            2 - 1
+        </div>
+        <div data_playground_x="3" data_playground_y='1' class="leap-focusable left "  		style="background-color: #00006f; top: 36%;">
+            3 - 1
+        </div>
+        <div data_playground_x="3" data_playground_y='2' class="leap-focusable left middle" 	style="background-color: #00aaaa; top: 50%; left:20%;">
+            3 - 2
+        </div>
+        <div data_playground_x="4" data_playground_y='2' class="leap-focusable left bottom" 	style="background-color: #00dd00; bottom: 20%; left: 20%;">
+            4 - 2
+        </div>
+        <div data_playground_x="4" data_playground_y='3' class="leap-focusable bottom" 	style="background-color: #00bb00; left: 35%;">
+            4 - 3
+        </div>
+        <div data_playground_x="4" data_playground_y='4' class="leap-focusable center bottom" 	style="background-color: whitesmoke;">
+            4 - 4
+        </div>
+        <div data_playground_x="4" data_playground_y='5' class="leap-focusable bottom" 	style="background-color: #00bb00; right: 35%;">
+            4 - 5
+        </div>
+        <div data_playground_x="4" data_playground_y='6' class="leap-focusable right bottom"  	style="background-color: #00dd00; bottom: 20%; right: 20%;">
+            4 - 6
+        </div>
+        <div data_playground_x="3" data_playground_y='6' class="leap-focusable right middle"  	style="background-color: #aa00aa; top: 50%; right: 20%;">
+            3 - 6
+        </div>
+        <div data_playground_x="3" data_playground_y='7' class="leap-focusable right"  		style="background-color: #6a0000; top: 36%;">
+            3 - 7
+        </div>
+        <div data_playground_x="2" data_playground_y='7' class="leap-focusable right "  		style="background-color: #6f0000;top: 23%;">
+            2 - 7
+        </div>
+        <div data_playground_x="1" data_playground_y='7' class="leap-focusable right top "  		style="background-color: #bb0000;">
+            1 - 7
+        </div>
+        <div data_playground_x="1" data_playground_y='6' class="leap-focusable right"  		style="background-color: red; right: 30%">
+            1 - 6
+        </div>
+
+</div>
+</body>
+
+<script type="text/javascript">
+
+    /**
+     * WebGL workshop scene template - www.3dweb.cc
+     *
+     * Instructions:
+     * - you need a WebGL enabled browser (check it on http://get.webgl.org)
+     * - if you load assets (textures, models...) you need also a local webserver (see tutorials)
+     */
+
+    // put the variables you want to access from the console here
+    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [], currentAnimation,
+            behaviour = function(time) { console.log(time) };
+
+    (function () {
+
+        // boilerplate
+        container = document.getElementById('theContainer');
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xaabbff);
+        renderer.setSize(640, 480);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 8000);
+        camera.position.set(0, 4, 10);
+        //camera.lookAt(0, 2, 0);
+
+        container.appendChild(renderer.domElement);
+
+        // warmer light from upper right
+        var theLight1 = new THREE.SpotLight(0xffdddd, 2);
+        theLight1.position.set(10, 10, 20);
+        scene.add(theLight1);
+
+        // colder light from upper left
+        var theLight2 = new THREE.SpotLight(0xddddff, 1.7);
+        theLight2.position.set(10, 10, -20);
+        scene.add(theLight2);
+
+        //controls = new THREE.OrbitControls(camera, renderer.domElement);
+        // write your code here
+
+        var loader = new THREE.JSONLoader();
+        loader.load('models/frankie-no-armature-no-subsurf.json', function (model, modelMats) {
+
+            $.each(modelMats, function(index, mat) {
+                mat.skinning = true;
+            });
+
+            var facemat = new THREE.MeshFaceMaterial(modelMats);
+            mesh = new THREE.SkinnedMesh(model, facemat);
+
+            //mesh.scale.set(0.5,0.5,0.5);
+
+            var animation;
+
+            if (model.animations !== undefined) {
+                for (var i = 0; i < model.animations.length; i += 1) {
+                    animation = new THREE.Animation(mesh, model.animations[i]);
+                    console.log(i+' '+animation.data.name);
+                    animations.push(animation);
+                }
+            }
+
+            currentAnimation = animations[0];
+            currentAnimation.play();
+
+            scene.add(mesh);
+
+            var bone;
+            var regex = new RegExp('DEF');
+            for (var k = 0; k < mesh.skeleton.bones.length; k += 1) {
+                bone = mesh.skeleton.bones[k];
+                if (regex.test(bone.name)) {
+                    //console.log(k + ' ' + bone.name);
+                }
+            }
+
+            setInterval(function() {
+                //behaviour(currentAnimation.currentTime);
+            }, 100);
+
+        });
+
+        var END_OF_GREETINGS = 4;
+/*
+        $(container).on('mouseover', '.leap-focusable', function(event) {
+            var dpx = $(event.currentTarget).attr('data_playground_x');
+            var dpy = $(event.currentTarget).attr('data_playground_y');
+            var dataX  = dpx !== undefined ? parseInt(dpx, 10) : -1;
+            var dataY  = dpy !== undefined ? parseInt(dpy, 10) : -1;
+
+            console.log('over! '+dataX+' and '+dataX);
+
+            if (dataX === 4 && dataY === 4) {
+                behaviour = function (time) {
+                    if (time < 0.1) {
+                        currentAnimation.stop();
+                    } else if (time > END_OF_GREETINGS) {
+                        currentAnimation.play(0.005);
+                    }
+                }
+            } else if (dataX === 1 && dataY === 6) {
+                console.log('1x6');
+                behaviour = function(time) {
+                    if (time <= 6.40) {
+                        currentAnimation.play(6.40);
+                    } else if  (time >= 8.4) {
+                        currentAnimation.stop();
+                    } else {
+                        // nothing
+                    }
+                }
+            } else {
+
+            }
+
+        });
+
+        $(container).on('mouseout', '.leap-focusable', function(event) {
+            behaviour = function(time) {
+                if (time > 4) {
+                    currentAnimation.play(0.1);
+                } else {
+                    currentAnimation.play(0.1);
+                    currentAnimation.stop();
+                }
+            }
+        });
+*/
+
+        function animate() {
+
+            renderer.render(scene, camera);
+
+            THREE.AnimationHandler.update(clock.getDelta());
+
+            requestAnimationFrame(animate);
+
+        }
+
+        animate();
+
+    })();
+
+</script>
+
+</html>
