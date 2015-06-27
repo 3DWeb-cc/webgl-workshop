@@ -106,7 +106,7 @@
 
             renderer.render(scene, camera);
 
-            THREE.AnimationHandler.update(timeFrame*0.1);
+            THREE.AnimationHandler.update(clock.getDelta());
 
             requestAnimationFrame(animate);
 
