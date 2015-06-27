@@ -81,21 +81,38 @@
         loader.load(
                 'models/frankie-animation-minimal.json',
                 function(model, mats) {
+
+                    for (var k = 0; k < mats.length; k += 1) {
+                        mats[k].skinning = true;
+                    }
+
                     var material = new THREE.MeshFaceMaterial(mats);
-                    mesh = new THREE.Mesh(model, material);
+                    mesh = new THREE.SkinnedMesh(model, material);
+
+                    var animation;
+                    for (var i = 0; i < mesh.geometry.animations.length; i += 1) {
+                        animation = new THREE.Animation(
+                                mesh,
+                                mesh.geometry.animations[i]
+                        );
+                        animations.push(animation);
+                        console.log(animation.data.name);
+                    }
 
                     scene.add(mesh);
                 });
 
-        function animate() {
+        function animate(timeFrame) {
 
             renderer.render(scene, camera);
+
+            THREE.AnimationHandler.update(timeFrame*0.1);
 
             requestAnimationFrame(animate);
 
         }
 
-        animate();
+        animate(0);
 
     })();
 
