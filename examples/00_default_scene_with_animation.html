@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- using Bootstrap for styling -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- ThreeJS r71
+    <script src="js/three.js"></script>
+    -->
+
+    <!-- ThreeJS r69 -->
+    <script src="js/three-69.js"></script>
+
+    <!-- OrbitControls is used for scene navigation -->
+    <script src="js/OrbitControls.js"></script>
+
+    <!-- jQuery is needed for tutorials about user interaction -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+
+    <!-- ColladaLoader is needed for external models loading -->
+    <script src="js/ColladaLoader.js"></script>
+
+    <!-- custom stylesheed -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
+    </div>
+</div>
+<div id="theContainer"></div>
+</body>
+
+<script type="text/javascript">
+
+    /**
+     * WebGL workshop scene template - www.3dweb.cc
+     *
+     * Instructions:
+     * - you need a WebGL enabled browser (check it on http://get.webgl.org)
+     * - if you load assets (textures, models...) you need also a local webserver (see tutorials)
+     */
+
+    // put the variables you want to access from the console here
+    var container, renderer, scene, camera, materials = {}, clock = new THREE.Clock(), animations = [], currentAnimation;
+
+    (function () {
+
+        // boilerplate
+        container = document.getElementById('theContainer');
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xaabbff);
+        renderer.setSize(640, 480);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 8000);
+        camera.position.set(0, 4, 10);
+
+        container.appendChild(renderer.domElement);
+
+        // warmer light from upper right
+        var theLight1 = new THREE.SpotLight(0xffdddd, 2);
+        theLight1.position.set(10, 10, 20);
+        scene.add(theLight1);
+
+        // colder light from upper left
+        var theLight2 = new THREE.SpotLight(0xddddff, 1.7);
+        theLight2.position.set(10, 10, -20);
+        scene.add(theLight2);
+
+        //controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        var loader = new THREE.JSONLoader();
+        loader.load(
+                'models/frankie-animation-minimal.json',
+                function(model, mats) {
+
+                    for (var k = 0; k < mats.length; k += 1) {
+                        mats[k].skinning = true;
+                    }
+
+                    var material = new THREE.MeshFaceMaterial(mats);
+                    mesh = new THREE.SkinnedMesh(model, material);
+
+                    var animation;
+                    for (var i = 0; i < mesh.geometry.animations.length; i += 1) {
+                        animation = new THREE.Animation(
+                                mesh,
+                                mesh.geometry.animations[i]
+                        );
+                        animations.push(animation);
+                        console.log(animation.data.name);
+                    }
+
+                    scene.add(mesh);
+                });
+
+        function animate(timeFrame) {
+
+            renderer.render(scene, camera);
+
+            THREE.AnimationHandler.update(clock.getDelta());
+
+            requestAnimationFrame(animate);
+
+        }
+
+        animate(0);
+
+    })();
+
+</script>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- using Bootstrap for styling -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- ThreeJS r71 -->
+    <script src="js/three.js"></script>
+
+    <!-- OrbitControls is used for scene navigation -->
+    <script src="js/OrbitControls.js"></script>
+
+    <!-- jQuery is needed for tutorials about user interaction -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+
+    <!-- ColladaLoader is needed for external models loading -->
+    <script src="js/ColladaLoader.js"></script>
+
+    <!-- custom stylesheed -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title"><a href="http://3DWeb.cc">3DWeb</a> - WebGL Workshop - Example #9</h2>
+    </div>
+</div>
+<div id="theContainer"></div>
+</body>
+
+<script type="text/javascript">
+
+    /**
+     * WebGL workshop scene template - www.3dweb.cc
+     *
+     * Instructions:
+     * - you need a WebGL enabled browser (check it on http://get.webgl.org)
+     * - if you load assets (textures, models...) you need also a local webserver (see tutorials)
+     */
+
+    // put the variables you want to access from the console here
+    var container, renderer, scene, camera, materials = {};
+
+    (function() {
+
+        // boilerplate
+        container = document.getElementById('theContainer');
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0xaabbff);
+        renderer.setSize(640, 480);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(50, 640 / 480, 0.1, 8000);
+        camera.position.set(0, 0, 40);
+
+        container.appendChild(renderer.domElement);
+
+        // warmer light from upper right
+        var theLight1 = new THREE.DirectionalLight(0xffdddd, 1);
+        theLight1.position.set(10, 10, 20);
+        scene.add(theLight1);
+
+        // colder light from upper left
+        var theLight2 = new THREE.DirectionalLight(0xddddff, 0.7);
+        theLight2.position.set(10, 10, -20);
+        scene.add(theLight2);
+        
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        var animations = [];
+        var loader = new THREE.ColladaLoader();
+
+        // loading the nice wood man
+        loader.load('./models/clock.dae', function(collada) {
+
+            scene.add(collada.scene);
+
+            collada.scene.rotateX(- Math.PI / 2);
+
+            var animation;
+            for (var i = 0; i < collada.animations.length; i += 1) {
+                animation = new THREE.KeyFrameAnimation(collada.animations[i]);
+                animation.play();
+                animations.push(animation);
+            }
+
+        });
+
+
+        // write your code here
+
+        var previousTimeFrame = 0;
+        function animate(timeFrame) {
+
+            var time = (timeFrame - previousTimeFrame) * 0.001;
+
+            renderer.render(scene, camera);
+
+            for (var i = 0; i < animations.length; i += 1) {
+                animations[i].update(time);
+            }
+
+            requestAnimationFrame(animate);
+
+        }
+
+        animate();
+
+    })();
+    
+</script>
+
+</html>

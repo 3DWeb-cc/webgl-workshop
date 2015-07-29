@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script src="js/three.js"></script>
+  <script src="js/OrbitControls.js"></script>
+
+  <script src="02_more_on_primitives.js"></script>
+
+</head>
+
+<body onload="onStart()">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">3DWeb.cc - WebGL Workshop - Example #2</h2>
+    </div>
+    <div class="panel-body">
+  <ul class="list-group">
+        <li class="list-group-item">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <input id="showChair" type="checkbox" onchange="onshowChair(event)" />
+            <label for="showChair">Remove chair</label>
+          </span>
+          <span class="input-group-addon">
+            <input id="showTable" type="checkbox" onchange="onshowTable(event)" />
+            <label for="showTable">Remove table</label>
+          </span>
+          <span class="input-group-addon">
+            <input id="viewWireframe" type="checkbox" onchange="viewWireframe(event)" />
+            <label for="viewWireframe">Wireframe</label>
+          </span>
+          </div>
+          <div class="input-group">
+        </li>
+        <li class="list-group-item">
+          <span class="input-group-addon">
+            <input id="cameraFOV" type="number" value=50 min=0 max=180 step=1 oninput="setCameraFOV(event)" />
+            <label for="cameraFOV">Field of view</label>
+          </span>
+          <span class="input-group-addon">
+            <input id="animateScene" type="checkbox" onchange="animateScene(event)" />
+            <label for="animateScene">Animate scene</label>
+          </span>
+          <span class="input-group-addon">
+            <label for="fgColor">Color</label>
+            <input id="fgColor" value="#FC6A45" class="pull-right" oninput="onColor(event)" type="color" />
+          </span>
+          <span class="input-group-addon">
+            <label for="bgColor">Background</label>
+            <input id="bgColor" value="#000000" class="pull-right" oninput="onBgColor(event)" type="color" />
+          </span>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <div id="theContainer"></div>
+</body>
+
+</html>
