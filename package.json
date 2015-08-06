@@ -1,7 +1,7 @@
 {
-  "name": "simple-npm-server",
+  "name": "webgl-workshop",
   "version": "1.0.0",
-  "description": "",
+  "description": "tutorials and example being used for WebGL workhops in Milan http://www.3dweb.cc/",
   "main": "package.json",
   "scripts": {
   	"start": "http-server -a localhost -p 8000",
