@@ -8,7 +8,8 @@ Some prerequisites required to understand the tutorials:
 +   zero 3D graphic’s background required
 +   basic knowledge of HTML and web stack
 +   some examples require a simple HTTP server running, due to [CORS policy](https://en.wikipedia.org/wiki/Same-origin_policy): 
-if you don't already have one, we suggest you to use [Python's SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html)
+if you have [node js](https://nodejs.org/) installed you just need to open this folder on a terminal and run npm install to install the dependecies and then npm start to run the server. 
+If you don't have node on your computer, you can use [Python's SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html)
 which comes in bundle with [Python](https://www.python.org/) and is already installed on various Linux distributions and OS/X and has an installer for Windows.
 
 # Workhop schedule
