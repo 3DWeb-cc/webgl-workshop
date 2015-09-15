@@ -10,7 +10,7 @@ function onStart() {
     });
     renderer.setSize(640, 480);
     theScene = new THREE.Scene();
-    theCamera = new THREE.PerspectiveCamera(75, 640 / 480, 0.1, 4000);
+    theCamera = new THREE.PerspectiveCamera(75, 640 / 480, 0.1, 10000);
     theCamera.position.set(0, 0, 20);
     theContainer.appendChild(renderer.domElement);
 
@@ -32,7 +32,7 @@ function onStart() {
         //refractionRatio: 0.985,
         reflectivity: 0.9
     });
-
+/*
     //loader.options.convertUpAxis = false;
     loader.load( './models/tha_face_web.dae', function ( collada ) {
     //loader.load( './models/test.dae', function ( collada ) {
@@ -44,25 +44,26 @@ function onStart() {
              if (child instanceof THREE.Mesh) {
 
                  child.material = theMaterial;
-/*
+
                  child.material.setValues({
-                     color: 0xffaa77,
+//                     color: 0xffaa77,
                      //transparent: true
                      //opacity: 0.4
                      envMap: cam.renderTarget,
                      reflectivity: 0.9
                  });
-*/
 
-                 //child.geometry.mergeVertices();
-                 //child.geometry.computeVertexNormals();
+
+                 child.geometry.mergeVertices();
+                 child.geometry.computeVertexNormals();
              }
 
          } );
 
-        //theScene.add(dae);
+       theScene.add(dae);
 
     } );
+*/
 
 
 
@@ -78,6 +79,7 @@ function onStart() {
     ];
     var effectsType = [
         // refractions
+/*
         function (mat) {
             var cam = new THREE.CubeCamera(0.1, 5000, 512);
             cam.renderTarget.mapping = THREE.CubeRefractionMapping;
@@ -89,9 +91,9 @@ function onStart() {
         //            reflectivity: 0.9
                 })
             };
-        },
+        },*/
         // reflections
-        /*function (mat) {
+        function (mat) {
             var cam = new THREE.CubeCamera(0.1, 5000, 512);
             cam.renderTarget.mapping = THREE.CubeReflectionMapping;
             return {
@@ -100,30 +102,36 @@ function onStart() {
                     envMap: cam.renderTarget
                 })
             };
-        }/*
+        }
     ];
+
     var startPointX = -((materialsToShow.length - 1) * sphereRadius * 3) / 2;
     var startPointY = -((effectsType.length - 1) * sphereRadius * 3) / 2;
     var obj,matAndCam;
     var reflectionSpheres = [];
 
-
+var _obj
     for (var j = 0; j < effectsType.length; j += 1) {
         for (var k = 0; k < materialsToShow.length; k += 1) {
             matAndCam = effectsType[j](materialsToShow[k]);
-            obj = new THREE.Mesh(
+            _obj = new THREE.Mesh(
                 theGeometry,
                 matAndCam.material
             );
-            obj.position.set(
-                startPointX + (k * sphereRadius * 3),
-                startPointY + (j * sphereRadius * 3),
-                0);
-            matAndCam.camera.position = obj.position;
-            cubeCamerasList.push(matAndCam.camera);
-            reflectionSpheres.push(obj);
-            theScene.add(matAndCam.camera);
-            theScene.add(obj);
+            for (var h = 0; h < 10; h += 1) {
+              obj = _obj.clone();
+              obj.position.set(
+                /*startPointX + (k * sphereRadius * 3) +*/ Math.random()*6 * (5-h),
+                /*startPointY + (j * sphereRadius * 3) +*/ Math.random()*6* (5-h),
+                0 + Math.random()*10
+              );
+              obj.scale.set(Math.random(), Math.random(), Math.random());
+              matAndCam.camera.position = obj.position;
+              cubeCamerasList.push(matAndCam.camera);
+              reflectionSpheres.push(obj);
+              theScene.add(matAndCam.camera);
+              theScene.add(obj);
+            }
 
         }
     }
@@ -175,20 +183,34 @@ function onStart() {
         }));
     var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
     var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
-    theScene.add(skyBox);
+//    theScene.add(skyBox);
 
-    var light = new THREE.PointLight(0xffffff);
-    light.position.set(0, 250, 0);
-    theScene.add(light);
+  // spherical
+  var envSphereGeometry = new THREE.SphereGeometry(5000, 64, 64);
+  var envSphereText = THREE.ImageUtils.loadTexture('img/bolo.jpg');
+  envSphereText.minFilter = THREE.NearestFilter;
+  var envSphereMaterial = new THREE.MeshBasicMaterial({
+    map: envSphereText,
+    side: THREE.BackSide
+  });
+  var envSphere = new THREE.Mesh(
+      envSphereGeometry,
+      envSphereMaterial
+  );
+
+  theScene.add(envSphere);
+      
+
+    var ambientLight = new THREE.AmbientLight(0xffffff);
+    theScene.add(ambientLight);
+
 
     requestAnimationFrame(animate);
 
     function animate() {
         renderer.render(theScene, theCamera);
-        if (ANIMATE) {
-            theSphere.rotation.y += 0.01;
-            theSphere.rotation.x += 0.01;
-        }
+
+      envSphere.rotateY(-0.0004);
 
         // if flickering, try hiding the geometry
         //theSphere.visible = false;
